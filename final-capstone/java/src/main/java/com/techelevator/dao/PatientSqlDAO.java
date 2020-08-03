@@ -1,6 +1,7 @@
 package com.techelevator.dao;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -30,13 +31,20 @@ public class PatientSqlDAO implements PatientDAO {
 
 	@Override
 	public List<Patient> getPatientsByDoctor(Long doctorId) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Patient> patientList = new ArrayList<>();
+		String sqlPatientsByDoctor = "SELECT * FROM patients WHERE primary_doctor_id = ?";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlPatientsByDoctor, doctorId);
+		while (results.next()) {
+			Patient thePatient = mapRowToPatient(results);
+			patientList.add(thePatient);
+		}
+		return patientList;
 	}
 
 	@Override
 	public List<Patient> getPatientsByOffice(Long officeId) {
-		// TODO Auto-generated method stub
+		List<Patient> patientList = new ArrayList<>();
+		
 		return null;
 	}
 
