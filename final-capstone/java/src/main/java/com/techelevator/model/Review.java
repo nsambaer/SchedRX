@@ -8,9 +8,10 @@ public class Review {
 	private String reviewTitle;
 	private int rating;
 	private String reviewDescription;
+	private String[] comments;
 	
 	public Review(Long reviewId, Long doctorId, Long patientId, String reviewTitle, int rating,
-			String reviewDescription) {
+			String reviewDescription, String[] comments) {
 		super();
 		this.reviewId = reviewId;
 		this.doctorId = doctorId;
@@ -18,15 +19,17 @@ public class Review {
 		this.reviewTitle = reviewTitle;
 		this.rating = rating;
 		this.reviewDescription = reviewDescription;
+		this.comments = comments;
 	}
 
-	public Review(Long doctorId, Long patientId, String reviewTitle, int rating, String reviewDescription) {
+	public Review(Long doctorId, Long patientId, String reviewTitle, int rating, String reviewDescription, String[] comments) {
 		super();
 		this.doctorId = doctorId;
 		this.patientId = patientId;
 		this.reviewTitle = reviewTitle;
 		this.rating = rating;
 		this.reviewDescription = reviewDescription;
+		this.comments = comments;
 	}
 
 	public Long getReviewId() {
@@ -75,6 +78,14 @@ public class Review {
 
 	public void setReviewDescription(String reviewDescription) {
 		this.reviewDescription = reviewDescription;
+	}
+
+	public String[] getComments() {
+		return comments;
+	}
+
+	public void setComments(String[] comments) {
+		this.comments = comments;
 	}
 	
 	
