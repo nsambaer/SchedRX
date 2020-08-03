@@ -1,30 +1,45 @@
 package com.techelevator.model;
 
 import java.math.BigDecimal;
+import java.time.LocalTime;
+import java.util.Map;
 
 public class Office {
 	
 	private Long officeId;
 	private String address;
+	private String city;
+	private String state;
 	private String phoneNumber;
-	private String hours;
 	private BigDecimal cost;
+	private Map<String, LocalTime> openHours;
+	private Map<String, LocalTime> closeHours;
 	
-	public Office(Long officeId, String address, String phoneNumber, String hours, BigDecimal cost) {
+	public Office() {}	
+	
+	public Office(Long officeId, String address, String city, String state, String phoneNumber, BigDecimal cost,
+			Map<String, LocalTime> openHours, Map<String, LocalTime> closeHours) {
 		super();
 		this.officeId = officeId;
 		this.address = address;
+		this.city = city;
+		this.state = state;
 		this.phoneNumber = phoneNumber;
-		this.hours = hours;
 		this.cost = cost;
+		this.openHours = openHours;
+		this.closeHours = closeHours;
 	}
 
-	public Office(String address, String phoneNumber, String hours, BigDecimal cost) {
+	public Office(String address, String city, String state, String phoneNumber, BigDecimal cost,
+			Map<String, LocalTime> openHours, Map<String, LocalTime> closeHours) {
 		super();
 		this.address = address;
+		this.city = city;
+		this.state = state;
 		this.phoneNumber = phoneNumber;
-		this.hours = hours;
 		this.cost = cost;
+		this.openHours = openHours;
+		this.closeHours = closeHours;
 	}
 
 	public Long getOfficeId() {
@@ -43,6 +58,22 @@ public class Office {
 		this.address = address;
 	}
 
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
@@ -51,13 +82,6 @@ public class Office {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public String getHours() {
-		return hours;
-	}
-
-	public void setHours(String hours) {
-		this.hours = hours;
-	}
 
 	public BigDecimal getCost() {
 		return cost;
@@ -65,6 +89,22 @@ public class Office {
 
 	public void setCost(BigDecimal cost) {
 		this.cost = cost;
+	}
+
+	public Map<String, LocalTime> getOpenHours() {
+		return openHours;
+	}
+
+	public void setOpenHours(Map<String, LocalTime> openHours) {
+		this.openHours = openHours;
+	}
+
+	public Map<String, LocalTime> getCloseHours() {
+		return closeHours;
+	}
+
+	public void setCloseHours(Map<String, LocalTime> closeHours) {
+		this.closeHours = closeHours;
 	}
 	
 	
