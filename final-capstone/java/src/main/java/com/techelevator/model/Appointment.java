@@ -11,8 +11,7 @@ public class Appointment {
 	private Long doctorId;
 	private Long officeId;
 	private LocalDate appointmentDate;
-	private LocalTime appointmentStartTime;
-	private LocalTime appointmentEndTime;
+	private LocalTime appointmentTime;
 	private LocalDate lastUpdatedDate;
 	private LocalTime lastUpdatedTime;
 	private String visitReason;
@@ -29,8 +28,7 @@ public class Appointment {
 		this.doctorId = doctorId;
 		this.officeId = officeId;
 		this.appointmentDate = appointmentDate;
-		this.appointmentStartTime = appointmentStartTime;
-		this.appointmentEndTime = appointmentEndTime;
+		this.appointmentTime = appointmentTime;
 		this.lastUpdatedDate = lastUpdatedDate;
 		this.lastUpdatedTime = lastUpdatedTime;
 		this.visitReason = visitReason;
@@ -77,20 +75,12 @@ public class Appointment {
 		this.appointmentDate = appointmentDate;
 	}
 
-	public LocalTime getAppointmentStartTime() {
-		return appointmentStartTime;
+	public LocalTime getAppointmentTime() {
+		return appointmentTime;
 	}
 
-	public void setAppointmentStartTime(LocalTime appointmentStartTime) {
-		this.appointmentStartTime = appointmentStartTime;
-	}
-
-	public LocalTime getAppointmentEndTime() {
-		return appointmentEndTime;
-	}
-
-	public void setAppointmentEndTime(LocalTime appointmentEndTime) {
-		this.appointmentEndTime = appointmentEndTime;
+	public void setAppointmentTime(LocalTime appointmentTime) {
+		this.appointmentTime = appointmentTime;
 	}
 
 	public LocalDate getLastUpdatedDate() {

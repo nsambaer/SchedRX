@@ -98,8 +98,7 @@ public class AppointmentSqlDAO implements AppointmentDAO {
 		theAppointment.setDoctorId(results.getLong("doctor_id"));
 		theAppointment.setOfficeId(results.getLong("office_id"));
 		theAppointment.setAppointmentDate(results.getDate("appt_date").toLocalDate());
-		theAppointment.setAppointmentStartTime(results.getTime("appt_start_time").toLocalTime());
-		theAppointment.setAppointmentEndTime(results.getTime("appt_end_time").toLocalTime());
+		theAppointment.setAppointmentTime(results.getTime("appt_time").toLocalTime());
 		theAppointment.setVisitReason(results.getString("visit_reason"));
 		theAppointment.setAppointmentTypeId(results.getLong("appt_type_id"));
 		
