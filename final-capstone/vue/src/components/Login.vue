@@ -11,7 +11,7 @@
         class="alert alert-danger"
         role="alert"
         v-if="roleError"
-      >There is a problem with your role {{ role }}</div>
+      >There is a problem with your role- {{ role }}</div>
       <div
         class="alert alert-success"
         role="alert"
@@ -56,7 +56,7 @@ export default {
       },
       invalidCredentials: false,
       roleError: false,
-      role: "",
+      role: "Role not found",
     };
   },
   methods: {
@@ -66,13 +66,23 @@ export default {
         .then((response) => {
           this.$store.commit("SET_AUTH_TOKEN", response.data.token);
           this.$store.commit("SET_USER", response.data.user);
-          if (response.data.user.authorities[0].name === "ROLE_PATIENT") {
-            this.$router.push({ name: "patient" });
-          } else if (response.data.user.authorities[0].name === "ROLE_DOCTOR") {
-            this.$router.push({ name: "doctor" });
-          } else {
+
+          this.role = response.data.user.authorities[0].name;
+          this.$store.commit("SET_USER_ROLE", this.role);
+
+          switch (this.role)  {
+            case "ROLE_PATIENT":
+              this.$router.push({ name: "patient" });
+              break;
+            case "ROLE_DOCTOR":
+              this.$router.push({ name: "doctor" });
+              break;
+            case "ROLE_ADMIN":
+              this.$router.push({ name: "admin" });
+              break;
+            default:
             this.roleError = true;
-            this.role = response.data.user.authorities[0].name;
+            break;
           }
         })
         .catch((error) => {
