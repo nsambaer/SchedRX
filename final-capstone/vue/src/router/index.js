@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import Logout from '../views/Logout.vue'
 import Register from '../views/Register.vue'
 import store from '../store/index'
+import Patient from '../views/Patient.vue'
 
 Vue.use(Router)
 
@@ -44,6 +45,14 @@ const router = new Router({
         requiresAuth: false
       }
     },
+    {
+      path: "/patient",
+    name: "patient",
+    component: Patient,
+    meta: {
+      requiresAuth: true
+    }
+  }
   ]
 })
 

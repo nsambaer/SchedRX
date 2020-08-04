@@ -57,10 +57,12 @@ export default {
       authService
         .login(this.user)
         .then(response => {
-          if (response.status == 200) {
             this.$store.commit("SET_AUTH_TOKEN", response.data.token);
             this.$store.commit("SET_USER", response.data.user);
-            this.$router.push("/");
+          if (response.data.user.authorities.name === "ROLE_PATIENT") {
+            this.$router.push({name:'Patient'});
+          } else {
+            this.error;
           }
         })
         .catch(error => {

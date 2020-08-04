@@ -5,7 +5,7 @@
       <div class="alert alert-danger" role="alert" v-if="registrationErrors">
         {{ registrationErrorMsg }}
       </div>
-      <label for="username" class="sr-only">Username</label>
+      <label for="username" class="sr-only"> Username: </label>
       <input
         type="text"
         id="username"
@@ -15,7 +15,7 @@
         required
         autofocus
       />
-      <label for="password" class="sr-only">Password</label>
+      <label for="password" class="sr-only"> Password: </label>
       <input
         type="password"
         id="password"
@@ -24,6 +24,7 @@
         v-model="user.password"
         required
       />
+      <label for="confirmPassword" class="sr-only"> Confirm Password: </label>
       <input
         type="password"
         id="confirmPassword"
@@ -32,6 +33,8 @@
         v-model="user.confirmPassword"
         required
       />
+      <div>
+        <label for="firstName" class="sr-only"> First Name: </label>
       <input
         type="text"
         id="firstName"
@@ -40,6 +43,7 @@
         v-model="user.firstName"
         required
       />
+      <label for="lastName" class="sr-only"> Last Name: </label>
       <input
         type="text"
         id="lastName"
@@ -48,6 +52,7 @@
         v-model="user.lastName"
         required
       />
+      <label for="phoneNumber" class="sr-only"> Phone Number: </label>
       <input
         type="text"
         id="phoneNumber"
@@ -56,6 +61,9 @@
         v-model="user.phoneNumber"
         required
       />
+      </div>
+      <div>
+        <label for="address" class="sr-only"> Address: </label>
       <input
         type="text"
         id="address"
@@ -64,6 +72,7 @@
         v-model="user.address"
         required
       />
+      <label for="city" class="sr-only"> City: </label>
       <input
         type="text"
         id="city"
@@ -72,6 +81,7 @@
         v-model="user.city"
         required
       />
+      <label for="state" class="sr-only"> State: </label>
       <input
         type="text"
         id="state"
@@ -80,6 +90,7 @@
         v-model="user.state"
         required
       />
+      <label for="zipCode" class="sr-only"> Zip Code: </label>
       <input
         type="text"
         id="zipCode"
@@ -88,6 +99,8 @@
         v-model="user.zipCode"
         required
       />
+      <div>
+      <label for="birthDate" class="sr-only"> Birth Date: </label>
       <input
         type="date"
         id="birthDate"
@@ -96,6 +109,8 @@
         v-model="user.birthDate"
         required
       />
+      </div>
+      </div>
       <router-link :to="{ name: 'login' }">Have an account?</router-link>
       <button class="btn btn-lg btn-primary btn-block" type="submit">
         Create Account
@@ -115,7 +130,7 @@ export default {
         username: '',
         password: '',
         confirmPassword: '',
-        role: 'user',
+        role: 'patient',
       },
       registrationErrors: false,
       registrationErrorMsg: 'There were problems registering this user.',
