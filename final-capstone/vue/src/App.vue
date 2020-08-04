@@ -4,7 +4,8 @@
       <router-link v-bind:to="{ name: 'home' }">Home</router-link>&nbsp;|&nbsp;
       <router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link>
     </div>
-    <div class="container">
+    <router-view></router-view></div>
+    <!-- <div class="container">
         <form>
             <div class="row">
                 <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
@@ -132,5 +133,5 @@
         </div>
     </div>
     <router-view />
-  </div>
+  </div> -->
 </template>
