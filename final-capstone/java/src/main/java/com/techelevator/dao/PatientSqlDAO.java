@@ -81,6 +81,10 @@ public class PatientSqlDAO implements PatientDAO {
 		thePatient.setLastName(results.getString("last_name"));
 		thePatient.setPrimaryDoctorId(results.getLong("primary_doctor_id"));
 		thePatient.setAddress(results.getString("address"));
+		thePatient.setState(results.getString("state"));
+		thePatient.setCity(results.getString("city"));
+		thePatient.setZipCode(results.getString("zip_code"));
+		thePatient.setPhone(results.getString("phone"));
 		thePatient.setBirthdate(results.getDate("date_of_birth").toLocalDate());
 		
 		return thePatient;

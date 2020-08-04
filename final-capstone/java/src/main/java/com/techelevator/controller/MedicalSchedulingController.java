@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,7 +15,6 @@ import com.techelevator.dao.DoctorDAO;
 import com.techelevator.dao.OfficeDAO;
 import com.techelevator.dao.PatientDAO;
 import com.techelevator.dao.ReviewDAO;
-import com.techelevator.dao.UserDAO;
 import com.techelevator.model.Appointment;
 import com.techelevator.model.Doctor;
 import com.techelevator.model.Office;
@@ -75,6 +75,10 @@ public class MedicalSchedulingController {
 		return appointmentDao.getAppointmentsByDoctor(doctorId);
 	}
 	
+	@RequestMapping(path = "/patients/appointments", method = RequestMethod.GET)
+	public List<Appointment> getAppointmentsByPatient(@RequestBody Patient patient) {
+		return appointmentDao.getAppointmentsByPatient(patient.getPatientId());
+	}
 	
 	
 
