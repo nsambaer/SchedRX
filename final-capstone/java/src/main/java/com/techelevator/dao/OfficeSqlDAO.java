@@ -2,10 +2,9 @@ package com.techelevator.dao;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
-<<<<<<< HEAD
+
 import java.util.HashMap;
-=
->>>>>>> baf29d3d136cd8b14ff3d0060c81d7717bdfa3ad
+
 import java.util.List;
 import java.util.Map;
 
@@ -17,7 +16,7 @@ import com.techelevator.model.Office;
 
 @Component
 public class OfficeSqlDAO implements OfficeDAO {
-<<<<<<< HEAD
+
 
 	private JdbcTemplate jdbc;
 
@@ -46,27 +45,8 @@ public class OfficeSqlDAO implements OfficeDAO {
 		}
 
 		return officeList;
-=
-	
-	private JdbcTemplate jdbcTemplate;
-	
-	public OfficeSqlDAO(JdbcTemplate jdbcTemplate) {
-		this.jdbcTemplate = jdbcTemplate;
 	}
 	
-	@Override
-	public List<Office> getAllOffices() {
-		List<Office> allOffices = new ArrayList<>();
-		String sqlAllOffices = "SELECT * FROM offices";
-		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlAllOffices);
-		while (results.next()) {
-			Office theOffice = mapRowToOffice(results);
-			allOffices.add(theOffice);
-		}
-		return allOffices;
->>>>>>> baf29d3d136cd8b14ff3d0060c81d7717bdfa3ad
-	}
-
 	@Override
 	public Office getOfficeById(Long officeId) {
 		Office office = new Office();
