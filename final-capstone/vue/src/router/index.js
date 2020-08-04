@@ -1,10 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '../views/Home.vue'
-import Login from '../views/Login.vue'
 import Logout from '../views/Logout.vue'
 import Register from '../views/Register.vue'
 import store from '../store/index'
+import Patient from '../views/Patient.vue'
+import Doctor from '@/views/Doctor'
 
 Vue.use(Router)
 
@@ -26,14 +27,6 @@ const router = new Router({
       name: 'home',
       component: Home,
       meta: {
-        requiresAuth: true
-      }
-    },
-    {
-      path: "/login",
-      name: "login",
-      component: Login,
-      meta: {
         requiresAuth: false
       }
     },
@@ -53,6 +46,22 @@ const router = new Router({
         requiresAuth: false
       }
     },
+    {
+    path: "/patient",
+    name: "patient",
+    component: Patient,
+    meta: {
+      requiresAuth: true
+    }
+    },
+    {
+      path: "/doctor",
+      name: "doctor",
+      component: Doctor,
+      meta: {
+        requiresAuth: true
+      }
+    }
   ]
 })
 
@@ -62,7 +71,7 @@ router.beforeEach((to, from, next) => {
 
   // If it does and they are not logged in, send the user to "/login"
   if (requiresAuth && store.state.token === '') {
-    next("/login");
+    next("/");
   } else {
     // Else let them go to their next destination
     next();
