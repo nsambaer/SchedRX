@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>This is the Patient view!</h1>
+      <h1>This is the Doctor view!</h1>
   </div>
 </template>
 
