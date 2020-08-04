@@ -7,6 +7,7 @@ import java.util.Map;
 public class Office {
 	
 	private Long officeId;
+	private String officeName;
 	private String address;
 	private String city;
 	private String state;
@@ -17,10 +18,11 @@ public class Office {
 	
 	public Office() {}	
 	
-	public Office(Long officeId, String address, String city, String state, String phoneNumber, BigDecimal cost,
+	public Office(Long officeId, String officeName, String address, String city, String state, String phoneNumber, BigDecimal cost,
 			Map<String, LocalTime> openHours, Map<String, LocalTime> closeHours) {
 		super();
 		this.officeId = officeId;
+		this.officeName = officeName;
 		this.address = address;
 		this.city = city;
 		this.state = state;
@@ -30,9 +32,10 @@ public class Office {
 		this.closeHours = closeHours;
 	}
 
-	public Office(String address, String city, String state, String phoneNumber, BigDecimal cost,
+	public Office(String officeName, String address, String city, String state, String phoneNumber, BigDecimal cost,
 			Map<String, LocalTime> openHours, Map<String, LocalTime> closeHours) {
 		super();
+		this.officeName = officeName;
 		this.address = address;
 		this.city = city;
 		this.state = state;
@@ -48,6 +51,14 @@ public class Office {
 
 	public void setOfficeId(Long officeId) {
 		this.officeId = officeId;
+	}
+
+	public String getOfficeName() {
+		return officeName;
+	}
+
+	public void setOfficeName(String officeName) {
+		this.officeName = officeName;
 	}
 
 	public String getAddress() {

@@ -13,4 +13,6 @@ public interface OfficeDAO {
 	public Office getOfficeByDoctor(Long doctorId);
 	
 	
+	
+	
 }
