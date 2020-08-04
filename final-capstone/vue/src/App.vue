@@ -11,38 +11,45 @@
                     <h1>Register</h1>
                     <hr>
                     <div class="form-group">
-                        <label for="username">Username</label>
+                        <label for="username">Username: </label>
                         <input
                                 type="text"
                                 id="address"
                                 class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="password">Password</label>
+                        <label for="password">Password: </label>
                         <input
                                 type="password"
                                 id="password"
                                 class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="first name">First Name</label>
+                        <label for="first name">First Name: </label>
                         <input
                                 type="text"
                                 id="first name"
                                 class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="Last Name">Last Name</label>
+                        <label for="Last Name">Last Name: </label>
                         <input
                                 type="text"
                                 id="last name"
                                 class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="address">Address</label>
+                        <label for="address">Address: </label>
                         <input
                                 type="text"
-                                id="Address"
+                                id="address"
+                                class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="city">City: </label>
+                        <input
+                                type="text"
+                                id="city"
                                 class="form-control">
                     </div>
                 </div>
