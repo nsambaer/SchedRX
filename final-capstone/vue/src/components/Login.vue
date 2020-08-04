@@ -8,6 +8,11 @@
         v-if="invalidCredentials"
       >Invalid username and password!</div>
       <div
+        class="alert alert-danger"
+        role="alert"
+        v-if="roleError"
+      >There is a problem with your role {{ role }}</div>
+      <div
         class="alert alert-success"
         role="alert"
         v-if="this.$route.query.registration"
@@ -47,32 +52,37 @@ export default {
     return {
       user: {
         username: "",
-        password: ""
+        password: "",
       },
-      invalidCredentials: false
+      invalidCredentials: false,
+      roleError: false,
+      role: "",
     };
   },
   methods: {
     login() {
       authService
         .login(this.user)
-        .then(response => {
-            this.$store.commit("SET_AUTH_TOKEN", response.data.token);
-            this.$store.commit("SET_USER", response.data.user);
-          if (response.data.user.authorities.name === "ROLE_PATIENT") {
-            this.$router.push({name:'Patient'});
+        .then((response) => {
+          this.$store.commit("SET_AUTH_TOKEN", response.data.token);
+          this.$store.commit("SET_USER", response.data.user);
+          if (response.data.user.authorities[0].name === "ROLE_PATIENT") {
+            this.$router.push({ name: "patient" });
+          } else if (response.data.user.authorities[0].name === "ROLE_DOCTOR") {
+            this.$router.push({ name: "doctor" });
           } else {
-            this.error;
+            this.roleError = true;
+            this.role = response.data.user.authorities[0].name;
           }
         })
-        .catch(error => {
+        .catch((error) => {
           const response = error.response;
 
           if (response.status === 401) {
             this.invalidCredentials = true;
           }
         });
-    }
-  }
+    },
+  },
 };
 </script>
