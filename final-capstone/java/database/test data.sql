@@ -1,10 +1,10 @@
 BEGIN TRANSACTION;
 
-INSERT INTO offices (name, address, city, state, phone, cost_per_hour)
-VALUES ('Office Alpha', '555 Main St', 'Lansing', 'MI', '5175555678', 90.99);
+INSERT INTO offices (name, address, city, state, zip_code, phone, cost_per_hour)
+VALUES ('Office Alpha', '555 Main St', 'Lansing', 'MI', '48912', '517-555-5678', 90.99);
 
-INSERT INTO offices (name, address, city, state, phone, cost_per_hour)
-VALUES ('Office Bravo', '550 Doctor St', 'Lansing', 'MI', '5175556789', 105.99);
+INSERT INTO offices (name, address, city, state, zip_code, phone, cost_per_hour)
+VALUES ('Office Bravo', '550 Doctor St', 'Lansing', 'MI', '48912', '517-555-6789', 105.99);
 
 INSERT INTO office_hours (office_id, day_of_week, start_time, end_time)
 VALUES ((SELECT office_id FROM offices WHERE name ILIKE 'Office Alpha'), 1, '09:00', '17:00');
@@ -63,17 +63,17 @@ VALUES ((SELECT user_id FROM users WHERE username ILIKE 'doctorE'), 'Doctor', 'E
 INSERT INTO doctors (doctor_id, first_name, last_name, office_id)
 VALUES ((SELECT user_id FROM users WHERE username ILIKE 'doctorF'), 'Doctor', 'Foxtrot', (SELECT office_id FROM offices WHERE name ILIKE 'Office Bravo'));
 
-INSERT INTO patients (patient_id, first_name, last_name, phone, address, city, state, primary_doctor_id, date_of_birth)
-VALUES ((SELECT user_id FROM users WHERE username ILIKE 'patientG'), 'Patient', 'Golf', '5175557913', '123 Boulevard Avenue', 'Dewitt', 'MI', 
+INSERT INTO patients (patient_id, first_name, last_name, phone, address, city, state, zip_code, primary_doctor_id, date_of_birth)
+VALUES ((SELECT user_id FROM users WHERE username ILIKE 'patientG'), 'Patient', 'Golf', '517-555-7913', '123 Boulevard Avenue', 'Dewitt', 'MI', '48912',
         (SELECT doctor_id FROM doctors WHERE first_name ILIKE 'Doctor' AND last_name ILIKE 'Charlie'), '1993-06-12');
-INSERT INTO patients (patient_id, first_name, last_name, phone, address, city, state, primary_doctor_id, date_of_birth)
-VALUES ((SELECT user_id FROM users WHERE username ILIKE 'patientH'), 'Patient', 'Hotel', '5175554561', '456 Grand Street', 'Grand Ledge', 'MI', 
+INSERT INTO patients (patient_id, first_name, last_name, phone, address, city, state, zip_code, primary_doctor_id, date_of_birth)
+VALUES ((SELECT user_id FROM users WHERE username ILIKE 'patientH'), 'Patient', 'Hotel', '517-555-4561', '456 Grand Street', 'Grand Ledge', 'MI', '48912',
         (SELECT doctor_id FROM doctors WHERE first_name ILIKE 'Doctor' AND last_name ILIKE 'Charlie'), '1997-01-04');
-INSERT INTO patients (patient_id, first_name, last_name, phone, address, city, state, primary_doctor_id, date_of_birth)
-VALUES ((SELECT user_id FROM users WHERE username ILIKE 'patientI'), 'Patient', 'India', '5175553510', '6546 Spring Lake Drive', 'Okemos', 'MI', 
+INSERT INTO patients (patient_id, first_name, last_name, phone, address, city, state, zip_code, primary_doctor_id, date_of_birth)
+VALUES ((SELECT user_id FROM users WHERE username ILIKE 'patientI'), 'Patient', 'India', '517-555-3510', '6546 Spring Lake Drive', 'Okemos', 'MI', '48864',
         (SELECT doctor_id FROM doctors WHERE first_name ILIKE 'Doctor' AND last_name ILIKE 'Delta'), '1998-04-22');
-INSERT INTO patients (patient_id, first_name, last_name, phone, address, city, state, primary_doctor_id, date_of_birth)
-VALUES ((SELECT user_id FROM users WHERE username ILIKE 'patientJ'), 'Patient', 'Juliet', '5175553197', '123 Haslett Road', 'Haslett', 'MI', 
+INSERT INTO patients (patient_id, first_name, last_name, phone, address, city, state, zip_code, primary_doctor_id, date_of_birth)
+VALUES ((SELECT user_id FROM users WHERE username ILIKE 'patientJ'), 'Patient', 'Juliet', '517-555-3197', '123 Haslett Road', 'Haslett', 'MI', '48912', 
         (SELECT doctor_id FROM doctors WHERE first_name ILIKE 'Doctor' AND last_name ILIKE 'Echo'), '2000-04-12');
 
 INSERT INTO doctor_availability (doctor_id, day_of_week, availability_date, specific_date, start_time, end_time) 
