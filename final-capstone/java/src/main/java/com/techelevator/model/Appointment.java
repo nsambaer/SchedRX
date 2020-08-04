@@ -15,13 +15,29 @@ public class Appointment {
 	private LocalDate lastUpdatedDate;
 	private LocalTime lastUpdatedTime;
 	private String visitReason;
-	private Long appointmentTypeId;
+	private String appointmentType;
+	
 	
 	public Appointment() {}
 
+	public Appointment(Long patientId, Long doctorId, Long officeId, LocalDate appointmentDate,
+			LocalTime appointmentTime, LocalDate lastUpdatedDate, LocalTime lastUpdatedTime, String visitReason,
+			String appointmentType) {
+		super();
+		this.patientId = patientId;
+		this.doctorId = doctorId;
+		this.officeId = officeId;
+		this.appointmentDate = appointmentDate;
+		this.appointmentTime = appointmentTime;
+		this.lastUpdatedDate = lastUpdatedDate;
+		this.lastUpdatedTime = lastUpdatedTime;
+		this.visitReason = visitReason;
+		this.appointmentType = appointmentType;
+	}
+
 	public Appointment(Long appointmentId, Long patientId, Long doctorId, Long officeId, LocalDate appointmentDate,
-			LocalTime appointmentStartTime, LocalTime appointmentEndTime, LocalDate lastUpdatedDate,
-			LocalTime lastUpdatedTime, String visitReason, Long appointmentTypeId) {
+			LocalTime appointmentTime, LocalDate lastUpdatedDate,
+			LocalTime lastUpdatedTime, String visitReason, String appointmentType) {
 		super();
 		this.appointmentId = appointmentId;
 		this.patientId = patientId;
@@ -32,7 +48,7 @@ public class Appointment {
 		this.lastUpdatedDate = lastUpdatedDate;
 		this.lastUpdatedTime = lastUpdatedTime;
 		this.visitReason = visitReason;
-		this.appointmentTypeId = appointmentTypeId;
+		this.appointmentType = appointmentType;
 	}
 
 	public Long getAppointmentId() {
@@ -107,12 +123,12 @@ public class Appointment {
 		this.visitReason = visitReason;
 	}
 
-	public Long getAppointmentTypeId() {
-		return appointmentTypeId;
+	public String getAppointmentType() {
+		return appointmentType;
 	}
 
-	public void setAppointmentTypeId(Long appointmentTypeId) {
-		this.appointmentTypeId = appointmentTypeId;
+	public void setAppointmentType(String appointmentType) {
+		this.appointmentType = appointmentType;
 	};
 	
 	

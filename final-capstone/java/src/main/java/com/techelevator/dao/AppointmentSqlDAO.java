@@ -13,16 +13,18 @@ import com.techelevator.model.Appointment;
 
 @Component
 public class AppointmentSqlDAO implements AppointmentDAO {
-	
+
 	private JdbcTemplate jdbcTemplate;
-	
+
 	public AppointmentSqlDAO(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
 	}
 
 	@Override
 	public Appointment getAppointmentById(Long appointmentId) {
-		String sqlGetAppointment = "SELECT * FROM appointments WHERE appointment_id = ?";
+		String sqlGetAppointment = "SELECT a.*, at.appointment_type FROM "
+				+ "appointments a INNER JOIN appointment_types at ON a.appt_type_id = at.appointment_types_id "
+				+ "WHERE appointment_id = ?";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetAppointment, appointmentId);
 		results.next();
 		return mapRowToAppointment(results);
@@ -31,66 +33,70 @@ public class AppointmentSqlDAO implements AppointmentDAO {
 	@Override
 	public List<Appointment> getAppointmentsByPatient(Long patientId) {
 		List<Appointment> patientAppointments = new ArrayList<>();
-		String sqlGetAppointments = "SELECT * FROM appointments WHERE patient_id = ?";
+		String sqlGetAppointments = "SELECT a.*, at.appointment_type FROM "
+				+ "appointments a INNER JOIN appointment_types at ON a.appt_type_id = at.appointment_types_id "
+				+ "WHERE patient_id = ?";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetAppointments, patientId);
-		while(results.next()) {
+		while (results.next()) {
 			Appointment theAppointment = mapRowToAppointment(results);
 			patientAppointments.add(theAppointment);
 		}
 		return patientAppointments;
 	}
-	
+
 	@Override
 	public List<Appointment> getAppointmentsByDoctor(Long doctorId) {
 		List<Appointment> doctorAppointments = new ArrayList<>();
-		String sqlGetAppointments = "SELECT * FROM appointments WHERE doctor_id = ?";
+		String sqlGetAppointments = "SELECT a.*, at.appointment_type FROM "
+				+ "appointments a INNER JOIN appointment_types at ON a.appt_type_id = at.appointment_types_id "
+				+ "WHERE doctor_id = ?";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetAppointments, doctorId);
-		while(results.next()) {
+		while (results.next()) {
 			Appointment theAppointment = mapRowToAppointment(results);
 			doctorAppointments.add(theAppointment);
 		}
 		return doctorAppointments;
 	}
-	
+
 	@Override
 	public List<Appointment> getAppointmentsByOffice(Long officeId) {
 		List<Appointment> officeAppointments = new ArrayList<>();
-		String sqlGetAppointments = "SELECT * FROM appointments WHERE office_id = ?";
+		String sqlGetAppointments = "SELECT a.*, at.appointment_type FROM "
+				+ "appointments a INNER JOIN appointment_types at ON a.appt_type_id = at.appointment_types_id "
+				+ "WHERE office_id = ?";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetAppointments, officeId);
-		while(results.next()) {
+		while (results.next()) {
 			Appointment theAppointment = mapRowToAppointment(results);
 			officeAppointments.add(theAppointment);
 		}
 		return officeAppointments;
 	}
-	
+
 	@Override
 	public List<Appointment> getAppointmentsByDate(LocalDate date) {
 		List<Appointment> appointments = new ArrayList<>();
-		String sqlGetAppointments = "SELECT * FROM appointments WHERE appt_date = ?";
+		String sqlGetAppointments = "SELECT a.*, at.appointment_type FROM "
+				+ "appointments a INNER JOIN appointment_types at ON a.appt_type_id = at.appointment_types_id "
+				+ "WHERE appt_date = ?";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetAppointments, date);
-		while(results.next()) {
+		while (results.next()) {
 			Appointment theAppointment = mapRowToAppointment(results);
 			appointments.add(theAppointment);
 		}
 		return appointments;
 	}
-	
+
 	@Override
 	public void createAppointment(Long patientId, Long doctorId, Long officeId, LocalDate appointmentDate,
-			LocalTime appointmentStartTime, LocalTime appointmentEndTime, String visitReason, Long appointmentTypeId) {
-		String sqlCreateAppointment = "INSERT INTO appointments (patient_id, doctor_id, "
-																+ "office_id, appt_date, "
-																+ "appt_start_time, appt_end_time, "
-																+ "visit_reason, appt_type_id "
-									+ "VALUES(?,?,?,?,?,?,?,?)";
-		jdbcTemplate.update(sqlCreateAppointment, patientId, doctorId, 
-													officeId, appointmentDate, 
-													appointmentStartTime, appointmentEndTime, 
-													visitReason, appointmentTypeId);
-		
+			LocalTime appointmentStartTime, LocalTime appointmentEndTime, String visitReason, String appointmentType) {
+		String sqlCreateAppointment = "INSERT INTO appointments "
+				+ "(patient_id, doctor_id, office_id, appt_date, appt_start_time, appt_end_time, visit_reason, appt_type_id) "
+				+ "VALUES(?, ?, ?, ?, ?, ?, ?, (SELECT appointment_types_id FROM appointment_types WHERE appointment_type ILIKE ?)";
+		jdbcTemplate.update(sqlCreateAppointment, patientId, doctorId, officeId, appointmentDate, appointmentStartTime,
+				appointmentEndTime, visitReason, appointmentType);
+
 	}
-	
+
 	private Appointment mapRowToAppointment(SqlRowSet results) {
 		Appointment theAppointment = new Appointment();
 		theAppointment.setAppointmentId(results.getLong("appointment_id"));
@@ -100,11 +106,9 @@ public class AppointmentSqlDAO implements AppointmentDAO {
 		theAppointment.setAppointmentDate(results.getDate("appt_date").toLocalDate());
 		theAppointment.setAppointmentTime(results.getTime("appt_time").toLocalTime());
 		theAppointment.setVisitReason(results.getString("visit_reason"));
-		theAppointment.setAppointmentTypeId(results.getLong("appt_type_id"));
-		
+		theAppointment.setAppointmentType(results.getString("appointment_type"));
+
 		return theAppointment;
 	}
-
-	
 
 }
