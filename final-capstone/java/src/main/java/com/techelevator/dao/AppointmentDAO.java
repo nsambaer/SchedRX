@@ -21,5 +21,5 @@ public interface AppointmentDAO {
 	public void createAppointment(Long patientId, Long doctorId, 
 									Long officeId, LocalDate appointmentDate,
 									LocalTime appointmentStartTime, LocalTime appointmentEndTime,
-									String visitReason, Long appointmentTypeId);
+									String visitReason, String appointmentType);
 }

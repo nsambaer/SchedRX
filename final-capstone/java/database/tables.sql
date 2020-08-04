@@ -6,6 +6,7 @@ first_name VARCHAR(64) NOT NULL,
 last_name VARCHAR(64) NOT NULL,
 office_id INT NOT NULL,
 
+
 CONSTRAINT pk_doctor_doctor_id PRIMARY KEY (doctor_id)
 );
 
@@ -15,6 +16,8 @@ first_name VARCHAR(64) NOT NULL,
 last_name VARCHAR(64) NOT NULL,
 phone VARCHAR(10) NOT NULL,
 address VARCHAR(128) NOT NULL,
+city VARCHAR(64) NOT NULL,
+state VARCHAR(32) NOT NULL,
 primary_doctor_id INT,
 date_of_birth DATE NOT NULL,
 
@@ -29,7 +32,7 @@ patient_id INT NOT NULL,
 title VARCHAR(64) NOT NULL,
 rating INT NOT NULL,
 description TEXT NOT NULL,
-comments TEXT[],
+comments TEXT,
 
 CONSTRAINT pk_reviews_review_id PRIMARY KEY (review_id),
 CONSTRAINT reviews_rating_check CHECK (rating > 0 AND rating < 6)
@@ -43,7 +46,7 @@ patient_id INT NOT NULL,
 appt_date DATE NOT NULL,
 appt_time TIME NOT NULL,
 appt_mod_date DATE NOT NULL,
-appt_mod_time DATE NOT NULL,
+appt_mod_time TIME NOT NULL,
 visit_reason VARCHAR(128) NOT NULL,
 appt_type_id INT NOT NULL,
 
@@ -60,7 +63,10 @@ CONSTRAINT pk_appointment_types PRIMARY KEY (appointment_types_id)
 
 CREATE TABLE offices (
 office_id SERIAL NOT NULL,
+name VARCHAR(128) NOT NULL,
 address VARCHAR(128) NOT NULL,
+city VARCHAR(64) NOT NULL,
+state VARCHAR(32) NOT NULL,
 phone VARCHAR(10) NOT NULL,
 cost_per_hour NUMERIC(999, 2) NOT NULL,
 
@@ -71,8 +77,8 @@ CONSTRAINT cost_per_hour_positive CHECK (cost_per_hour > 0)
 CREATE TABLE office_hours (
 office_id INT NOT NULL,
 day_of_week INT NOT NULL,
-start_time TIME NOT NULL,
-end_time TIME NOT NULL,
+start_time TIME,
+end_time TIME,
 
 CONSTRAINT pk_office_hours PRIMARY KEY (office_id, day_of_week)
 );
@@ -83,8 +89,8 @@ doctor_id INT NOT NULL,
 day_of_week INT,
 availability_date DATE,
 specific_date BOOLEAN NOT NULL,
-start_time TIME NOT NULL,
-end_time TIME NOT NULL,
+start_time TIME,
+end_time TIME, 
 
 
 CONSTRAINT pk_availability PRIMARY KEY (availability_id)
