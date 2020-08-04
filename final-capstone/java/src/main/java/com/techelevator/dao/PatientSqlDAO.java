@@ -44,14 +44,33 @@ public class PatientSqlDAO implements PatientDAO {
 	@Override
 	public List<Patient> getPatientsByOffice(Long officeId) {
 		List<Patient> patientList = new ArrayList<>();
-		
+		String sqlPatientsByOffice = "SELECT * FROM patients p "
+									+ "INNER JOIN doctors d "
+									+ "ON p.primary_doctor_id = d.doctor_id "
+									+ "WHERE d.office_id = ?";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlPatientsByOffice, officeId);
+		while (results.next()) {
+			Patient thePatient = mapRowToPatient(results);
+			patientList.add(thePatient);
+		}
 		return null;
 	}
 
 	@Override
 	public List<Patient> getPatientsByDate(LocalDate date) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Patient> patientList = new ArrayList<>();
+		String sqlPatientsByDate = "SELECT * FROM patients p "
+								+ "INNER JOIN appointments a "
+								+ "ON p.patient_id = a.patient_id "
+								+ "WHERE appt_date = ? "
+								+ "ORDER BY p.last_name ASC, "
+								+ "p.first_name ASC";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlPatientsByDate, date);
+		while (results.next()) {
+			Patient thePatient = mapRowToPatient(results);
+			patientList.add(thePatient);
+		}
+		return patientList;
 	}
 	
 	private Patient mapRowToPatient(SqlRowSet results) {
