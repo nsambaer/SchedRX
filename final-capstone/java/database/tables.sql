@@ -15,6 +15,8 @@ first_name VARCHAR(64) NOT NULL,
 last_name VARCHAR(64) NOT NULL,
 phone VARCHAR(10) NOT NULL,
 address VARCHAR(128) NOT NULL,
+city VARCHAR(64) NOT NULL,
+state VARCHAR(32) NOT NULL,
 primary_doctor_id INT,
 date_of_birth DATE NOT NULL,
 
@@ -61,6 +63,8 @@ CONSTRAINT pk_appointment_types PRIMARY KEY (appointment_types_id)
 CREATE TABLE offices (
 office_id SERIAL NOT NULL,
 address VARCHAR(128) NOT NULL,
+city VARCHAR(64) NOT NULL,
+state VARCHAR(32) NOT NULL,
 phone VARCHAR(10) NOT NULL,
 cost_per_hour NUMERIC(999, 2) NOT NULL,
 
