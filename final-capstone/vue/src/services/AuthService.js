@@ -10,8 +10,11 @@ export default {
     return http.post('/login', user)
   },
 
-  register(user) {
-    return http.post('/register', user)
+  register(user, patient) {
+    http.post('/register', user).then( (response) => {
+      patient.patientId = response.data;
+      return http.post('/createPatient', patient);
+    })
   }
 
 }

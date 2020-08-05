@@ -4,13 +4,20 @@ import java.math.BigDecimal;
 import java.time.LocalTime;
 import java.util.Map;
 
+import javax.validation.constraints.NotBlank;
+
 public class Office {
 	
 	private Long officeId;
+	@NotBlank(message = "The office name cannot be blank")
 	private String officeName;
+	@NotBlank(message = "The address cannot be blank")
 	private String address;
+	@NotBlank(message = "The city cannot be blank")
 	private String city;
+	@NotBlank(message = "The state cannot be blank")
 	private String state;
+	@NotBlank(message = "The phone number cannot be blank")
 	private String phoneNumber;
 	private BigDecimal cost;
 	private Map<String, LocalTime> openHours;
