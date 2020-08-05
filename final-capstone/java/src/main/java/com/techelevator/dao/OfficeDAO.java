@@ -12,7 +12,7 @@ public interface OfficeDAO {
 	
 	public Office getOfficeByDoctor(Long doctorId);
 	
-	public void createOffice(Office office);
+	public Office createOffice(Office office);
 	
 	public Office updateOffice(Office office, Long officeId);
 	

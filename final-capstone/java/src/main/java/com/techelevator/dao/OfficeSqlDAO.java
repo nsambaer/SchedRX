@@ -94,7 +94,7 @@ public class OfficeSqlDAO implements OfficeDAO {
 	}
 	
 	@Override
-	public void createOffice(Office office) {
+	public Office createOffice(Office office) {
 		String sqlCreateOffice = "INSERT INTO offices "
 								+ "(office_id, name, address, city, state, phone, cost, start_time, end_time) "
 								+ "VALUES (?,?,?,?,?,?,?,?,?)";
@@ -102,7 +102,7 @@ public class OfficeSqlDAO implements OfficeDAO {
 						office.getAddress(), office.getCity(), office.getState(),
 						office.getPhoneNumber(), office.getCost(), office.getOpenHours(), 
 						office.getCloseHours());
-		
+		return office;
 		
 	}
 
