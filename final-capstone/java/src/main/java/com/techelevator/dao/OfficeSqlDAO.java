@@ -1,5 +1,6 @@
 package com.techelevator.dao;
 
+import java.sql.Time;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
@@ -152,27 +153,32 @@ public class OfficeSqlDAO implements OfficeDAO {
 
 		while (results.next()) {
 			int dow = results.getInt("day_of_week");
+			Time time = results.getTime(3);
+			LocalTime lt = null;
+			if (time != null) {
+				lt = time.toLocalTime();
+			}
 			switch (dow) {
 			case 1:
-				hours.put("Monday", results.getTime(3).toLocalTime());
+				hours.put("Monday", lt);
 				break;
 			case 2:
-				hours.put("Tuesday", results.getTime(3).toLocalTime());
+				hours.put("Tuesday", lt);
 				break;
 			case 3:
-				hours.put("Wednesday", results.getTime(3).toLocalTime());
+				hours.put("Wednesday", lt);
 				break;
 			case 4:
-				hours.put("Thursday", results.getTime(3).toLocalTime());
+				hours.put("Thursday", lt);
 				break;
 			case 5:
-				hours.put("Friday", results.getTime(3).toLocalTime());
+				hours.put("Friday", lt);
 				break;
 			case 6:
-				hours.put("Saturday", results.getTime(3).toLocalTime());
+				hours.put("Saturday", lt);
 				break;
 			case 7:
-				hours.put("Sunday", results.getTime(3).toLocalTime());
+				hours.put("Sunday", lt);
 				break;
 			}
 		}

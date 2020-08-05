@@ -124,4 +124,4 @@ SELECT * FROM appointments;
 SELECT * FROM reviews;
 
 
-ROLLBACK;
+COMMIT;
