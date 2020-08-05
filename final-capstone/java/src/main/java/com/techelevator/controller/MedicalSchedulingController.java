@@ -92,14 +92,20 @@ public class MedicalSchedulingController {
 	@PreAuthorize("hasRole('ADMIN')")
 	@ResponseStatus(HttpStatus.CREATED)
 	@RequestMapping(path = "/offices/create", method = RequestMethod.POST)
-	public void createOffice(@RequestBody Office office) {
-		officeDao.createOffice(office);
+	public Office createOffice(@RequestBody Office office) {
+		return officeDao.createOffice(office);
 	}
 	
 	@PreAuthorize("hasRole('ADMIN')")
 	@RequestMapping(path = "/offices/{id}/update", method = RequestMethod.PUT)
 	public Office updateOffice(@RequestBody Office office, @PathVariable Long officeId) {
 		return officeDao.updateOffice(office, officeId);
+	}
+	
+	@PreAuthorize("permitAll()")
+	@RequestMapping(path = "/patients/register", method = RequestMethod.PUT)
+	public Patient createPatient(@RequestBody Patient patient) {
+		return patientDao.createPatient(patient);
 	}
 	
 	
