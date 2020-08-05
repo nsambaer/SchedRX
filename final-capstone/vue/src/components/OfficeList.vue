@@ -1,28 +1,24 @@
 <template>
   <div>
-    <div v-for="office in offices" v-bind:key="office.officeId"> {{office.officeName}}
-      
-       </div>
+    <div v-for="office in offices" v-bind:key="office.officeId">{{office.officeName}}</div>
   </div>
 </template>
 
 <script>
-import medService from '../services/MedicalService.js' 
+import medService from "../services/MedicalService.js";
 export default {
   data() {
     return {
-      offices: []
-    }
+      offices: [],
+    };
   },
-created() {
-medService.listAllOffices().then(response => {
-this.offices = response;
-})
-}
-
-}
+  created() {
+    medService.listAllOffices().then((response) => {
+      this.offices = response.data;
+    });
+  },
+};
 </script>
 
 <style>
-
 </style>
