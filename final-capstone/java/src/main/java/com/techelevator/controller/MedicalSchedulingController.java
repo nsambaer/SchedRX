@@ -103,7 +103,8 @@ public class MedicalSchedulingController {
 	}
 	
 	@PreAuthorize("permitAll()")
-	@RequestMapping(path = "/patients/register", method = RequestMethod.PUT)
+	@ResponseStatus(HttpStatus.CREATED)
+	@RequestMapping(path = "/patients/register", method = RequestMethod.POST)
 	public Patient createPatient(@RequestBody Patient patient) {
 		return patientDao.createPatient(patient);
 	}
