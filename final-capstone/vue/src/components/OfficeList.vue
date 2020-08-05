@@ -28,14 +28,11 @@ export default {
   created() {
     medService.listAllOffices().then((response) => {
       this.offices = response.data;
-<<<<<<< HEAD
-      });
-=======
+
       this.offices.forEach( (office) => {
         office.showDetails = false;
       });
     });
->>>>>>> badcc97a3808d13f1e032eb7f2c6ea070c69319f
   },
 };
 </script>
