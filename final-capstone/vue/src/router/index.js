@@ -4,8 +4,6 @@ import Home from '../views/Home.vue'
 import Logout from '../views/Logout.vue'
 import Register from '../views/Register.vue'
 import store from '../store/index'
-import Patient from '../views/Patient.vue'
-import Doctor from '@/views/Doctor'
 
 Vue.use(Router)
 
@@ -49,7 +47,13 @@ const router = new Router({
     {
     path: "/patient",
     name: "patient",
-    component: Patient,
+    component: () => {
+      if (store.state.userRole == "ROLE_PATIENT") {
+      return import('../views/Patient.vue');
+      } else {
+        return import('../views/Home.vue');
+      }
+    },
     meta: {
       requiresAuth: true
     }
@@ -57,7 +61,13 @@ const router = new Router({
     {
       path: "/doctor",
       name: "doctor",
-      component: Doctor,
+      component: () => {
+        if (store.state.userRole == "ROLE_DOCTOR") {
+        return import('../views/Doctor.vue');
+        } else {
+          return import('../views/Home.vue');
+        }
+      },
       meta: {
         requiresAuth: true
       }
