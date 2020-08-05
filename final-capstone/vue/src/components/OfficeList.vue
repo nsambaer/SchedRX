@@ -15,7 +15,7 @@ export default {
   created() {
     medService.listAllOffices().then((response) => {
       this.offices = response.data;
-    });
+      });
   },
 };
 </script>
