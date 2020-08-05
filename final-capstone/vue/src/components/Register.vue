@@ -40,7 +40,7 @@
         id="firstName"
         class="form-control"
         placeholder="First Name"
-        v-model="user.firstName"
+        v-model="patient.firstName"
         required
       />
       <label for="lastName" class="sr-only"> Last Name: </label>
@@ -49,7 +49,7 @@
         id="lastName"
         class="form-control"
         placeholder="Last Name"
-        v-model="user.lastName"
+        v-model="patient.lastName"
         required
       />
       <label for="phoneNumber" class="sr-only"> Phone Number: </label>
@@ -58,7 +58,7 @@
         id="phoneNumber"
         class="form-control"
         placeholder="Phone Number"
-        v-model="user.phoneNumber"
+        v-model="patient.phoneNumber"
         required
       />
       </div>
@@ -69,7 +69,7 @@
         id="address"
         class="form-control"
         placeholder="Address"
-        v-model="user.address"
+        v-model="patient.address"
         required
       />
       <label for="city" class="sr-only"> City: </label>
@@ -78,7 +78,7 @@
         id="city"
         class="form-control"
         placeholder="City"
-        v-model="user.city"
+        v-model="patient.city"
         required
       />
       <label for="state" class="sr-only"> State: </label>
@@ -87,7 +87,7 @@
         id="state"
         class="form-control"
         placeholder="state"
-        v-model="user.state"
+        v-model="patient.state"
         required
       />
       <label for="zipCode" class="sr-only"> Zip Code: </label>
@@ -96,7 +96,7 @@
         id="zipCode"
         class="form-control"
         placeholder="Zip Code"
-        v-model="user.zipCode"
+        v-model="patient.zipCode"
         required
       />
       <div>
@@ -106,7 +106,7 @@
         id="birthDate"
         class="form-control"
         placeholder="birthDate"
-        v-model="user.birthDate"
+        v-model="patient.birthDate"
         required
       />
       </div>
@@ -131,6 +131,16 @@ export default {
         password: '',
         confirmPassword: '',
         role: 'patient',
+      },
+      patient: {
+        firstName: '',
+        lastName: '',
+        phoneNumber: '',
+        address: '',
+        city: '',
+        state: '',
+        zipCode: '',
+        birthDate: ''
       },
       registrationErrors: false,
       registrationErrorMsg: 'There were problems registering this user.',
