@@ -48,7 +48,7 @@ const router = new Router({
     path: "/patient",
     name: "patient",
     component: () => {
-      if (store.state.userRole == "ROLE_PATIENT") {
+      if (store.state.userRole === "ROLE_PATIENT") {
       return import('../views/Patient.vue');
       } else {
         return import('../views/Home.vue');
@@ -62,14 +62,25 @@ const router = new Router({
       path: "/doctor",
       name: "doctor",
       component: () => {
-        if (store.state.userRole == "ROLE_DOCTOR") {
-        return import('../views/Doctor.vue');
+        if (store.state.userRole === "ROLE_DOCTOR") {
+          return import('../views/Doctor.vue');
         } else {
           return import('../views/Home.vue');
         }
       },
       meta: {
         requiresAuth: true
+      }
+    },
+    {
+      path: "/admin",
+      name: "admin",
+      component: () => {
+        if (store.state.userRole === "ROLE_ADMIN") {
+          return import('../views/Admin.vue');
+        } else {
+          return import ('../views/Home.vue');
+        }
       }
     }
   ]
