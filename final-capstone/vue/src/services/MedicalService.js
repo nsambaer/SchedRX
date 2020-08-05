@@ -7,13 +7,14 @@ const http = axios.create({
 
   export default {
 
-    // addPatient() {
-    //   return http.post(`/login/${}`)
-    // },
+    addPatient(patient) {
+      return http.post('/createPatient', patient)
+    },
 
     // updatePatient(patient) {
     //   return http.put(`/login/${}`);
     // },
+
     listAllOffices() {
         return http.get('/offices');
     }

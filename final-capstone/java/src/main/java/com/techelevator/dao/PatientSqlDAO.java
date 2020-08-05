@@ -76,10 +76,10 @@ public class PatientSqlDAO implements PatientDAO {
 	@Override
 	public Patient createPatient(Patient patient) {
 		String sqlCreatePatient = "INSERT INTO patients "
-				+ "(patient_id, first_name, last_name, primary_doctor_id, address, state, city, zip_code, phone, date_of_birth) "
-				+ "VALUES (?,?,?,?,?,?,?,?,?,?)";
+				+ "(patient_id, first_name, last_name, address, city, state, zip_code, phone, date_of_birth) "
+				+ "VALUES (?,?,?,?,?,?,?,?,?)";
 		jdbcTemplate.update(sqlCreatePatient, patient.getPatientId(), patient.getFirstName(),
-							patient.getLastName(), patient.getPrimaryDoctorId(), patient.getAddress(),
+							patient.getLastName(), patient.getAddress(), patient.getCity(),
 							patient.getState(), patient.getZipCode(), patient.getPhone(), patient.getBirthdate());
 
 		return patient;

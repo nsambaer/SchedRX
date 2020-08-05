@@ -28,18 +28,12 @@ export default {
   created() {
     medService.listAllOffices().then((response) => {
       this.offices = response.data;
-<<<<<<< HEAD
 
-=======
->>>>>>> 5773d1e6bd0b67a824aa97b529f11e395871ebc3
       this.offices.forEach( (office) => {
         office.showDetails = true;
       });
       });
-<<<<<<< HEAD
-    });
-=======
->>>>>>> 5773d1e6bd0b67a824aa97b529f11e395871ebc3
+    
   },
 };
 </script>
