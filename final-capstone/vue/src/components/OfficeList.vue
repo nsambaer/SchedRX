@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-for="office in offices" v-bind:key="office.officeId" v-toggle="office.showDetails" >
+    <div v-for="office in offices" v-bind:key="office.officeId" v-on:click="office.showDetails = !office.showDetails" >
       {{office.officeName}}
       <div class="details" v-show="office.showDetails">
         <office-details v-bind:office="office" />
@@ -28,9 +28,9 @@ export default {
   created() {
     medService.listAllOffices().then((response) => {
       this.offices = response.data;
-      });
       this.offices.forEach( (office) => {
-        office.showDetails = false;
+        office.showDetails = true;
+      });
       });
   },
 };
