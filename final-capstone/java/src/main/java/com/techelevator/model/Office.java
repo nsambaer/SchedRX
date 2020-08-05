@@ -7,7 +7,7 @@ import java.util.Map;
 import javax.validation.constraints.NotBlank;
 
 public class Office {
-	@NotBlank(message = "The office id cannot be blank")
+	
 	private Long officeId;
 	@NotBlank(message = "The office name cannot be blank")
 	private String officeName;
