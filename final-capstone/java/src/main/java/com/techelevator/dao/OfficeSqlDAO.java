@@ -91,6 +91,33 @@ public class OfficeSqlDAO implements OfficeDAO {
 
 		return office;
 	}
+	
+	@Override
+	public void createOffice(Office office) {
+		String sqlCreateOffice = "INSERT INTO offices "
+								+ "(office_id, name, address, city, state, phone, cost, start_time, end_time) "
+								+ "VALUES (?,?,?,?,?,?,?,?,?)";
+		jdbc.update(sqlCreateOffice, office.getOfficeId(), office.getOfficeName(), 
+						office.getAddress(), office.getCity(), office.getState(),
+						office.getPhoneNumber(), office.getCost(), office.getOpenHours(), 
+						office.getCloseHours());
+		
+		
+	}
+
+	@Override
+	public Office updateOffice(Office office, Long officeId) {
+		Office result = office;
+		String sqlUpdateOffice = "UPDATE offices "
+								+ "SET name = ?, address = ?, "
+								+ "city = ?, state = ?, phone = ?, "
+								+ "cost = ?, start_time = ?, end_time = ? "
+								+ "WHERE office_id = ?";
+		jdbc.update(sqlUpdateOffice, office.getOfficeName(), office.getAddress(),
+						office.getCity(), office.getState(), office.getPhoneNumber(),
+						office.getCost(), office.getOpenHours(), office.getCloseHours(), officeId);
+		return result;
+	}
 
 	private Office mapRowToOffice(SqlRowSet results) {
 		Office office = new Office();
@@ -152,5 +179,7 @@ public class OfficeSqlDAO implements OfficeDAO {
 
 		return hours;
 	}
+
+	
 
 }
