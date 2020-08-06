@@ -2,6 +2,7 @@
   <div class = "doctor-view-container">
     <div class = "doctor-upcoming-appointments">
       <h1> this is where my upcoming appointments component will be </h1>
+      <doctor-appointments />
     </div>
     <div class="doctor-notifications">
       <h1> this is where the doctor notifications component will be </h1>
