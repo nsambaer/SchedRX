@@ -1,11 +1,11 @@
 <template>
   <div>
     <div v-for="office in offices" v-bind:key="office.officeId" >
-      <button v-on:click="toggleDetails(office.officeId)">{{office.officeName}} </button>
+     
 
-      <div class="details" v-show="office.showDetails">
+      
         <office-details v-bind:office="office" />
-      </div>
+      
     </div>
   </div>
 </template>
