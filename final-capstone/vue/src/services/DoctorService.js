@@ -7,6 +7,10 @@ const http = axios.create({
 
   export default {
 
+    getAppointments(doctorId){
+        return http.get(`/doctors/${doctorId}/appointments`);
+    }
+
 
 
   }

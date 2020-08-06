@@ -2,7 +2,8 @@
   <div class = "doctor-view-container">
     <div class = "doctor-upcoming-appointments">
       <h1> this is where my upcoming appointments component will be </h1>
-      <doctor-appointments />
+      
+      <doctor-appointments v-bind:appointments="appointments" />
     </div>
     <div class="doctor-notifications">
       <h1> this is where the doctor notifications component will be </h1>
@@ -18,7 +19,30 @@
 </template>
 
 <script>
+
+import doctorService from "../services/DoctorService.js";
+import DoctorAppointments from "../components/DoctorAppointments.vue"
 export default {
+
+  name:"doctor",
+  components:{
+    DoctorAppointments
+  },
+  data(){
+    return{
+      appointments:[]
+    };
+    
+  },
+  created(){
+    doctorService.getAppointments(this.$store.state.user.id).then(
+      response => {
+        if(response.status == 200){
+          this.appointments = response.data;
+        }
+      }
+    );
+  }
 
 }
 </script>

@@ -37,7 +37,7 @@ INSERT INTO office_hours (office_id, day_of_week, start_time, end_time)
 VALUES ((SELECT office_id FROM offices WHERE name ILIKE 'Office Bravo'), 7, null, null);
 
 INSERT INTO users (username, password_hash, role)
-VALUES ('doctorC', 'hash', 'doctor');
+VALUES ('doctorC', '$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC', 'ROLE_DOCTOR');
 INSERT INTO users (username, password_hash, role)
 VALUES ('doctorD', 'hash', 'doctor');
 INSERT INTO users (username, password_hash, role)
