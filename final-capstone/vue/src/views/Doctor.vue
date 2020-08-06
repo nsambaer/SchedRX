@@ -12,6 +12,7 @@
     </div>
     <div class="doctor-update-availability">
       <h1> this is where the doctor update availability component will be </h1>
+      {{this.availability}}
     </div>
 
       
@@ -30,7 +31,8 @@ export default {
   },
   data(){
     return{
-      appointments:[]
+      appointments:[],
+      availability:[]
     };
     
   },
@@ -42,6 +44,16 @@ export default {
         }
       }
     );
+
+    doctorService.getAvailability(this.$store.state.user.id, 8, 2020).then(
+      response => {
+       
+          this.availability = response.data;
+        
+      }
+    )
+      
+    
   }
 
 }

@@ -9,6 +9,10 @@ const http = axios.create({
 
     getAppointments(doctorId){
         return http.get(`/doctors/${doctorId}/appointments`);
+    },
+
+    getAvailability(doctorId, month, year){
+        return http.get(`/doctor/${doctorId}/availability`, {params: {month: month, year: year}} );
     }
 
 
