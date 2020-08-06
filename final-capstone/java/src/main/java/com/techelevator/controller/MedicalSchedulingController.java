@@ -58,20 +58,20 @@ public class MedicalSchedulingController {
 	}
 	
 	@PreAuthorize("permitAll")
-	@RequestMapping(path = "/offices/{id}", method = RequestMethod.GET)
+	@RequestMapping(path = "/offices/{officeId}", method = RequestMethod.GET)
 	public Office getOfficeById(@PathVariable Long officeId) {
 		return officeDao.getOfficeById(officeId);
 	}
 	
 	@PreAuthorize("permitAll")
-	@RequestMapping(path = "/offices/{id}/reviews", method = RequestMethod.GET)
+	@RequestMapping(path = "/offices/{officeId}/reviews", method = RequestMethod.GET)
 	public List<Review> getReviewsByOffice(@PathVariable Long officeId) {
 		List<Review> reviewList = reviewDao.getReviewsByOffice(officeId);
 		return reviewList;
 	}
 	
 	@PreAuthorize("permitAll")
-	@RequestMapping(path = "/offices/{id}/doctors", method = RequestMethod.GET)
+	@RequestMapping(path = "/offices/{officeId}/doctors", method = RequestMethod.GET)
 	public List<Doctor> getDoctorsByOffice(@PathVariable Long officeId) {
 		return doctorDao.getDoctorsByOffice(officeId);
 	}
@@ -102,7 +102,7 @@ public class MedicalSchedulingController {
 	}
 	
 	@PreAuthorize("hasRole('ADMIN')")
-	@RequestMapping(path = "/offices/{id}/update", method = RequestMethod.PUT)
+	@RequestMapping(path = "/offices/{officeId}/update", method = RequestMethod.PUT)
 	public Office updateOffice(@RequestBody Office office, @PathVariable Long officeId) {
 		return officeDao.updateOffice(office, officeId);
 	}
