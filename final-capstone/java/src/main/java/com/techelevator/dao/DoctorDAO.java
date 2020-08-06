@@ -12,4 +12,6 @@ public interface DoctorDAO {
 	
 	public List<Doctor> getDoctorsByOffice(Long officeId);
 	
+	public Long getDoctorIdByName(String doctorName);
+	
 }
