@@ -63,7 +63,7 @@ public class UserSqlDAO implements UserDAO {
     }
 
     @Override
-    public boolean create(String username, String password, String role) {
+    public int create(String username, String password, String role) {
         boolean userCreated = false;
 
         // create user
@@ -83,7 +83,7 @@ public class UserSqlDAO implements UserDAO {
                 , keyHolder) == 1;
         int newUserId = (int) keyHolder.getKeys().get(id_column);
 
-        return userCreated;
+        return newUserId;
     }
 
     private User mapRowToUser(SqlRowSet rs) {

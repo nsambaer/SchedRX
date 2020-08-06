@@ -17,9 +17,6 @@ public class Patient {
 	
 	public Patient() {};
 	
-	
-
-
 	public Patient(Long patientId, String firstName, String lastName, Long primaryDoctorId, String address,
 			String state, String city, String zipCode, String phone, LocalDate birthdate) {
 		super();
@@ -49,6 +46,19 @@ public class Patient {
 		this.birthdate = birthdate;
 	}
 
+	public Patient(Long patientId, String firstName, String lastName, String address, String state, String city,
+			String zipCode, String phone, LocalDate birthdate) {
+		super();
+		this.patientId = patientId;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.address = address;
+		this.state = state;
+		this.city = city;
+		this.zipCode = zipCode;
+		this.phone = phone;
+		this.birthdate = birthdate;
+	}
 
 	public Long getPatientId() {
 		return patientId;

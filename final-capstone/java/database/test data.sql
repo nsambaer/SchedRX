@@ -77,19 +77,19 @@ VALUES ((SELECT user_id FROM users WHERE username ILIKE 'patientJ'), 'Patient', 
         (SELECT doctor_id FROM doctors WHERE first_name ILIKE 'Doctor' AND last_name ILIKE 'Echo'), '2000-04-12');
 
 INSERT INTO doctor_availability (doctor_id, day_of_week, availability_date, specific_date, start_time, end_time) 
-VALUES ((SELECT doctor_id FROM doctors WHERE first_name ILIKE 'Doctor' AND last_name ILIKE 'Charlie'), 1, null, false, '09:00', '17:00');
+VALUES ((SELECT doctor_id FROM doctors WHERE first_name ILIKE 'Doctor' AND last_name ILIKE 'Charlie'), 'Monday', null, false, '09:00', '17:00');
 INSERT INTO doctor_availability (doctor_id, day_of_week, availability_date, specific_date, start_time, end_time) 
-VALUES ((SELECT doctor_id FROM doctors WHERE first_name ILIKE 'Doctor' AND last_name ILIKE 'Charlie'), 2, null, false, '09:00', '17:00');
+VALUES ((SELECT doctor_id FROM doctors WHERE first_name ILIKE 'Doctor' AND last_name ILIKE 'Charlie'), 'Tuesday', null, false, '09:00', '17:00');
 INSERT INTO doctor_availability (doctor_id, day_of_week, availability_date, specific_date, start_time, end_time) 
-VALUES ((SELECT doctor_id FROM doctors WHERE first_name ILIKE 'Doctor' AND last_name ILIKE 'Charlie'), 3, null, false, '09:00', '12:00');
+VALUES ((SELECT doctor_id FROM doctors WHERE first_name ILIKE 'Doctor' AND last_name ILIKE 'Charlie'), 'Wednesday', null, false, '09:00', '12:00');
 INSERT INTO doctor_availability (doctor_id, day_of_week, availability_date, specific_date, start_time, end_time) 
-VALUES ((SELECT doctor_id FROM doctors WHERE first_name ILIKE 'Doctor' AND last_name ILIKE 'Charlie'), 4, null, false, '09:00', '17:00');
+VALUES ((SELECT doctor_id FROM doctors WHERE first_name ILIKE 'Doctor' AND last_name ILIKE 'Charlie'), 'Thursday', null, false, '09:00', '17:00');
 INSERT INTO doctor_availability (doctor_id, day_of_week, availability_date, specific_date, start_time, end_time) 
-VALUES ((SELECT doctor_id FROM doctors WHERE first_name ILIKE 'Doctor' AND last_name ILIKE 'Charlie'), 5, null, false, '09:00', '17:00');
+VALUES ((SELECT doctor_id FROM doctors WHERE first_name ILIKE 'Doctor' AND last_name ILIKE 'Charlie'), 'Friday', null, false, '09:00', '17:00');
 INSERT INTO doctor_availability (doctor_id, day_of_week, availability_date, specific_date, start_time, end_time) 
-VALUES ((SELECT doctor_id FROM doctors WHERE first_name ILIKE 'Doctor' AND last_name ILIKE 'Charlie'), 6, null, false, null, null);
+VALUES ((SELECT doctor_id FROM doctors WHERE first_name ILIKE 'Doctor' AND last_name ILIKE 'Charlie'), 'Saturday', null, false, null, null);
 INSERT INTO doctor_availability (doctor_id, day_of_week, availability_date, specific_date, start_time, end_time) 
-VALUES ((SELECT doctor_id FROM doctors WHERE first_name ILIKE 'Doctor' AND last_name ILIKE 'Charlie'), 7, null, false, null, null);
+VALUES ((SELECT doctor_id FROM doctors WHERE first_name ILIKE 'Doctor' AND last_name ILIKE 'Charlie'), 'Sunday', null, false, null, null);
 
 INSERT INTO doctor_availability (doctor_id, day_of_week, availability_date, specific_date, start_time, end_time) 
 VALUES ((SELECT doctor_id FROM doctors WHERE first_name ILIKE 'Doctor' AND last_name ILIKE 'Charlie'), null, '2020-08-04', true, null, null);

@@ -13,12 +13,14 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.techelevator.dao.AppointmentDAO;
+import com.techelevator.dao.DoctorAvailabilityDAO;
 import com.techelevator.dao.DoctorDAO;
 import com.techelevator.dao.OfficeDAO;
 import com.techelevator.dao.PatientDAO;
 import com.techelevator.dao.ReviewDAO;
 import com.techelevator.model.Appointment;
 import com.techelevator.model.Doctor;
+import com.techelevator.model.DoctorAvailability;
 import com.techelevator.model.Office;
 import com.techelevator.model.Patient;
 import com.techelevator.model.Review;
@@ -33,15 +35,17 @@ public class MedicalSchedulingController {
 	private OfficeDAO officeDao;
 	private PatientDAO patientDao;
 	private ReviewDAO reviewDao;
+	private DoctorAvailabilityDAO drAvailDao;
 	
 	public MedicalSchedulingController(AppointmentDAO appointmentDao, DoctorDAO doctorDao, OfficeDAO officeDao,
-			PatientDAO patientDao, ReviewDAO reviewDao) {
+			PatientDAO patientDao, ReviewDAO reviewDao, DoctorAvailabilityDAO doctorAvailabilityDao) {
 		super();
 		this.appointmentDao = appointmentDao;
 		this.doctorDao = doctorDao;
 		this.officeDao = officeDao;
 		this.patientDao = patientDao;
 		this.reviewDao = reviewDao;
+		this.drAvailDao = doctorAvailabilityDao;
 		
 	}
 	
@@ -104,12 +108,16 @@ public class MedicalSchedulingController {
 	
 	@PreAuthorize("permitAll()")
 	@ResponseStatus(HttpStatus.CREATED)
-	@RequestMapping(path = "/register", method = RequestMethod.POST)
+	@RequestMapping(path = "/createPatient", method = RequestMethod.POST)
 	public Patient createPatient(@RequestBody Patient patient) {
 		return patientDao.createPatient(patient);
 	}
 	
-	
+	@PreAuthorize("permitAll()")
+	@RequestMapping(path = "/doctor/{doctorId}/availability", method = RequestMethod.GET)
+	public DoctorAvailability createPatient(@PathVariable Long doctorId) {
+		return drAvailDao.getDoctorAvailability(doctorId);
+	}
 	
 
 }

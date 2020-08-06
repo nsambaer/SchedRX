@@ -88,7 +88,7 @@ CONSTRAINT pk_office_hours PRIMARY KEY (office_id, day_of_week)
 CREATE TABLE doctor_availability (
 availability_id SERIAL NOT NULL,
 doctor_id INT NOT NULL,
-day_of_week INT,
+day_of_week VARCHAR(14),
 availability_date DATE,
 specific_date BOOLEAN NOT NULL,
 start_time TIME,

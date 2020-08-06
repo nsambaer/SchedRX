@@ -29,10 +29,12 @@ export default {
   created() {
     medService.listAllOffices().then((response) => {
       this.offices = response.data;
+
       this.offices.forEach( (office) => {
         office.showDetails = true;
       });
       });
+    
   },
   methods:{
     toggleDetails(officeId){
