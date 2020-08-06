@@ -123,6 +123,41 @@ public class MedicalSchedulingController {
 	
 	@PreAuthorize("permitAll()")
 	@ResponseStatus(HttpStatus.CREATED)
+	@RequestMapping(path = "/doctor/{doctorId}/availability/regular", method = RequestMethod.POST)
+	public DoctorAvailability setRegularDoctorAvailability(@RequestBody DoctorAvailability regularAvailability) {
+		return drAvailDao.setRegularAvailability(regularAvailability);
+	}
+	
+	@PreAuthorize("permitAll()")
+	@ResponseStatus(HttpStatus.CREATED)
+	@RequestMapping(path = "/doctor/{doctorId}/availability/specific", method = RequestMethod.POST)
+	public DoctorAvailability setSpecificDoctorAvailability(@RequestBody DoctorAvailability specificAvailability) {
+		return drAvailDao.setSpecificAvailability(specificAvailability);
+	}
+	
+	@PreAuthorize("permitAll()")
+	@ResponseStatus(HttpStatus.ACCEPTED)
+	@RequestMapping(path = "/doctor/{doctorId}/availability/regular", method = RequestMethod.PUT)
+	public DoctorAvailability updateRegularDoctorAvailability(@RequestBody DoctorAvailability regularAvailability) {
+		return drAvailDao.updateRegularAvailability(regularAvailability);
+	}
+	
+	@PreAuthorize("permitAll()")
+	@ResponseStatus(HttpStatus.ACCEPTED)
+	@RequestMapping(path = "/doctor/{doctorId}/availability/specific", method = RequestMethod.PUT)
+	public DoctorAvailability updateSpecificDoctorAvailability(@RequestBody DoctorAvailability specificAvailability) {
+		return drAvailDao.updateSpecificAvailability(specificAvailability);
+	}
+	
+	@PreAuthorize("permitAll()")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@RequestMapping(path = "/doctor/{doctorId}/availability/specific", method = RequestMethod.DELETE)
+	public void deleteSpecificDoctorAvailability(@RequestBody DoctorAvailability specificAvailability) {
+		drAvailDao.deleteSpecificAvailability(specificAvailability);
+	}
+	
+	@PreAuthorize("permitAll()")
+	@ResponseStatus(HttpStatus.CREATED)
 	@RequestMapping(path = "/appointments/schedule", method = RequestMethod.POST)
 	public Appointment createAppointment(@RequestBody Appointment appointment) {
 		return appointmentDao.createAppointment(appointment);

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -41,32 +42,79 @@ public class DoctorAvailabilitySqlDAO implements DoctorAvailabilityDAO {
 
 	@Override
 	public DoctorAvailability setRegularAvailability(DoctorAvailability regularAvailability) {
-		// TODO Auto-generated method stub
-		return null;
+		String SqlInsertAvail = "INSERT INTO doctor_availability (doctor_id, day_of_week, specific_date, start_time, end_time) "
+				+ "VALUES (?, ?, ?, ?, ?)";
+		
+		Set<String> dow = regularAvailability.getRegularOpenHours().keySet();
+		Map<String, LocalTime> startTimes = regularAvailability.getRegularOpenHours();
+		Map<String, LocalTime> closeTimes = regularAvailability.getRegularCloseHours();
+		
+		for (String dayOfWeek : dow) {
+			jdbc.update(SqlInsertAvail, regularAvailability.getDoctorId(), dayOfWeek, false, startTimes.get(dayOfWeek), closeTimes.get(dayOfWeek));
+		}
+		
+		
+		return regularAvailability;
 	}
 
 	@Override
 	public DoctorAvailability setSpecificAvailability(DoctorAvailability specificAvailability) {
-		// TODO Auto-generated method stub
-		return null;
+		String SqlInsertAvail = "INSERT INTO doctor_availability (doctor_id, date_availability, specific_date, start_time, end_time) "
+				+ "VALUES (?, ?, ?, ?, ?)";
+		
+		Set<LocalDate> dates = specificAvailability.getSpecificOpenHours().keySet();
+		Map<LocalDate, LocalTime> startTimes = specificAvailability.getSpecificOpenHours();
+		Map<LocalDate, LocalTime> closeTimes = specificAvailability.getSpecificCloseHours();
+		
+		for (LocalDate date : dates) {
+			jdbc.update(SqlInsertAvail, specificAvailability.getDoctorId(), date, true, startTimes.get(date), closeTimes.get(date));
+		}
+		
+		return specificAvailability;
 	}
 
 	@Override
 	public DoctorAvailability updateRegularAvailability(DoctorAvailability regularAvailability) {
-		// TODO Auto-generated method stub
-		return null;
+		String SqlUpdateAvail = "UPDATE doctor_availability SET start_time = ?, end_time = ? "
+				+ "WHERE doctor_id = ? AND day_of_week = ?";
+		
+		Set<String> dow = regularAvailability.getRegularOpenHours().keySet();
+		Map<String, LocalTime> startTimes = regularAvailability.getRegularOpenHours();
+		Map<String, LocalTime> closeTimes = regularAvailability.getRegularCloseHours();
+		
+		for (String dayOfWeek : dow) {
+			jdbc.update(SqlUpdateAvail, startTimes.get(dayOfWeek), closeTimes.get(dayOfWeek), regularAvailability.getDoctorId(), dayOfWeek);
+		}
+		
+		return regularAvailability;
 	}
 
 	@Override
 	public DoctorAvailability updateSpecificAvailability(DoctorAvailability specificAvailability) {
-		// TODO Auto-generated method stub
-		return null;
+		String SqlUpdateAvail = "UPDATE doctor_availability SET start_time = ?, end_time = ? "
+				+ "WHERE doctor_id = ? AND availability_date = ?";
+		
+		Set<LocalDate> dates = specificAvailability.getSpecificOpenHours().keySet();
+		Map<LocalDate, LocalTime> startTimes = specificAvailability.getSpecificOpenHours();
+		Map<LocalDate, LocalTime> closeTimes = specificAvailability.getSpecificCloseHours();
+		
+		for (LocalDate date : dates) {
+			jdbc.update(SqlUpdateAvail, startTimes.get(date), closeTimes.get(date), specificAvailability.getDoctorId(), date);
+		}
+		
+		return specificAvailability;
 	}
 
 	@Override
 	public void deleteSpecificAvailability(DoctorAvailability specificAvailability) {
-		// TODO Auto-generated method stub
+		String SqlDeleteAvail = "DELETE FROM doctor_availability WHERE doctor_id = ? AND availability_date = ?";
 
+		Set<LocalDate> dates = specificAvailability.getSpecificOpenHours().keySet();
+		
+		for (LocalDate date : dates) {
+			jdbc.update(SqlDeleteAvail, specificAvailability.getDoctorId(), date);
+		}
+		
 	}
 
 	private DoctorAvailability mapRowsToAvailability(Long doctorId, int month, SqlRowSet regularResults,
