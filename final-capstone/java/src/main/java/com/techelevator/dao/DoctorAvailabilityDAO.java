@@ -5,7 +5,7 @@ import com.techelevator.model.DoctorAvailability;
 public interface DoctorAvailabilityDAO {
 
 	
-	public DoctorAvailability getDoctorAvailability(Long doctorId);
+	public DoctorAvailability getDoctorAvailabilityForMonth(Long doctorId, int month, int year);
 	
 	public DoctorAvailability setRegularAvailability(DoctorAvailability regularAvailability);
 	

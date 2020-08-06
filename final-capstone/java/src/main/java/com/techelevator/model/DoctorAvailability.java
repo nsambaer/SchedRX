@@ -2,6 +2,7 @@ package com.techelevator.model;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 import java.util.Map;
 
 public class DoctorAvailability {
@@ -11,6 +12,7 @@ public class DoctorAvailability {
 	private Map<String, LocalTime> regularCloseHours;
 	private Map<LocalDate, LocalTime> specificOpenHours;
 	private Map<LocalDate, LocalTime> specificCloseHours;
+	private Map<LocalDate, List<LocalTime>> availability;
 	
 	public DoctorAvailability() {}
 
@@ -63,6 +65,14 @@ public class DoctorAvailability {
 
 	public void setSpecificCloseHours(Map<LocalDate, LocalTime> specificCloseHours) {
 		this.specificCloseHours = specificCloseHours;
+	}
+
+	public Map<LocalDate, List<LocalTime>> getAvailability() {
+		return availability;
+	}
+
+	public void setAvailability(Map<LocalDate, List<LocalTime>> availability) {
+		this.availability = availability;
 	}
 	
 	

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -115,8 +116,8 @@ public class MedicalSchedulingController {
 	
 	@PreAuthorize("permitAll()")
 	@RequestMapping(path = "/doctor/{doctorId}/availability", method = RequestMethod.GET)
-	public DoctorAvailability createPatient(@PathVariable Long doctorId) {
-		return drAvailDao.getDoctorAvailability(doctorId);
+	public DoctorAvailability listDoctorAvailabilityForMonth(@PathVariable Long doctorId, @RequestParam int month, @RequestParam int year) {
+		return drAvailDao.getDoctorAvailabilityForMonth(doctorId, month, year);
 	}
 	
 

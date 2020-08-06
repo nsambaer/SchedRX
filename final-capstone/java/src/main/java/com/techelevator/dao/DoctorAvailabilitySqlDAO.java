@@ -1,9 +1,12 @@
 package com.techelevator.dao;
 
 import java.sql.Time;
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -14,25 +17,26 @@ import com.techelevator.model.DoctorAvailability;
 
 @Component
 public class DoctorAvailabilitySqlDAO implements DoctorAvailabilityDAO {
-	
+
 	private JdbcTemplate jdbc;
-	
+
 	public DoctorAvailabilitySqlDAO(JdbcTemplate jdbcTemplate) {
 		jdbc = jdbcTemplate;
 	}
 
 	@Override
-	public DoctorAvailability getDoctorAvailability(Long doctorId) {
-		
-		
+	public DoctorAvailability getDoctorAvailabilityForMonth(Long doctorId, int month, int year) {
+
 		String SqlSelectRegular = "SELECT * FROM doctor_availability WHERE doctor_id = ? AND specific_date = false;";
 		String SqlSelectSpecific = "SELECT * FROM doctor_availability WHERE doctor_id = ? AND specific_date = true";
-		
+		String SqlSelectAppointment = "SELECT appt_time FROM appointments WHERE doctor_id = ? AND EXTRACT(MONTH FROM (appt_date)) = ? AND EXTRACT(YEAR FROM (appt_date)) = ?";
+
 		SqlRowSet regularResults = jdbc.queryForRowSet(SqlSelectRegular, doctorId);
 		SqlRowSet specificResults = jdbc.queryForRowSet(SqlSelectSpecific, doctorId);
-		
-		return mapRowsToAvailability(doctorId, regularResults, specificResults);		
-		
+		SqlRowSet appointmentResults = jdbc.queryForRowSet(SqlSelectAppointment, doctorId, month, year);
+
+		return mapRowsToAvailability(doctorId, month, regularResults, specificResults, appointmentResults);
+
 	}
 
 	@Override
@@ -65,77 +69,181 @@ public class DoctorAvailabilitySqlDAO implements DoctorAvailabilityDAO {
 
 	}
 
-	
-	private DoctorAvailability mapRowsToAvailability(Long doctorId, SqlRowSet regularResults, SqlRowSet specificResults) {
+	private DoctorAvailability mapRowsToAvailability(Long doctorId, int month, SqlRowSet regularResults,
+			SqlRowSet specificResults, SqlRowSet appointmentResults) {
 		DoctorAvailability drAvailability = new DoctorAvailability();
-		
+		Map<LocalDate, List<LocalTime>> availability = new HashMap<>();
+		List<LocalDate> dateList = generateDateList(month);
+
+		for (LocalDate date : dateList) {
+			LocalTime regularOpenHour = mapRegularOpenToTime(regularResults, date);
+			LocalTime regularCloseHour = mapRegularCloseToTime(regularResults, date);
+			LocalTime specificOpenHour = mapSpecificOpenToTime(specificResults, date);
+			LocalTime specificCloseHour = mapSpecificCloseToTime(specificResults, date);
+			List<LocalTime> appointments = mapRowsToTimes(appointmentResults, date);
+			if (specificOpenHour == null) {
+				availability.put(date, null);
+			} else if (specificOpenHour.compareTo(LocalTime.MAX) != 0) {// if no specific hours were in the database for
+																		// this
+				// date, this will return false and we use the
+				// regular hours
+				availability.put(date, getLocalTimeList(specificOpenHour, specificCloseHour, appointments));
+			} else {
+				availability.put(date, getLocalTimeList(regularOpenHour, regularCloseHour, appointments));
+			}
+		}
+
 		drAvailability.setDoctorId(doctorId);
-		drAvailability.setRegularOpenHours(mapRegularOpenToMap(regularResults));
-		drAvailability.setRegularCloseHours(mapRegularCloseToMap(regularResults));
-		drAvailability.setSpecificOpenHours(mapSpecificOpenToMap(specificResults));
-		drAvailability.setSpecificCloseHours(mapSpecificCloseToMap(specificResults));
+		drAvailability.setAvailability(availability);
 		return drAvailability;
+
 	}
-	
-	public Map<String, LocalTime>mapRegularOpenToMap(SqlRowSet results) {
-		Map<String, LocalTime> openHours = new HashMap<>();
-		
-		while (results.next()) {
-			Time time = results.getTime("start_time");
-			LocalTime lt = null;
-			if (time != null) {
-				lt = time.toLocalTime();
+
+	// generates a list of dates for the specific month
+	private List<LocalDate> generateDateList(int month) {
+		List<LocalDate> dateList = new ArrayList<>();
+		try {
+			for (int x = 1; x < 32; x++) {
+				dateList.add(LocalDate.of(LocalDate.now().getYear(), month, x));
 			}
-			openHours.put(results.getString("day_of_week"), lt);
+		} catch (DateTimeException e) {
+			// when x gets to an invalid number(ie 30 for February or 31 for a month like
+			// September an exception will be thrown
+			// and this catch block will eat it, leaving us with a list of all valid dates
+			// in the month
 		}
-		
-		return openHours;
+
+		return dateList;
 	}
-	
-	public Map<String, LocalTime>mapRegularCloseToMap(SqlRowSet results) {
-		Map<String, LocalTime> closeHours = new HashMap<>();
+
+	private List<LocalTime> getLocalTimeList(LocalTime openTime, LocalTime closeTime, List<LocalTime> appointments) {
+		List<LocalTime> timeList = new ArrayList<>();
+
+		if (openTime == null) {
+			return null;
+		}
+		int openHour = openTime.getHour();
+		int closeHour = closeTime.getHour();
+
+		for (int x = openHour; x <= closeHour; x++) {
+			LocalTime time = LocalTime.of(x, 0);
+			for (LocalTime appointment : appointments) {
+				if (appointment.compareTo(time) != 0) {
+					timeList.add(time);
+				}
+			}
+		}
+
+		return timeList;
+	}
+
+	public LocalTime mapRegularOpenToTime(SqlRowSet results, LocalDate date) {
+		LocalTime lt = null;
+
 		results.beforeFirst();
+
 		while (results.next()) {
-			Time time = results.getTime("end_time");
-			LocalTime lt = null;
-			if (time != null) {
-				lt = time.toLocalTime();
+			String dayOfWeek = results.getString("day_of_week").toUpperCase();
+			if (dayOfWeek.equals(date.getDayOfWeek().toString())) {
+				Time time = results.getTime("start_time");
+				if (time != null) {
+					lt = time.toLocalTime();
+				}
 			}
-			closeHours.put(results.getString("day_of_week"), lt);
 		}
-		
-		return closeHours;
+
+		return lt;
 	}
-	
-	public Map<LocalDate, LocalTime>mapSpecificOpenToMap(SqlRowSet results) {
-		Map<LocalDate, LocalTime> openHours = new HashMap<>();
-		
-		while (results.next()) {
-			Time time = results.getTime("start_time");
-			LocalTime lt = null;
-			if (time != null) {
-				lt = time.toLocalTime();
-			}
-			openHours.put(results.getDate("availability_date").toLocalDate(), lt);
-		}
-		
-		return openHours;
-	}
-	
-	public Map<LocalDate, LocalTime>mapSpecificCloseToMap(SqlRowSet results) {
-		Map<LocalDate, LocalTime> closeHours = new HashMap<>();
+
+	public LocalTime mapRegularCloseToTime(SqlRowSet results, LocalDate date) {
+		LocalTime lt = null;
+
 		results.beforeFirst();
+
 		while (results.next()) {
-			Time time = results.getTime("end_time");
+			String dayOfWeek = results.getString("day_of_week").toUpperCase();
+			if (dayOfWeek.equals(date.getDayOfWeek().toString())) {
+				Time time = results.getTime("end_time");
+				if (time != null) {
+					lt = time.toLocalTime();
+				}
+			}
+		}
+
+		return lt;
+
+	}
+
+	public LocalTime mapSpecificOpenToTime(SqlRowSet results, LocalDate date) {
+		LocalTime lt = LocalTime.MAX; // this is a placeholder, also used to determine if a specific time exists in
+										// the database.
+		// if no specific time exists in the database for this date then the time
+		// returned is LocalTime.MAX, which is specific and won't be in the database
+
+		results.beforeFirst();
+
+		while (results.next()) {
+			LocalDate resultsDate = results.getDate("availability_date").toLocalDate();
+			if (date.compareTo(resultsDate) == 0) {
+				Time time = results.getTime("start_time");
+				if (time != null) {
+					lt = time.toLocalTime();
+				} else {
+					lt = null;
+				}
+
+			}
+		}
+
+		return lt;
+	}
+
+	public LocalTime mapSpecificCloseToTime(SqlRowSet results, LocalDate date) {
+		LocalTime lt = LocalTime.MAX;
+
+		results.beforeFirst();
+
+		while (results.next()) {
+			LocalDate resultsDate = results.getDate("availability_date").toLocalDate();
+			if (date.compareTo(resultsDate) == 0) {
+				Time time = results.getTime("end_time");
+				if (time != null) {
+					lt = time.toLocalTime();
+				} else {
+					lt = null;
+				}
+
+			}
+		}
+
+		return lt;
+	}
+
+	private List<LocalTime> mapRowsToTimes(SqlRowSet results, LocalDate date) {
+		List<LocalTime> appointments = new ArrayList<>();
+
+		results.beforeFirst();
+
+		while (results.next()) {
 			LocalTime lt = null;
+			Time time = results.getTime("appt_time");
 			if (time != null) {
 				lt = time.toLocalTime();
 			}
-			closeHours.put(results.getDate("availability_date").toLocalDate(), lt);
+			appointments.add(lt);
 		}
-		
-		return closeHours;
+
+		return appointments;
 	}
-	
-	
+
+//	private DoctorAvailability mapRowsToAvailability(Long doctorId, SqlRowSet regularResults, SqlRowSet specificResults) {
+//		DoctorAvailability drAvailability = new DoctorAvailability();
+//		
+//		drAvailability.setDoctorId(doctorId);
+//		drAvailability.setRegularOpenHours(mapRegularOpenToMap(regularResults));
+//		drAvailability.setRegularCloseHours(mapRegularCloseToMap(regularResults));
+//		drAvailability.setSpecificOpenHours(mapSpecificOpenToMap(specificResults));
+//		drAvailability.setSpecificCloseHours(mapSpecificCloseToMap(specificResults));
+//		return drAvailability;
+//	}
 }
