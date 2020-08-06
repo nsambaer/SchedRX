@@ -18,8 +18,7 @@ public interface AppointmentDAO {
 	
 	public List<Appointment> getAppointmentsByDate(LocalDate date);
 	
-	public void createAppointment(Long patientId, Long doctorId, 
-									Long officeId, LocalDate appointmentDate,
-									LocalTime appointmentStartTime, LocalTime appointmentEndTime,
-									String visitReason, String appointmentType);
+	public Appointment createAppointment(Appointment appointment);
+	
+	public Appointment updateAppointment(Appointment appointment, Long appointmentId);
 }

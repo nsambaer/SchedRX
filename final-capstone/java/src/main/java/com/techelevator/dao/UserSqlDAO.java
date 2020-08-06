@@ -85,6 +85,14 @@ public class UserSqlDAO implements UserDAO {
 
         return newUserId;
     }
+    
+    @Override
+    public void updatePassword(String username, String newPassword) {
+    	String sqlUpdatePassword = "update users set password = ? where username = ?";
+    	String passwordHash = new BCryptPasswordEncoder().encode(newPassword);
+    	jdbcTemplate.update(sqlUpdatePassword, passwordHash, username);
+    	
+    }
 
     private User mapRowToUser(SqlRowSet rs) {
         User user = new User();
@@ -95,4 +103,5 @@ public class UserSqlDAO implements UserDAO {
         user.setActivated(true);
         return user;
     }
+
 }

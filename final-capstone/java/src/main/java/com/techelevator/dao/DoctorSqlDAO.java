@@ -25,6 +25,16 @@ public class DoctorSqlDAO implements DoctorDAO {
 		results.next();
 		return mapRowToDoctor(results);
 	}
+	
+	@Override
+	public Long getDoctorIdByName(String doctorName) {
+		String sqlGetDoctor = "SELECT * FROM doctors d INNER JOIN users u ON d.doctor_id = u.user_id "
+							+ "WHERE username = ?";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetDoctor, doctorName);
+		results.next();
+		Long doctorId = results.getLong("doctor_id");
+		return doctorId;
+	}
 
 	@Override
 	public List<Doctor> getAllDoctors() {

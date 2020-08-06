@@ -19,8 +19,8 @@
           <th>
             Cost
           </th>
-          <th> Open </th>
-          <th>Close</th>
+          <th> Hours </th>
+         
         </thead>
         <tbody>
           <tr>
@@ -33,11 +33,30 @@
                {{ office.state }}
             </td>
             <td>{{ office.phoneNumber }}</td>
-            <td> {{ office.cost }}</td>
+            <td> ${{ office.cost }}</td>
             <td>
               <tr>
-                {{office.openHours.Monday}} - {{office.closeHours.Monday}}
+                Monday: {{openHours.Monday}} - {{closedHours.Monday}}
               </tr>
+              <tr>
+                Tuesday: {{openHours.Tuesday}} - {{closedHours.Tuesday}}
+              </tr>
+              <tr>
+                Wednesday: {{openHours.Wednesday}} - {{closedHours.Wednesday}}
+              </tr>
+              <tr>
+                Thursday: {{openHours.Thursday}} - {{closedHours.Thursday}}
+              </tr>
+              <tr>
+                Friday: {{openHours.Friday}} - {{closedHours.Friday}}
+              </tr>
+              <tr>
+                Saturday: {{openHours.Saturday}} - {{closedHours.Saturday}}
+              </tr>
+              <tr>
+                Sunday: {{openHours.Sunday}} - {{closedHours.Sunday}}
+              </tr>
+              
             </td>
             
           </tr>
@@ -66,7 +85,20 @@ props: {
 }
 ,
 created(){
-  this.office.showDetails=false;
+  this.office.showDetails=true;
+},
+computed:{
+  openHours(){
+      let newOpenHours = Object.fromEntries(Object.entries(this.office.openHours).map( ([key,val]) => 
+    [key, val == null ? "Closed": val.substr(0,2)%12]));
+    return newOpenHours;
+  },
+  closedHours(){
+    let newCloseHours = Object.fromEntries(Object.entries(this.office.closeHours).map( ([key,val]) => 
+    [key, val == null ? "Closed": val.substr(0,2)%12]));
+    return newCloseHours;
+    
+  }
 }
 }
 </script>
@@ -75,6 +107,10 @@ created(){
   
 <style>
 
+td {
+  min-width: 100px;
+  text-align: center;
+}
 
 
 </style>

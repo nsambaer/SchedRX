@@ -87,14 +87,26 @@ public class AppointmentSqlDAO implements AppointmentDAO {
 	}
 
 	@Override
-	public void createAppointment(Long patientId, Long doctorId, Long officeId, LocalDate appointmentDate,
-			LocalTime appointmentStartTime, LocalTime appointmentEndTime, String visitReason, String appointmentType) {
+	public Appointment createAppointment(Appointment appointment) {
 		String sqlCreateAppointment = "INSERT INTO appointments "
-				+ "(patient_id, doctor_id, office_id, appt_date, appt_start_time, appt_end_time, visit_reason, appt_type_id) "
-				+ "VALUES(?, ?, ?, ?, ?, ?, ?, (SELECT appointment_types_id FROM appointment_types WHERE appointment_type ILIKE ?)";
-		jdbcTemplate.update(sqlCreateAppointment, patientId, doctorId, officeId, appointmentDate, appointmentStartTime,
-				appointmentEndTime, visitReason, appointmentType);
+				+ "(patient_id, doctor_id, office_id, appt_date, appt_time, visit_reason, appt_type_id) "
+				+ "VALUES(?, ?, ?, ?, ?, ?, (SELECT appointment_types_id FROM appointment_types WHERE appointment_type ILIKE ?)";
+		jdbcTemplate.update(sqlCreateAppointment, appointment.getPatientId(), appointment.getDoctorId(), appointment.getOfficeId(), 
+							appointment.getAppointmentDate(), appointment.getAppointmentTime(),
+							appointment.getVisitReason(), appointment.getAppointmentType());
+		return appointment;
 
+	}
+	
+	@Override
+	public Appointment updateAppointment(Appointment appointment, Long appointmentId) {
+		String sqlUpdateAppointment = "UPDATE appointments SET patient_id = ?, doctor_id = ?, "
+									+ "office_id = ?, appt_date = ?, appt_time = ?, visit_reason = ?, "
+									+ "appt_type_id = (SELECT appointment_types_id FROM appointment_types WHERE appointment_type ILIKE ?) WHERE appointment_id = ?";
+		jdbcTemplate.update(sqlUpdateAppointment, appointment.getPatientId(), appointment.getDoctorId(),
+							appointment.getOfficeId(), appointment.getAppointmentDate(), appointment.getAppointmentTime(),
+							appointment.getVisitReason(), appointmentId);
+		return appointment;
 	}
 
 	private Appointment mapRowToAppointment(SqlRowSet results) {

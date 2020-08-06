@@ -1,10 +1,9 @@
 <template>
   <div>
-    <div v-for="office in offices" v-bind:key="office.officeId" >
-     
+    <div v-for="office in offices" v-bind:key="office.officeId"  >
 
       
-        <office-details v-bind:office="office" />
+        <office-details v-bind:office="office"  />
       
     </div>
   </div>
@@ -30,9 +29,7 @@ export default {
     medService.listAllOffices().then((response) => {
       this.offices = response.data;
 
-      this.offices.forEach( (office) => {
-        office.showDetails = true;
-      });
+     
       });
     
   },

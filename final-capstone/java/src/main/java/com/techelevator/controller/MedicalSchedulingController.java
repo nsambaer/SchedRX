@@ -1,5 +1,6 @@
 package com.techelevator.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -58,40 +59,40 @@ public class MedicalSchedulingController {
 	}
 	
 	@PreAuthorize("permitAll")
-	@RequestMapping(path = "/offices/{id}", method = RequestMethod.GET)
+	@RequestMapping(path = "/offices/{officeId}", method = RequestMethod.GET)
 	public Office getOfficeById(@PathVariable Long officeId) {
 		return officeDao.getOfficeById(officeId);
 	}
 	
 	@PreAuthorize("permitAll")
-	@RequestMapping(path = "/offices/{id}/reviews", method = RequestMethod.GET)
+	@RequestMapping(path = "/offices/{officeId}/reviews", method = RequestMethod.GET)
 	public List<Review> getReviewsByOffice(@PathVariable Long officeId) {
 		List<Review> reviewList = reviewDao.getReviewsByOffice(officeId);
 		return reviewList;
 	}
 	
 	@PreAuthorize("permitAll")
-	@RequestMapping(path = "/offices/{id}/doctors", method = RequestMethod.GET)
+	@RequestMapping(path = "/offices/{officeId}/doctors", method = RequestMethod.GET)
 	public List<Doctor> getDoctorsByOffice(@PathVariable Long officeId) {
 		return doctorDao.getDoctorsByOffice(officeId);
 	}
 	
 	@PreAuthorize("hasAnyRole('DOCTOR', 'ADMIN')")
-	@RequestMapping(path = "/doctors/patients", method = RequestMethod.GET)
-	public List<Patient> getPatientsByDoctor(@RequestBody Doctor doctor) {
-		return patientDao.getPatientsByDoctor(doctor.getDoctorId());
+	@RequestMapping(path = "/doctors/{doctorId}/patients", method = RequestMethod.GET)
+	public List<Patient> getPatientsByDoctor(@PathVariable Long doctorId) {
+		return patientDao.getPatientsByDoctor(doctorId);
 	}
 	
 	@PreAuthorize("hasAnyRole('DOCTOR', 'ADMIN')")
-	@RequestMapping(path = "/doctors/appointments", method = RequestMethod.GET)
-	public List<Appointment> getAppointmentsByDoctor(@RequestBody Doctor doctor) {
-		return appointmentDao.getAppointmentsByDoctor(doctor.getDoctorId());
+	@RequestMapping(path = "/doctors/{doctorId}/appointments", method = RequestMethod.GET)
+	public List<Appointment> getAppointmentsByDoctor(@PathVariable Long doctorId) {
+		return appointmentDao.getAppointmentsByDoctor(doctorId);
 	}
 	
 	@PreAuthorize("hasAnyRole('DOCTOR', 'ADMIN')")
-	@RequestMapping(path = "/patients/appointments", method = RequestMethod.GET)
-	public List<Appointment> getAppointmentsByPatient(@RequestBody Patient patient) {
-		return appointmentDao.getAppointmentsByPatient(patient.getPatientId());
+	@RequestMapping(path = "/patients/{patientId}/appointments", method = RequestMethod.GET)
+	public List<Appointment> getAppointmentsByPatient(@PathVariable Long patientId) {
+		return appointmentDao.getAppointmentsByPatient(patientId);
 	}
 	
 	@PreAuthorize("hasRole('ADMIN')")
@@ -102,7 +103,7 @@ public class MedicalSchedulingController {
 	}
 	
 	@PreAuthorize("hasRole('ADMIN')")
-	@RequestMapping(path = "/offices/{id}/update", method = RequestMethod.PUT)
+	@RequestMapping(path = "/offices/{officeId}/update", method = RequestMethod.PUT)
 	public Office updateOffice(@RequestBody Office office, @PathVariable Long officeId) {
 		return officeDao.updateOffice(office, officeId);
 	}
@@ -118,6 +119,19 @@ public class MedicalSchedulingController {
 	@RequestMapping(path = "/doctor/{doctorId}/availability", method = RequestMethod.GET)
 	public DoctorAvailability listDoctorAvailabilityForMonth(@PathVariable Long doctorId, @RequestParam int month, @RequestParam int year) {
 		return drAvailDao.getDoctorAvailabilityForMonth(doctorId, month, year);
+	}
+	
+	@PreAuthorize("permitAll()")
+	@ResponseStatus(HttpStatus.CREATED)
+	@RequestMapping(path = "/appointments/schedule", method = RequestMethod.POST)
+	public Appointment createAppointment(@RequestBody Appointment appointment) {
+		return appointmentDao.createAppointment(appointment);
+	}
+	
+	@PreAuthorize("hasAnyRole('ADMIN', 'DOCTOR')")
+	@RequestMapping(path = "/appointments/{appointmentId}/update", method = RequestMethod.PUT)
+	public Appointment updateAppointment(@RequestBody Appointment appointment, @PathVariable Long appointmentId) {
+		return appointmentDao.updateAppointment(appointment, appointmentId);
 	}
 	
 
