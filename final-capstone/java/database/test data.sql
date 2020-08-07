@@ -36,25 +36,25 @@ VALUES ((SELECT office_id FROM offices WHERE name ILIKE 'Office Bravo'), 6, null
 INSERT INTO office_hours (office_id, day_of_week, start_time, end_time)
 VALUES ((SELECT office_id FROM offices WHERE name ILIKE 'Office Bravo'), 7, null, null);
 
-/*
+
 INSERT INTO users (username, password_hash, role)
 VALUES ('doctorC', '$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC', 'ROLE_DOCTOR');
 INSERT INTO users (username, password_hash, role)
-VALUES ('doctorD', 'hash', 'doctor');
+VALUES ('doctorD', '$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC', 'ROLE_DOCTOR');
 INSERT INTO users (username, password_hash, role)
-VALUES ('doctorE', 'hash', 'doctor');
+VALUES ('doctorE', '$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC', 'ROLE_DOCTOR');
 INSERT INTO users (username, password_hash, role)
-VALUES ('doctorF', 'hash', 'doctor');
+VALUES ('doctorF', '$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC', 'ROLE_DOCTOR');
 
 INSERT INTO users (username, password_hash, role)
-VALUES ('patientG', 'hash', 'patient');
+VALUES ('patientG', '$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC', 'ROLE_PATIENT');
 INSERT INTO users (username, password_hash, role)
-VALUES ('patientH', 'hash', 'patient');
+VALUES ('patientH', '$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC', 'ROLE_PATIENT');
 INSERT INTO users (username, password_hash, role)
-VALUES ('patientI', 'hash', 'patient');
+VALUES ('patientI', '$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC', 'ROLE_PATIENT');
 INSERT INTO users (username, password_hash, role)
-VALUES ('patientJ', 'hash', 'patient');
-*/
+VALUES ('patientJ', '$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC', 'ROLE_PATIENT');
+
 
 INSERT INTO doctors (doctor_id, first_name, last_name, office_id)
 VALUES ((SELECT user_id FROM users WHERE username ILIKE 'doctorC'), 'Doctor', 'Charlie', (SELECT office_id FROM offices WHERE name ILIKE 'Office Alpha'));
