@@ -18,10 +18,62 @@
       <div class="set-availability">
         <form v-on:submit="addAvailability()">
         <input type="date" v-model="availabilityDate" />
-        <input type="select" v-model="availabilityOpenTime" />
+       <select v-model="availabilityOpenTime">
+          <option value="00:00:00">0:00</option>
+          <option value="01:00:00">1:00</option>
+          <option value="02:00:00">2:00</option>
+          <option value="03:00:00">3:00</option>
+          <option value="04:00:00">4:00</option>
+          <option value="05:00:00">5:00</option>
+          <option value="06:00:00">6:00</option>
+          <option value="07:00:00">7:00</option>
+          <option value="08:00:00">8:00</option>
+          <option value="09:00:00">9:00</option>
+          <option value="10:00:00">10:00</option>
+          <option value="11:00:00">11:00</option>
+          <option value="12:00:00">12:00</option>
+          <option value="13:00:00">13:00</option>
+          <option value="14:00:00">14:00</option>
+          <option value="15:00:00">15:00</option>
+          <option value="16:00:00">16:00</option>
+          <option value="17:00:00">17:00</option>
+          <option value="18:00:00">18:00</option>
+          <option value="19:00:00">19:00</option>
+          <option value="20:00:00">20:00</option>
+          <option value="21:00:00">21:00</option>
+          <option value="22:00:00">22:00</option>
+          <option value="23:00:00">23:00</option>
+          <option value="24:00:00">24:00</option>
+
+
+        </select>
 
         <select v-model="availabilityCloseTime">
           <option value="00:00:00">0:00</option>
+          <option value="01:00:00">1:00</option>
+          <option value="02:00:00">2:00</option>
+          <option value="03:00:00">3:00</option>
+          <option value="04:00:00">4:00</option>
+          <option value="05:00:00">5:00</option>
+          <option value="06:00:00">6:00</option>
+          <option value="07:00:00">7:00</option>
+          <option value="08:00:00">8:00</option>
+          <option value="09:00:00">9:00</option>
+          <option value="10:00:00">10:00</option>
+          <option value="11:00:00">11:00</option>
+          <option value="12:00:00">12:00</option>
+          <option value="13:00:00">13:00</option>
+          <option value="14:00:00">14:00</option>
+          <option value="15:00:00">15:00</option>
+          <option value="16:00:00">16:00</option>
+          <option value="17:00:00">17:00</option>
+          <option value="18:00:00">18:00</option>
+          <option value="19:00:00">19:00</option>
+          <option value="20:00:00">20:00</option>
+          <option value="21:00:00">21:00</option>
+          <option value="22:00:00">22:00</option>
+          <option value="23:00:00">23:00</option>
+          <option value="24:00:00">24:00</option>
         </select>
         <button type="submit">Update Selected Availability </button>
         </form>
@@ -32,11 +84,13 @@
 </template>
 
 <script>
-
+ import doctorService from "../services/DoctorService.js";
 
 export default {
+
+ 
   name: "doctor-availability",
-   props:['availability'],
+  
   data(){
     return{
       availabilityDate:"",
@@ -53,10 +107,14 @@ export default {
         }
       },
       activeClass: 'is-visible',
-      active: null
+      active: null,
+      availability:[]
 
       
     }
+  },
+  created(){
+    this.updateAvailability(8,2020);
   },
     methods:{
     showDetails(date){
@@ -74,13 +132,38 @@ export default {
     },
     blockDate(date){
       window.alert(`you have blocked the ${date}`)
+    },
+
+    updateAvailability(month, year){
+      doctorService.getAvailability(this.$store.state.user.id, month, year).then(
+      response => {
+       
+          this.availability = response.data;
+        
+      }
+    )
+
     }
 
 
+
+  },
+  watch:{
+    availabilityMonth: function(newMonth){
+      this.updateAvailability(newMonth,this.availabilityYear)
+    }
+    
   },
 
   computed:{
+      availabilityMonth(){
+        return this.availabilityDate.substr(5,2);
+      },
+      availabilityYear(){
+        return this.availabilityDate.substr(0,4);
+      }
 
+      
   }
  
 

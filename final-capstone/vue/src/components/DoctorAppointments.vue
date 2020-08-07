@@ -12,15 +12,26 @@
 </template>
 
 <script>
+
+import doctorService from "../services/DoctorService.js";
 export default {
     name: "doctor-appointments",
 
     data(){
         return{
-
+            appointments:[]
         }
     },
-    props:['appointments']
+    created(){
+        doctorService.getAppointments(this.$store.state.user.id).then(
+      response => {
+        if(response.status == 200){
+          this.appointments = response.data;
+        }
+      }
+    );
+    }
+    
 
 }
 </script>
