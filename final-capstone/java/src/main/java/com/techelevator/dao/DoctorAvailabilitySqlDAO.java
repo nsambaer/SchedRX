@@ -30,7 +30,7 @@ public class DoctorAvailabilitySqlDAO implements DoctorAvailabilityDAO {
 
 		String SqlSelectRegular = "SELECT * FROM doctor_availability WHERE doctor_id = ? AND specific_date = false;";
 		String SqlSelectSpecific = "SELECT * FROM doctor_availability WHERE doctor_id = ? AND specific_date = true";
-		String SqlSelectAppointment = "SELECT appt_time FROM appointments WHERE doctor_id = ? AND EXTRACT(MONTH FROM (appt_date)) = ? AND EXTRACT(YEAR FROM (appt_date)) = ?";
+		String SqlSelectAppointment = "SELECT appt_time, appt_date FROM appointments WHERE doctor_id = ? AND EXTRACT(MONTH FROM (appt_date)) = ? AND EXTRACT(YEAR FROM (appt_date)) = ?";
 
 		SqlRowSet regularResults = jdbc.queryForRowSet(SqlSelectRegular, doctorId);
 		SqlRowSet specificResults = jdbc.queryForRowSet(SqlSelectSpecific, doctorId);
@@ -44,16 +44,16 @@ public class DoctorAvailabilitySqlDAO implements DoctorAvailabilityDAO {
 	public DoctorAvailability setRegularAvailability(DoctorAvailability regularAvailability) {
 		String SqlInsertAvail = "INSERT INTO doctor_availability (doctor_id, day_of_week, specific_date, start_time, end_time) "
 				+ "VALUES (?, ?, ?, ?, ?)";
-		
+
 		Set<String> dow = regularAvailability.getRegularOpenHours().keySet();
 		Map<String, LocalTime> startTimes = regularAvailability.getRegularOpenHours();
 		Map<String, LocalTime> closeTimes = regularAvailability.getRegularCloseHours();
-		
+
 		for (String dayOfWeek : dow) {
-			jdbc.update(SqlInsertAvail, regularAvailability.getDoctorId(), dayOfWeek, false, startTimes.get(dayOfWeek), closeTimes.get(dayOfWeek));
+			jdbc.update(SqlInsertAvail, regularAvailability.getDoctorId(), dayOfWeek, false, startTimes.get(dayOfWeek),
+					closeTimes.get(dayOfWeek));
 		}
-		
-		
+
 		return regularAvailability;
 	}
 
@@ -61,15 +61,16 @@ public class DoctorAvailabilitySqlDAO implements DoctorAvailabilityDAO {
 	public DoctorAvailability setSpecificAvailability(DoctorAvailability specificAvailability) {
 		String SqlInsertAvail = "INSERT INTO doctor_availability (doctor_id, date_availability, specific_date, start_time, end_time) "
 				+ "VALUES (?, ?, ?, ?, ?)";
-		
+
 		Set<LocalDate> dates = specificAvailability.getSpecificOpenHours().keySet();
 		Map<LocalDate, LocalTime> startTimes = specificAvailability.getSpecificOpenHours();
 		Map<LocalDate, LocalTime> closeTimes = specificAvailability.getSpecificCloseHours();
-		
+
 		for (LocalDate date : dates) {
-			jdbc.update(SqlInsertAvail, specificAvailability.getDoctorId(), date, true, startTimes.get(date), closeTimes.get(date));
+			jdbc.update(SqlInsertAvail, specificAvailability.getDoctorId(), date, true, startTimes.get(date),
+					closeTimes.get(date));
 		}
-		
+
 		return specificAvailability;
 	}
 
@@ -77,15 +78,16 @@ public class DoctorAvailabilitySqlDAO implements DoctorAvailabilityDAO {
 	public DoctorAvailability updateRegularAvailability(DoctorAvailability regularAvailability) {
 		String SqlUpdateAvail = "UPDATE doctor_availability SET start_time = ?, end_time = ? "
 				+ "WHERE doctor_id = ? AND day_of_week = ?";
-		
+
 		Set<String> dow = regularAvailability.getRegularOpenHours().keySet();
 		Map<String, LocalTime> startTimes = regularAvailability.getRegularOpenHours();
 		Map<String, LocalTime> closeTimes = regularAvailability.getRegularCloseHours();
-		
+
 		for (String dayOfWeek : dow) {
-			jdbc.update(SqlUpdateAvail, startTimes.get(dayOfWeek), closeTimes.get(dayOfWeek), regularAvailability.getDoctorId(), dayOfWeek);
+			jdbc.update(SqlUpdateAvail, startTimes.get(dayOfWeek), closeTimes.get(dayOfWeek),
+					regularAvailability.getDoctorId(), dayOfWeek);
 		}
-		
+
 		return regularAvailability;
 	}
 
@@ -93,15 +95,16 @@ public class DoctorAvailabilitySqlDAO implements DoctorAvailabilityDAO {
 	public DoctorAvailability updateSpecificAvailability(DoctorAvailability specificAvailability) {
 		String SqlUpdateAvail = "UPDATE doctor_availability SET start_time = ?, end_time = ? "
 				+ "WHERE doctor_id = ? AND availability_date = ?";
-		
+
 		Set<LocalDate> dates = specificAvailability.getSpecificOpenHours().keySet();
 		Map<LocalDate, LocalTime> startTimes = specificAvailability.getSpecificOpenHours();
 		Map<LocalDate, LocalTime> closeTimes = specificAvailability.getSpecificCloseHours();
-		
+
 		for (LocalDate date : dates) {
-			jdbc.update(SqlUpdateAvail, startTimes.get(date), closeTimes.get(date), specificAvailability.getDoctorId(), date);
+			jdbc.update(SqlUpdateAvail, startTimes.get(date), closeTimes.get(date), specificAvailability.getDoctorId(),
+					date);
 		}
-		
+
 		return specificAvailability;
 	}
 
@@ -110,11 +113,11 @@ public class DoctorAvailabilitySqlDAO implements DoctorAvailabilityDAO {
 		String SqlDeleteAvail = "DELETE FROM doctor_availability WHERE doctor_id = ? AND availability_date = ?";
 
 		Set<LocalDate> dates = specificAvailability.getSpecificOpenHours().keySet();
-		
+
 		for (LocalDate date : dates) {
 			jdbc.update(SqlDeleteAvail, specificAvailability.getDoctorId(), date);
 		}
-		
+
 	}
 
 	private DoctorAvailability mapRowsToAvailability(Long doctorId, int month, SqlRowSet regularResults,
@@ -128,7 +131,7 @@ public class DoctorAvailabilitySqlDAO implements DoctorAvailabilityDAO {
 			LocalTime regularCloseHour = mapRegularCloseToTime(regularResults, date);
 			LocalTime specificOpenHour = mapSpecificOpenToTime(specificResults, date);
 			LocalTime specificCloseHour = mapSpecificCloseToTime(specificResults, date);
-			List<LocalTime> appointments = mapRowsToTimes(appointmentResults, date);
+			List<LocalTime> appointments = mapRowsToAppts(appointmentResults, date);
 			if (specificOpenHour == null) {
 				availability.put(date, null);
 			} else if (specificOpenHour.compareTo(LocalTime.MAX) != 0) {// if no specific hours were in the database for
@@ -174,11 +177,15 @@ public class DoctorAvailabilitySqlDAO implements DoctorAvailabilityDAO {
 		int closeHour = closeTime.getHour();
 
 		for (int x = openHour; x <= closeHour; x++) {
+			boolean conflict = false;
 			LocalTime time = LocalTime.of(x, 0);
 			for (LocalTime appointment : appointments) {
-				if (appointment.compareTo(time) != 0) {
-					timeList.add(time);
+				if (appointment.compareTo(time) == 0) {
+					conflict = true;
 				}
+			}
+			if (!conflict) {
+				timeList.add(time);
 			}
 		}
 
@@ -267,18 +274,17 @@ public class DoctorAvailabilitySqlDAO implements DoctorAvailabilityDAO {
 		return lt;
 	}
 
-	private List<LocalTime> mapRowsToTimes(SqlRowSet results, LocalDate date) {
+	private List<LocalTime> mapRowsToAppts(SqlRowSet results, LocalDate date) {
 		List<LocalTime> appointments = new ArrayList<>();
 
 		results.beforeFirst();
 
 		while (results.next()) {
-			LocalTime lt = null;
-			Time time = results.getTime("appt_time");
-			if (time != null) {
-				lt = time.toLocalTime();
+			LocalDate resultsDate = results.getDate("appt_date").toLocalDate();
+			if (date.compareTo(resultsDate) == 0) {
+				LocalTime lt = results.getTime("appt_time").toLocalTime();
+				appointments.add(lt);
 			}
-			appointments.add(lt);
 		}
 
 		return appointments;
