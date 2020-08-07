@@ -11,9 +11,7 @@ const http = axios.create({
       return http.post('/createPatient', patient)
     },
 
-    // updatePatient(patient) {
-    //   return http.put(`/login/${}`);
-    // },
+  
 
     listAllOffices() {
         return http.get('/offices');
