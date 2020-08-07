@@ -6,7 +6,7 @@
       <login></login>
     </div>
     <div v-show="loggedIn">
-      <router-link :to="{name: 'redirect'}">User page</router-link>
+      <router-link :to="{name: 'redirect'}" tag="button">User page</router-link>
     </div>
     <p></p>
     <office-list></office-list>
