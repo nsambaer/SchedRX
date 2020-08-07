@@ -23,7 +23,9 @@ export default new Vuex.Store({
     token: currentToken || '',
     user: currentUser || {},
     userRole: currentRole || '',
-    patient: currentPatient || {}
+    patient: currentPatient || {},
+    patientAppointments: []
+
   },
   mutations: {
     SET_AUTH_TOKEN(state, token) {
@@ -46,16 +48,21 @@ export default new Vuex.Store({
       localStorage.setItem('patient',JSON.stringify(patient));
     },
 
+    SET_PATIENT_APPOINTMENTS(state,patientAppointments) {
+      state.patientAppointments = patientAppointments;
+    },
 
     LOGOUT(state) {
       localStorage.removeItem('token');
       localStorage.removeItem('user');
       localStorage.removeItem('role');
+      localStorage.removeItem('patient');
       state.token = '';
       state.user = {};
       state.userRole = '';
       axios.defaults.headers.common = {};
       state.patient = {};
+      state.patientAppointment = '';
     }
   }
 })
