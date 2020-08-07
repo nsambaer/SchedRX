@@ -2,7 +2,7 @@
   <div class="patient-view-container">
     <div class="patient-upcoming-appointments">
       <h1>Patient upcoming appointments component will be</h1>
-      <patient-appointments v-bind:appointments="appointments" />
+      <patient-appointments />
     </div>
     <div class="book-appointments">
       <h1>Patients book appointments based on availability</h1>
@@ -28,24 +28,10 @@ export default {
   },
   data() {
     return {
-      appointments: [],
+
     };
   },
   created() {
-    patientService
-      .getAppointments(this.$store.state.user.id)
-      .then((response) => {
-        if (response.status == 200) {
-          this.appointments = response.data;
-        }
-      })
-      .catch((error) => {
-        const response = error.response;
-        this.errors = true;
-        if (response.status === 400) {
-          this.errorMsg = "Bad Request: Validation Errors";
-        }
-      });
 
     patientService
       .getPatient(this.$store.state.user.id)
