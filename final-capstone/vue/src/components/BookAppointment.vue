@@ -5,6 +5,8 @@
         </div>
 
         <div v-show="primaryDoctor">
+
+
         <form>
             <label for="date-selector" >Choose a date: </label>
             <input id="date-selector" type="date" /> <br>
@@ -19,8 +21,10 @@
 </template>
 
 <script>
+
 export default {
     name: 'book-appointment',
+
 
     data() {
         return {
