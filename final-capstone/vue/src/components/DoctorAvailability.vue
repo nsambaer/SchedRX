@@ -18,8 +18,11 @@
       <div class="set-availability">
         <form v-on:submit="addAvailability()">
         <input type="date" v-model="availabilityDate" />
-        <input type="time" v-model="availabilityOpenTime" />
-        <input type="time" step="3600" v-model="availabilityCloseTime" />
+        <input type="select" v-model="availabilityOpenTime" />
+
+        <select v-model="availabilityCloseTime">
+          <option value="00:00:00">0:00</option>
+        </select>
         <button type="submit">Update Selected Availability </button>
         </form>
       </div>

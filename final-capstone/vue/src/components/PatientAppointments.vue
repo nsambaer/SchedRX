@@ -21,6 +21,15 @@ export default {
         }
     },
 
+computed: {
+    primaryDoctor() {
+        if (typeof this.primaryDoctorId === 'undefined') {
+            return false;
+        } else {
+            return true;
+        }
+    }
+}
 
 }
 
