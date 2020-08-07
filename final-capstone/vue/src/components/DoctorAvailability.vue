@@ -6,8 +6,9 @@
           <button v-on:click="showDetails(date)" >{{date}} </button>
         <ul>
           <div class="details" :class="date == active ? activeClass : 'hidden'">
+            <button v-on:click="blockDate(date)">Block Entire Day </button>
            <li v-for="time in times" v-bind:key="time" >
-            <button class="time-button" v-on:click="bookTime(time,date)">{{time}}</button>
+            <button class="time-button" v-on:click="blockTime(time,date)">{{time}}</button>
           </li>
           </div>
         </ul>
@@ -24,8 +25,16 @@ export default {
    props:['availability'],
   data(){
     return{
+
+      newAvailability: {
+        doctorId: this.$store.state.user.id,
+        specificOpenHours: "",
+        specificCloseHours: ""
+      },
       activeClass: 'is-visible',
       active: null
+
+      
     }
   },
     methods:{
@@ -34,8 +43,11 @@ export default {
     
     },
 
-    bookTime(time,date){
+    blockTime(time,date){
       window.alert(`you booked an appt at ${time} on ${date}`)
+    },
+    blockDate(date){
+      window.alert(`you have blocked the ${date}`)
     }
   }
  
