@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import Logout from '../views/Logout.vue'
 import Register from '../views/Register.vue'
 import store from '../store/index'
+import Redirect from '@/views/Redirect'
 
 Vue.use(Router)
 
@@ -82,6 +83,11 @@ const router = new Router({
           return import ('../views/Redirect.vue');
         }
       }
+    },
+    {
+      path: "/redirect",
+      name: "redirect",
+      component: Redirect
     }
   ]
 })

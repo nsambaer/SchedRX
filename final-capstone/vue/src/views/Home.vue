@@ -1,10 +1,15 @@
 <template>
   <div class="home">
     <h1>Home</h1>
-    <router-link :to="{name:'register'}">register</router-link>
-<login></login>
-<p></p>
-<office-list></office-list>
+    <div class="login-register" v-show="!loggedIn">
+      <router-link :to="{name:'register'}">register</router-link>
+      <login></login>
+    </div>
+    <div v-show="loggedIn">
+      <router-link :to="{name: 'redirect'}">User page</router-link>
+    </div>
+    <p></p>
+    <office-list></office-list>
   </div>
 </template> 
 
@@ -20,7 +25,13 @@ export default {
   },
 
   computed: {
-    
+    loggedIn() {
+      if (this.$store.state.token === '') {
+        return false;
+      } else {
+      return true;
+      }
+    }
   }
 
 };
