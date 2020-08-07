@@ -13,6 +13,15 @@ import login from '@/components/Login';
 import officeList from '@/components/OfficeList';
 export default {
   name: "home",
-  components: {login, officeList},
+
+  components: {
+    login, 
+    officeList
+  },
+
+  computed: {
+    
+  }
+
 };
 </script>

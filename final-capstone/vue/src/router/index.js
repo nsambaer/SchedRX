@@ -51,7 +51,7 @@ const router = new Router({
       if (store.state.userRole === "ROLE_PATIENT") {
       return import('../views/Patient.vue');
       } else {
-        return import('../views/Home.vue');
+        return import('../views/Redirect.vue');
       }
     },
     meta: {
@@ -65,7 +65,7 @@ const router = new Router({
         if (store.state.userRole === "ROLE_DOCTOR") {
           return import('../views/Doctor.vue');
         } else {
-          return import('../views/Home.vue');
+          return import('../views/Redirect.vue');
         }
       },
       meta: {
@@ -79,7 +79,7 @@ const router = new Router({
         if (store.state.userRole === "ROLE_ADMIN") {
           return import('../views/Admin.vue');
         } else {
-          return import ('../views/Home.vue');
+          return import ('../views/Redirect.vue');
         }
       }
     }
