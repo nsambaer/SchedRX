@@ -12,7 +12,9 @@ const http = axios.create({
     },
 
     getPatient(patientId) {
-      return http.get(`/patients/${patientId}`);
+      return http.get(`/patients/${patientId}/appointments`);
     }
+
+
 
   }
