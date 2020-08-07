@@ -2,13 +2,16 @@
 <div class = "patient-view-container">
     <div class = "patient-upcoming-appointments">
       <h1> Patient upcoming appointments component will be </h1>
-    
     <patient-appointments v-bind:appointments="appointments" />
     </div>
-    <div class="patient-notifications">
+    <div class = "book-appointments">
+      <h1> Patients book appointments based on availability </h1>
+      <book-appointment/>
+    </div>
+    <div class = "patient-notifications">
       <h1> Patient notifications including updated appointments and prescriptions </h1>
     </div>
-    <div class="placeholder">
+    <div class="patient-reviews">
     </div>
   </div>
   
@@ -18,11 +21,14 @@
 
 import patientService from "../services/PatientService.js";
 import PatientAppointments from "../components/PatientAppointments.vue"
+import BookAppointment from "../components/BookAppointment.vue"
+
 export default {
 
 name:"patient",
   components:{
-    PatientAppointments
+    PatientAppointments,
+    BookAppointment
   },
   data(){
     return{
@@ -48,23 +54,33 @@ name:"patient",
   display:grid;
   grid-template-columns: 2fr 1fr ;
   grid-template-areas: 
-  "notifications notifications"
-  "schedule schedule"
-  "schedule schedule";
+  "book notifications"
+  "schedule update-availability"
+  "reviews reviews";
+
+}
+
+.book-appointments{
+  grid-area:"book";
+  background-color: rgb(178, 236, 255);
 }
 
 .patient-upcoming-appointments{
-grid-area:"schedule";
-background-color: rgb(151, 161, 161);
-height: 400px;
+  grid-area:"schedule";
+  background-color: rgb(178, 236, 255);
+  height: 400px;
 }
 
 
 .patient-notifications{
-grid-area:"notifications";
-background-color: rgb(151, 161, 161);
+    grid-area:"notifications";
+  background-color: rgb(178, 236, 255);
 }
 
+.patient-reviews{
+  grid-area:"reviews";
+  background-color:  rgb(178, 236, 255);
+}
 
 
 </style>
