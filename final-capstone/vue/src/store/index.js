@@ -52,6 +52,10 @@ export default new Vuex.Store({
       state.patientAppointments = patientAppointments;
     },
 
+    NEW_PRIMARY_DOCTOR(state, doctorId) {
+      state.patient.primaryDoctorId = doctorId;
+    },
+
     LOGOUT(state) {
       localStorage.removeItem('token');
       localStorage.removeItem('user');

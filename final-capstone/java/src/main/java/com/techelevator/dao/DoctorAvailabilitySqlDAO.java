@@ -36,7 +36,7 @@ public class DoctorAvailabilitySqlDAO implements DoctorAvailabilityDAO {
 		SqlRowSet specificResults = jdbc.queryForRowSet(SqlSelectSpecific, doctorId);
 		SqlRowSet appointmentResults = jdbc.queryForRowSet(SqlSelectAppointment, doctorId, month, year);
 
-		return mapRowsToAvailability(doctorId, month, regularResults, specificResults, appointmentResults);
+		return mapRowsToAvailability(doctorId, month, year, regularResults, specificResults, appointmentResults);
 
 	}
 
@@ -120,11 +120,11 @@ public class DoctorAvailabilitySqlDAO implements DoctorAvailabilityDAO {
 
 	}
 
-	private DoctorAvailability mapRowsToAvailability(Long doctorId, int month, SqlRowSet regularResults,
+	private DoctorAvailability mapRowsToAvailability(Long doctorId, int month, int year, SqlRowSet regularResults,
 			SqlRowSet specificResults, SqlRowSet appointmentResults) {
 		DoctorAvailability drAvailability = new DoctorAvailability();
 		Map<LocalDate, List<LocalTime>> availability = new HashMap<>();
-		List<LocalDate> dateList = generateDateList(month);
+		List<LocalDate> dateList = generateDateList(month, year);
 
 		for (LocalDate date : dateList) {
 			LocalTime regularOpenHour = mapRegularOpenToTime(regularResults, date);
@@ -151,11 +151,11 @@ public class DoctorAvailabilitySqlDAO implements DoctorAvailabilityDAO {
 	}
 
 	// generates a list of dates for the specific month
-	private List<LocalDate> generateDateList(int month) {
+	private List<LocalDate> generateDateList(int month, int year) {
 		List<LocalDate> dateList = new ArrayList<>();
 		try {
 			for (int x = 1; x < 32; x++) {
-				dateList.add(LocalDate.of(LocalDate.now().getYear(), month, x));
+				dateList.add(LocalDate.of(year, month, x));
 			}
 		} catch (DateTimeException e) {
 			// when x gets to an invalid number(ie 30 for February or 31 for a month like

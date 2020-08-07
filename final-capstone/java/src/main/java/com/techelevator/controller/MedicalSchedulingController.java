@@ -80,6 +80,7 @@ public class MedicalSchedulingController {
 	}
 
 	@PreAuthorize("hasRole('ADMIN')")
+	@ResponseStatus(HttpStatus.ACCEPTED)
 	@RequestMapping(path = "/offices/{officeId}", method = RequestMethod.PUT)
 	public Office updateOffice(@RequestBody Office office, @PathVariable Long officeId) {
 		return officeDao.updateOffice(office, officeId);
@@ -92,6 +93,12 @@ public class MedicalSchedulingController {
 	@RequestMapping(path = "/patients/{patientId}", method = RequestMethod.GET)
 	public Patient getPatientById(@PathVariable Long patientId) {
 		return patientDao.getPatientById(patientId);
+	}
+	
+	@PreAuthorize("hasRole('PATIENT')")
+	@RequestMapping(path = "/patients/{patientId}", method = RequestMethod.PUT)
+	public Patient updatePatient(@RequestBody Patient patient) {
+		return patientDao.updatePatient(patient);
 	}
 	
 	@PreAuthorize("permitAll()")
@@ -116,6 +123,12 @@ public class MedicalSchedulingController {
 	
 	
 	//DOCTOR METHODS
+	
+	@PreAuthorize("hasAnyRole('PATIENT')")
+	@RequestMapping(path = "/doctors", method = RequestMethod.GET)
+	public List<Doctor> listDoctors() {
+		return doctorDao.getAllDoctors();
+	}
 	
 	@PreAuthorize("hasAnyRole('DOCTOR')")
 	@RequestMapping(path = "/doctors/{doctorId}/appointments", method = RequestMethod.GET)
