@@ -55,6 +55,7 @@ export default new Vuex.Store({
       state.user = {};
       state.userRole = '';
       axios.defaults.headers.common = {};
+      state.patient = {};
     }
   }
 })
