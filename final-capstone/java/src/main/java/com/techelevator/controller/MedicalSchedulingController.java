@@ -77,6 +77,12 @@ public class MedicalSchedulingController {
 		return doctorDao.getDoctorsByOffice(officeId);
 	}
 	
+	@PreAuthorize("hasRole('PATIENT')")
+	@RequestMapping(path = "/patients/{patientId}", method = RequestMethod.GET)
+	public Patient getPatientById(@PathVariable Long patientId) {
+		return patientDao.getPatientById(patientId);
+	}
+	
 	@PreAuthorize("hasAnyRole('DOCTOR', 'ADMIN')")
 	@RequestMapping(path = "/doctors/{doctorId}/patients", method = RequestMethod.GET)
 	public List<Patient> getPatientsByDoctor(@PathVariable Long doctorId) {

@@ -7,14 +7,12 @@ const http = axios.create({
 
   export default {
 
-    getAppointments(patientId){
-        return http.get(`/doctors/${patientId}/appointments`);
+    getAvailability(doctorId, month, year){
+        return http.get(`/doctor/${doctorId}/availability`, {params: {month: month, year: year}} );
     },
 
-    getAvailability(patientId, month, year){
-        return http.get(`/patient/${patientId}/availability`, {params: {month: month, year: year}} );
+    getPatient(patientId) {
+      return http.get(`/patients/${patientId}`);
     }
-
-
 
   }
