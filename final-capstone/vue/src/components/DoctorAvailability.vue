@@ -1,8 +1,8 @@
 <template>
   <div class = "doctor-availability-container">
-    <ul>
+    <div class="doctor-availability">
       <div v-for="(times, date) in availability.availability" v-bind:key = "date">
-      <li  v-if="times != null">
+        <div class = "availiability-date" v-if="times != null">
           <button v-on:click="showDetails(date)" >{{date}} </button>
         <ul>
           <div class="details" :class="date == active ? activeClass : 'hidden'">
@@ -12,24 +12,42 @@
           </li>
           </div>
         </ul>
-      </li>
+        </div>
+      </div>
+      </div>
+      <div class="set-availability">
+        <form v-on:submit="addAvailability()">
+        <input type="date" v-model="availabilityDate" />
+        <input type="time" v-model="availabilityOpenTime" />
+        <input type="time" step="3600" v-model="availabilityCloseTime" />
+        <button type="submit">Update Selected Availability </button>
+        </form>
       </div>
   
-    </ul>
+    
 </div>
 </template>
 
 <script>
+
+
 export default {
   name: "doctor-availability",
    props:['availability'],
   data(){
     return{
+      availabilityDate:"",
+      availabilityOpenTime:"",
+      availabilityCloseTime:"",
 
       newAvailability: {
         doctorId: this.$store.state.user.id,
-        specificOpenHours: "",
-        specificCloseHours: ""
+        specificOpenHours: {
+          "":""
+        },
+        specificCloseHours: {
+          "":""
+        }
       },
       activeClass: 'is-visible',
       active: null
@@ -39,7 +57,12 @@ export default {
   },
     methods:{
     showDetails(date){
-      this.active = date;
+      if(this.active == date){
+        this.active = null;
+      } else{
+        this.active = date;
+      }
+      
     
     },
 
@@ -49,6 +72,12 @@ export default {
     blockDate(date){
       window.alert(`you have blocked the ${date}`)
     }
+
+
+  },
+
+  computed:{
+
   }
  
 
@@ -60,6 +89,10 @@ export default {
 <style>
 .is-visible{
   display:show;
+}
+
+.doctor-availability-container{
+  display: flex;
 }
 
 .hidden{
