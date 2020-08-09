@@ -4,8 +4,10 @@
       <p
         v-show="!primaryDoctor"
       >You have not chose a primary care physician. To book an appointment, please choose a primary physician</p>
-      <form v-on:submit="newPrimaryDoctor">
-        <label for="primary_doctor-selector">To set or change your primary doctor, please select a doctor: </label>
+      <form v-on:submit.prevent="newPrimaryDoctor">
+        <label
+          for="primary_doctor-selector"
+        >To set or change your primary doctor, please select a doctor:</label>
         <select id="primary-doctor-selector" v-model="selectedDoctor">
           <option
             v-for="doctor in doctors"
@@ -21,10 +23,10 @@
     <div v-show="primaryDoctor">
       <form>
         <label for="date-selector">Choose a date:</label>
-        <input id="date-selector" type="date" />
+        <input id="date-selector" type="date" required v-model="newAppointment.appointmentDate" />
         <br />
-        <select id="time-selector">
-          <option value selected="true">--Please select a time--</option>
+        <select id="time-selector" v-model="newAppointment.appointmentTime" required>
+          <option value='' selected="true">--Please select a time--</option>
           <!--<option v-for="timeslot in availability" v-bind:key="timeslot.id" value="timeslot" >{{ timeslot }}</option> -->
         </select>
       </form>
@@ -43,28 +45,54 @@ export default {
       patientId: this.$store.state.user.id,
       doctors: [],
       selectedDoctor: {},
+      newAppointment: {
+        patientId: '',
+        doctorId: '',
+        officeId: '',
+        appointmentDate: '',
+        appointmentTime: '',
+        lastUpdatedDate: '',
+        lastUpdatedTime: '',
+        visitReason: '',
+        appointmentType: ''
+      },
+      // primaryDoctorId: this.$store.state.patient.primaryDoctorId
+      // primaryDoctorId: '',
+      // primaryDoctor: false
     };
   },
 
   computed: {
     primaryDoctorId() {
-        return this.$store.state.patient.primaryDoctorId;
+      let id = this.$store.state.patient.primaryDoctorId;
+      return id
     },
-    primaryDoctor() {
-      if (typeof primaryDoctorId === "undefined") {
-        return false;
-      } else {
-        return true;
-      }
-    },
+    // primaryDoctor() {
+    //   if (typeof primaryDoctorId === 'undefined') {
+    //     return false;
+    //   } else {
+    //   return true;
+    //   }
+    // }
   },
 
   methods: {
     newPrimaryDoctor() {
       this.$store.commit("NEW_PRIMARY_DOCTOR", this.selectedDoctor.doctorId);
-      patientService.updatePrimaryDoctor(this.$store.state.patient); 
+      patientService.updatePrimaryDoctor(this.$store.state.patient);
+      this.$forceUpdate();
     },
+
+    primaryDoctor() {
+      if (typeof primaryDoctorId === 'undefined') {
+        return false;
+      } else {
+      return true;
+      }
+    }
+
   },
+
 
   created() {
     patientService
@@ -84,5 +112,4 @@ export default {
 </script>
 
 <style>
-
 </style>
