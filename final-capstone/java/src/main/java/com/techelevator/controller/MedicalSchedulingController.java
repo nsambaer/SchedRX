@@ -1,6 +1,5 @@
 package com.techelevator.controller;
 
-import java.security.Principal;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.techelevator.dao.AppointmentDAO;
+import com.techelevator.dao.AppointmentTypesDAO;
 import com.techelevator.dao.DoctorAvailabilityDAO;
 import com.techelevator.dao.DoctorDAO;
 import com.techelevator.dao.OfficeDAO;
@@ -25,7 +25,6 @@ import com.techelevator.model.Doctor;
 import com.techelevator.model.DoctorAvailability;
 import com.techelevator.model.Office;
 import com.techelevator.model.Patient;
-import com.techelevator.model.Review;
 
 @PreAuthorize("isAuthenticated()")
 @RestController
@@ -38,9 +37,10 @@ public class MedicalSchedulingController {
 	private PatientDAO patientDao;
 	private ReviewDAO reviewDao;
 	private DoctorAvailabilityDAO drAvailDao;
+	private AppointmentTypesDAO apptTypesDao;
 	
 	public MedicalSchedulingController(AppointmentDAO appointmentDao, DoctorDAO doctorDao, OfficeDAO officeDao,
-			PatientDAO patientDao, ReviewDAO reviewDao, DoctorAvailabilityDAO doctorAvailabilityDao) {
+			PatientDAO patientDao, ReviewDAO reviewDao, DoctorAvailabilityDAO doctorAvailabilityDao, AppointmentTypesDAO appointmentTypesDao) {
 		super();
 		this.appointmentDao = appointmentDao;
 		this.doctorDao = doctorDao;
@@ -48,7 +48,7 @@ public class MedicalSchedulingController {
 		this.patientDao = patientDao;
 		this.reviewDao = reviewDao;
 		this.drAvailDao = doctorAvailabilityDao;
-		
+		this.apptTypesDao = appointmentTypesDao;
 	}
 	
 	//OFFICE METHODS
@@ -129,6 +129,12 @@ public class MedicalSchedulingController {
 		return appointmentDao.createAppointment(appointment);
 	}
 	
+	@PreAuthorize("hasAnyRole('PATIENT')")
+	@RequestMapping(path = "/appointment-types", method = RequestMethod.GET)
+	public List<String> listAppointmentTypes() {
+		return apptTypesDao.getAppointmentTypes();
+	}
+	
 	
 	//DOCTOR METHODS
 	
@@ -151,7 +157,8 @@ public class MedicalSchedulingController {
 		return doctorDao.registerDoctor(doctor);
 	}
 	
-	@PreAuthorize("hasAnyRole('DOCTOR', 'PATIENT')")
+	//@PreAuthorize("hasAnyRole('DOCTOR', 'PATIENT')")
+	@PreAuthorize("permitAll()")
 	@RequestMapping(path = "/doctors/{doctorId}/availability", method = RequestMethod.GET)
 	public DoctorAvailability listDoctorAvailabilityForMonth(@PathVariable Long doctorId, @RequestParam int month, @RequestParam int year) {
 		return drAvailDao.getDoctorAvailabilityForMonth(doctorId, month, year);

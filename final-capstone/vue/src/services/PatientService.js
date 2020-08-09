@@ -25,6 +25,14 @@ const http = axios.create({
 
     updatePrimaryDoctor(patient) {
       return http.put(`/patients/${patient.id}`, patient)
-    }
+    },
+
+    getAppointmentTypes() {
+      return http.get('/appointment-types');
+    },
+
+    postAppointment(appointment) {
+      return http.post(`/patients/${appointment.patientId}/appointments`);
+    },
 
   }
