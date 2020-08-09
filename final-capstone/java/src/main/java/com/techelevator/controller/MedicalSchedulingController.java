@@ -144,6 +144,13 @@ public class MedicalSchedulingController {
 		return appointmentDao.getAppointmentsByDoctor(doctorId);
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN')")
+	@ResponseStatus(HttpStatus.CREATED)
+	@RequestMapping(path = "/doctors", method = RequestMethod.POST)
+	public Doctor registerDoctor(@RequestBody Doctor doctor) {
+		return doctorDao.registerDoctor(doctor);
+	}
+	
 	@PreAuthorize("hasAnyRole('DOCTOR', 'PATIENT')")
 	@RequestMapping(path = "/doctors/{doctorId}/availability", method = RequestMethod.GET)
 	public DoctorAvailability listDoctorAvailabilityForMonth(@PathVariable Long doctorId, @RequestParam int month, @RequestParam int year) {

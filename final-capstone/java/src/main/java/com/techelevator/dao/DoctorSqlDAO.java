@@ -63,9 +63,9 @@ public class DoctorSqlDAO implements DoctorDAO {
 	
 	@Override
 	public Doctor registerDoctor(Doctor doctor) {
-		String sqlCreateDoctor = "INSERT INTO doctors (first_name, last_name, office_id) "
-								+ "VALUES (?,?,?)";
-		jdbcTemplate.update(sqlCreateDoctor, doctor.getFirstName(), 
+		String sqlCreateDoctor = "INSERT INTO doctors (doctor_id, first_name, last_name, office_id) "
+								+ "VALUES (?,?,?,?)";
+		jdbcTemplate.update(sqlCreateDoctor, doctor.getDoctorId(), doctor.getFirstName(), 
 							doctor.getLastName(), doctor.getOfficeId());
 		return doctor;
 	}

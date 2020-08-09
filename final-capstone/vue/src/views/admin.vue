@@ -1,21 +1,21 @@
 <template>
   <div class="admin-view-container">
-    <div class="admin-office" >
-      <office-details v-bind:office="currentOffice"/>
-    </div>
-    <div class="register-doctor">
+    <office-admin/>
+    <register-doctor/>
 
-    </div>
     
   </div>
 </template>
 
 <script>
 import adminService from "../services/AdminService.js";
-import OfficeDetails from "../components/OfficeDetails.vue";
+import OfficeAdmin from "../components/OfficeAdmin.vue"
+import RegisterDoctor from "../components/RegisterDoctor.vue"
 export default {
+  name: 'admin',
   components: {
-    OfficeDetails
+    OfficeAdmin,
+    RegisterDoctor
   },
   data() {
     return {
