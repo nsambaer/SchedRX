@@ -1,7 +1,8 @@
 <template>
   <div id="register" class="text-center">
+    <h1 class="h3 mb-3 font-weight-normal">Register Doctor</h1>
     <form class="form-register" @submit.prevent="register">
-      <h1 class="h3 mb-3 font-weight-normal">Register Doctor</h1>
+      
       <div
         class="alert alert-danger"
         role="alert"
@@ -35,7 +36,7 @@
         v-model="user.confirmPassword"
         required
       />
-      <div>
+      
         <label for="firstName" class="sr-only">First Name:</label>
         <input
           type="text"
@@ -54,7 +55,7 @@
           v-model="doctor.lastName"
           required
         />
-      </div>
+      
       <router-link :to="{ name: 'home' }">Have an account?</router-link>
       <button class="btn btn-lg btn-primary btn-block" type="submit">Register Doctor</button>
     </form>
@@ -129,4 +130,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.form-register {
+    display: grid;
+    grid-template-columns: 200px 200px;
+}
+</style>

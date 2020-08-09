@@ -13,6 +13,10 @@ const http = axios.create({
 
     registerDoctor(doctor) {
         return http.post('/doctors', doctor);
+    },
+
+    updateOffice(updatedOffice) {
+        return http.put(`/offices/${updatedOffice.officeId}`, updatedOffice);
     }
 
 
