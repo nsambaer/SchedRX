@@ -152,13 +152,12 @@ export default {
     createAvailability(){
       this.newAvailability.specificOpenHours[this.availabilityDate] = this.availabilityOpenTime;
       this.newAvailability.specificCloseHours[this.availabilityDate] = this.availabilityCloseTime;
-      window.alert(this.$store.state.doctorAppointments.some(appointment => appointment.appointmentDate == this.availabilityDate));
       if(this.$store.state.doctorAppointments.some(appointment => appointment.appointmentDate == this.availabilityDate)){
         window.alert("There is already an appointment on that day")
       } else if (this.availabilityOpenTime > this.availabilityCloseTime){
         window.alert("Close time must be laster than open time")
       } else {
-        window.alert("Availabilty available (lol)")
+        //window.alert("Availabilty available (lol)")
         this.showSubmitAvailability = true;
       }
     },
