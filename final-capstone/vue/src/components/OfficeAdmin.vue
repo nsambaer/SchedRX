@@ -1,19 +1,114 @@
 <template>
-  <div>
-      <h2>Office name: {{office.officeName}}</h2>
-      <h4>Address: {{office.address}}, {{office.city}}, {{office.state}}, {{office.zipCode}}</h4>
-      <h4>Phone: {{office.phoneNumber}}</h4>
-      <h4>Cost per hour: {{office.cost}}</h4>
+  <div class="office-admin-container">
+      <div class="office-info">
+        <h2>Office name: {{office.officeName}}</h2>
+        <h4>Address: {{office.address}}, {{office.city}}, {{office.state}}, {{office.zipCode}}</h4>
+        <h4>Phone: {{office.phoneNumber}}</h4>
+        <h4>Cost per hour: {{office.cost}}</h4>
+      </div>
+      <button v-on:click="showEditForm = !showEditForm; populateDefaults()">Edit Office Information</button>  
+      <div class="edit-office" v-show="showEditForm">
+          <form class="edit-office-form" v-on:submit="updateOffice()">
+              <label for="office-name">Office name: </label>
+              <input
+                id="office-name" 
+                v-model="updatedOffice.officeName" 
+                type="text"
+              />
+              <label for="street-address">Street Address: </label>
+              <input 
+                id="street-address"
+                type="text"
+                v-model="updatedOffice.address"
+              />
+              <label for="city">City: </label>
+              <input
+                id="city" 
+                type="text"
+                v-model="updatedOffice.city"
+              />
+              <label for="state">State: </label>
+              <input 
+                id="state"
+                type="text"
+                v-model="updatedOffice.state"
+              />
+              <label for="zip-code">Zip Code: </label>
+              <input
+                id="zip-code" 
+                type="text"
+                v-model="updatedOffice.zipCode"
+              />
+              <label for="phone">Phone: </label>
+              <input
+                id="phone" 
+                type="text"
+                v-model="updatedOffice.phoneNumber"
+              />
+              <label for="cost">Cost: </label>
+              <input
+                id="cost" 
+                type="text"
+                v-model="updatedOffice.cost"
+              />
+              <button type="submit">Save Changes</button>
+                
+          </form>
+      </div>
   </div>
 </template>
 
 <script>
 
+import adminService from "../services/AdminService.js"
 
 export default {
+    name: "office-admin",
+
+    data() {
+        return {
+            showEditForm: false,
+            updatedOffice: {
+                officeId: "",
+                officeName: "",
+                address: "",
+                city: "",
+                state: "",
+                zipCode: "",
+                phoneNumber: "",
+                cost: ""
+            }
+        }
+    },
+
+
     computed: {
         office() {
             return this.$store.state.currentOffice;
+        }
+    },
+
+    methods: {
+        populateDefaults() {
+            this.updatedOffice.officeId = this.office.officeId;
+            this.updatedOffice.officeName = this.office.officeName;
+            this.updatedOffice.address = this.office.address;
+            this.updatedOffice.city = this.office.city;
+            this.updatedOffice.state = this.office.state;
+            this.updatedOffice.zipCode = this.office.zipCode;
+            this.updatedOffice.phoneNumber = this.office.phoneNumber;
+            this.updatedOffice.cost = this.office.cost;
+        },
+        updateOffice() {
+            adminService.updateOffice(this.updatedOffice)
+            .then(response => {
+                if (response.status === 200) {
+                    this.$store.commit("SET_CURRENT_OFFICE", this.updatedOffice)
+                    this.$router.push({
+                        name: "redirect"
+                    });
+                }
+            })
         }
     }
     
@@ -21,5 +116,9 @@ export default {
 </script>
 
 <style>
+    .edit-office-form {
+        display: grid;
+        grid-template-columns: 200px 200px;
 
+    }
 </style>
