@@ -31,7 +31,6 @@
             v-show="newAppointment.appointmentDate == date"
             id="time-selector"
             v-model="newAppointment.appointmentTime"
-            required
           >
             <option value selected="true">--Please select a time--</option>
             <option v-for="time in times" v-bind:key="time.id" v-bind:value="time">{{ time }}</option>-->
@@ -137,8 +136,8 @@ export default {
       this.newAppointment.lastUpdatedDate = this.currentDate;
       this.newAppointment.lastUpdatedTime = today.toTimeString;
 
-      patientService.postAppointment(this.newAppointment).then( (response) => {
-        response;
+      patientService.postAppointment(this.newAppointment).then( () => {
+        
         this.newAppointment= {
         patientId: "",
         doctorId: "",
