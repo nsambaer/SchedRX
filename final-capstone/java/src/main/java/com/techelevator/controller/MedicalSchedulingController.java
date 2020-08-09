@@ -72,6 +72,13 @@ public class MedicalSchedulingController {
 		return doctorDao.getDoctorsByOffice(officeId);
 	}
 	
+	@PreAuthorize("permitAll")
+	@RequestMapping(path = "/offices/{adminId}/current-office", method = RequestMethod.GET)
+	public Office getOfficeByAdminId(@PathVariable Long adminId) {
+		return officeDao.getOfficeByAdmin(adminId);
+	}
+	
+	
 	@PreAuthorize("hasRole('ADMIN')")
 	@ResponseStatus(HttpStatus.CREATED)
 	@RequestMapping(path = "/offices", method = RequestMethod.POST)
@@ -85,6 +92,7 @@ public class MedicalSchedulingController {
 	public Office updateOffice(@RequestBody Office office, @PathVariable Long officeId) {
 		return officeDao.updateOffice(office, officeId);
 	}
+	
 	
 	
 	//PATIENT METHODS

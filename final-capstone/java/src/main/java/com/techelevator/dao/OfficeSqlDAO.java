@@ -124,7 +124,7 @@ public class OfficeSqlDAO implements OfficeDAO {
 	public Office getOfficeByAdmin(Long adminId) {
 		Office office = new Office();
 		
-		String officeSelect = "SELECT o.* FROM offices o INNER JOIN admin a ON o.office_id = a.office_id WHERE admin_id = ?";
+		String officeSelect = "SELECT o.* FROM offices o INNER JOIN admin_office a ON o.office_id = a.office_id WHERE a.admin_id = ?";
 
 		SqlRowSet results = jdbc.queryForRowSet(officeSelect, adminId);
 
