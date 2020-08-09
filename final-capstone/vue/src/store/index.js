@@ -25,7 +25,8 @@ export default new Vuex.Store({
     userRole: currentRole || '',
     patient: currentPatient || {},
     patientAppointments: [],
-    currentOffice: {}
+    currentOffice: {},
+    doctorAppointments:[]
 
   },
   mutations: {

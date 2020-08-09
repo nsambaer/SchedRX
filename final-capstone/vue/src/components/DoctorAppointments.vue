@@ -19,18 +19,24 @@ export default {
 
     data(){
         return{
-            appointments:[]
+            
         }
     },
     created(){
         doctorService.getAppointments(this.$store.state.user.id).then(
       response => {
         if(response.status == 200){
-          this.appointments = response.data;
+          this.$store.state.doctorAppointments = response.data;
         }
       }
     );
+    },
+    computed: {
+      appointments() {
+        return this.$store.state.doctorAppointments;
     }
+    }
+
     
 
 }
