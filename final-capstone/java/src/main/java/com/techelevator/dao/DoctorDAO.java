@@ -14,4 +14,6 @@ public interface DoctorDAO {
 	
 	public Long getDoctorIdByName(String doctorName);
 	
+	public Doctor registerDoctor(Doctor doctor);
+	
 }

@@ -61,6 +61,15 @@ public class DoctorSqlDAO implements DoctorDAO {
 		return doctorList;
 	}
 	
+	@Override
+	public Doctor registerDoctor(Doctor doctor) {
+		String sqlCreateDoctor = "INSERT INTO doctors (doctor_id, first_name, last_name, office_id) "
+								+ "VALUES (?,?,?,?)";
+		jdbcTemplate.update(sqlCreateDoctor, doctor.getDoctorId(), doctor.getFirstName(), 
+							doctor.getLastName(), doctor.getOfficeId());
+		return doctor;
+	}
+	
 	public Doctor mapRowToDoctor(SqlRowSet results) {
 		Doctor theDoctor = new Doctor();
 		theDoctor.setDoctorId(results.getLong("doctor_id"));

@@ -9,6 +9,10 @@ const http = axios.create({
 
     getOffice(adminId){
         return http.get(`/offices/${adminId}/current-office`);
+    },
+
+    registerDoctor(doctor) {
+        return http.post('/doctors', doctor);
     }
 
 
