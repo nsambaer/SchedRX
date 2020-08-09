@@ -12,6 +12,7 @@ Vue.use(Vuex)
 const currentToken = localStorage.getItem('token')
 const currentUser = JSON.parse(localStorage.getItem('user'));
 const currentRole = localStorage.getItem('role')
+const currentPatient = JSON.parse(localStorage.getItem('patient'))
 
 if(currentToken != null) {
   axios.defaults.headers.common['Authorization'] = `Bearer ${currentToken}`;
@@ -21,7 +22,10 @@ export default new Vuex.Store({
   state: {
     token: currentToken || '',
     user: currentUser || {},
-    userRole: currentRole || ''
+    userRole: currentRole || '',
+    patient: currentPatient || {},
+    patientAppointments: []
+
   },
   mutations: {
     SET_AUTH_TOKEN(state, token) {
@@ -39,14 +43,30 @@ export default new Vuex.Store({
       localStorage.setItem('role', role);
     },
 
+    SET_PATIENT(state, patient) {
+      state.patient = patient;
+      localStorage.setItem('patient',JSON.stringify(patient));
+    },
+
+    SET_PATIENT_APPOINTMENTS(state,patientAppointments) {
+      state.patientAppointments = patientAppointments;
+    },
+
+    NEW_PRIMARY_DOCTOR(state, doctorId) {
+      state.patient.primaryDoctorId = doctorId;
+    },
+
     LOGOUT(state) {
       localStorage.removeItem('token');
       localStorage.removeItem('user');
       localStorage.removeItem('role');
+      localStorage.removeItem('patient');
       state.token = '';
       state.user = {};
       state.userRole = '';
       axios.defaults.headers.common = {};
+      state.patient = {};
+      state.patientAppointment = '';
     }
   }
 })

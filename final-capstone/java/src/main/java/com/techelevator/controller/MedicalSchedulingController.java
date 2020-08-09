@@ -51,7 +51,13 @@ public class MedicalSchedulingController {
 		
 	}
 	
+<<<<<<< HEAD
 	@PreAuthorize("permitAll()")
+=======
+	//OFFICE METHODS
+	
+	@PreAuthorize("permitAll")
+>>>>>>> 6e7d993844a4e7fab0d8e9ca03196547417ee44d
 	@RequestMapping(path = "/offices", method = RequestMethod.GET)
 	public List<Office> getAllOffices() {
 		List<Office> officeList = officeDao.getAllOffices();
@@ -64,6 +70,7 @@ public class MedicalSchedulingController {
 		return officeDao.getOfficeById(officeId);
 	}
 	
+<<<<<<< HEAD
 	@PreAuthorize("permitAll()")
 	@RequestMapping(path = "/offices/{adminId}/current-office", method = RequestMethod.GET)
 	public Office getOfficeByAdmin(@PathVariable Long adminId) {
@@ -78,11 +85,15 @@ public class MedicalSchedulingController {
 	}
 	
 	@PreAuthorize("permitAll()")
+=======
+	@PreAuthorize("permitAll")
+>>>>>>> 6e7d993844a4e7fab0d8e9ca03196547417ee44d
 	@RequestMapping(path = "/offices/{officeId}/doctors", method = RequestMethod.GET)
 	public List<Doctor> getDoctorsByOffice(@PathVariable Long officeId) {
 		return doctorDao.getDoctorsByOffice(officeId);
 	}
 	
+<<<<<<< HEAD
 	@PreAuthorize("hasAnyRole('DOCTOR', 'ADMIN')")
 	@RequestMapping(path = "/doctors/{doctorId}/patients", method = RequestMethod.GET)
 	public List<Patient> getPatientsByDoctor(@PathVariable Long doctorId) {
@@ -102,78 +113,148 @@ public class MedicalSchedulingController {
 	}
 	
 	@PreAuthorize("permitAll()")
+=======
+	@PreAuthorize("hasRole('ADMIN')")
+>>>>>>> 6e7d993844a4e7fab0d8e9ca03196547417ee44d
 	@ResponseStatus(HttpStatus.CREATED)
-	@RequestMapping(path = "/offices/create", method = RequestMethod.POST)
+	@RequestMapping(path = "/offices", method = RequestMethod.POST)
 	public Office createOffice(@RequestBody Office office) {
 		return officeDao.createOffice(office);
 	}
-	
+
 	@PreAuthorize("hasRole('ADMIN')")
-	@RequestMapping(path = "/offices/{officeId}/update", method = RequestMethod.PUT)
+	@ResponseStatus(HttpStatus.ACCEPTED)
+	@RequestMapping(path = "/offices/{officeId}", method = RequestMethod.PUT)
 	public Office updateOffice(@RequestBody Office office, @PathVariable Long officeId) {
 		return officeDao.updateOffice(office, officeId);
 	}
 	
+	
+	//PATIENT METHODS
+	
+	@PreAuthorize("hasRole('PATIENT')")
+	@RequestMapping(path = "/patients/{patientId}", method = RequestMethod.GET)
+	public Patient getPatientById(@PathVariable Long patientId) {
+		return patientDao.getPatientById(patientId);
+	}
+	
+	@PreAuthorize("hasRole('PATIENT')")
+	@RequestMapping(path = "/patients/{patientId}", method = RequestMethod.PUT)
+	public Patient updatePatient(@RequestBody Patient patient) {
+		return patientDao.updatePatient(patient);
+	}
+	
 	@PreAuthorize("permitAll()")
 	@ResponseStatus(HttpStatus.CREATED)
-	@RequestMapping(path = "/createPatient", method = RequestMethod.POST)
+	@RequestMapping(path = "/patients", method = RequestMethod.POST)
 	public Patient createPatient(@RequestBody Patient patient) {
 		return patientDao.createPatient(patient);
 	}
 	
-	@PreAuthorize("permitAll()")
-	@RequestMapping(path = "/doctor/{doctorId}/availability", method = RequestMethod.GET)
-	public DoctorAvailability listDoctorAvailabilityForMonth(@PathVariable Long doctorId, @RequestParam int month, @RequestParam int year) {
-		return drAvailDao.getDoctorAvailabilityForMonth(doctorId, month, year);
+	@PreAuthorize("hasAnyRole('PATIENT')")
+	@RequestMapping(path = "/patients/{patientId}/appointments", method = RequestMethod.GET)
+	public List<Appointment> getAppointmentsByPatient(@PathVariable Long patientId) {
+		return appointmentDao.getAppointmentsByPatient(patientId);
 	}
 	
-	@PreAuthorize("permitAll()")
+	@PreAuthorize("hasAnyRole('PATIENT')")
 	@ResponseStatus(HttpStatus.CREATED)
-	@RequestMapping(path = "/doctor/{doctorId}/availability/regular", method = RequestMethod.POST)
-	public DoctorAvailability setRegularDoctorAvailability(@RequestBody DoctorAvailability regularAvailability) {
-		return drAvailDao.setRegularAvailability(regularAvailability);
-	}
-	
-	@PreAuthorize("permitAll()")
-	@ResponseStatus(HttpStatus.CREATED)
-	@RequestMapping(path = "/doctor/{doctorId}/availability/specific", method = RequestMethod.POST)
-	public DoctorAvailability setSpecificDoctorAvailability(@RequestBody DoctorAvailability specificAvailability) {
-		return drAvailDao.setSpecificAvailability(specificAvailability);
-	}
-	
-	@PreAuthorize("permitAll()")
-	@ResponseStatus(HttpStatus.ACCEPTED)
-	@RequestMapping(path = "/doctor/{doctorId}/availability/regular", method = RequestMethod.PUT)
-	public DoctorAvailability updateRegularDoctorAvailability(@RequestBody DoctorAvailability regularAvailability) {
-		return drAvailDao.updateRegularAvailability(regularAvailability);
-	}
-	
-	@PreAuthorize("permitAll()")
-	@ResponseStatus(HttpStatus.ACCEPTED)
-	@RequestMapping(path = "/doctor/{doctorId}/availability/specific", method = RequestMethod.PUT)
-	public DoctorAvailability updateSpecificDoctorAvailability(@RequestBody DoctorAvailability specificAvailability) {
-		return drAvailDao.updateSpecificAvailability(specificAvailability);
-	}
-	
-	@PreAuthorize("permitAll()")
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	@RequestMapping(path = "/doctor/{doctorId}/availability/specific", method = RequestMethod.DELETE)
-	public void deleteSpecificDoctorAvailability(@RequestBody DoctorAvailability specificAvailability) {
-		drAvailDao.deleteSpecificAvailability(specificAvailability);
-	}
-	
-	@PreAuthorize("permitAll()")
-	@ResponseStatus(HttpStatus.CREATED)
-	@RequestMapping(path = "/appointments/schedule", method = RequestMethod.POST)
+	@RequestMapping(path = "/patients/{patientId}/appointments", method = RequestMethod.POST)
 	public Appointment createAppointment(@RequestBody Appointment appointment) {
 		return appointmentDao.createAppointment(appointment);
 	}
 	
-	@PreAuthorize("hasAnyRole('ADMIN', 'DOCTOR')")
-	@RequestMapping(path = "/appointments/{appointmentId}/update", method = RequestMethod.PUT)
+	
+	//DOCTOR METHODS
+	
+	@PreAuthorize("hasAnyRole('PATIENT')")
+	@RequestMapping(path = "/doctors", method = RequestMethod.GET)
+	public List<Doctor> listDoctors() {
+		return doctorDao.getAllDoctors();
+	}
+	
+	@PreAuthorize("hasAnyRole('DOCTOR')")
+	@RequestMapping(path = "/doctors/{doctorId}/appointments", method = RequestMethod.GET)
+	public List<Appointment> getAppointmentsByDoctor(@PathVariable Long doctorId) {
+		return appointmentDao.getAppointmentsByDoctor(doctorId);
+	}
+	
+	@PreAuthorize("hasAnyRole('DOCTOR', 'PATIENT')")
+	@RequestMapping(path = "/doctors/{doctorId}/availability", method = RequestMethod.GET)
+	public DoctorAvailability listDoctorAvailabilityForMonth(@PathVariable Long doctorId, @RequestParam int month, @RequestParam int year) {
+		return drAvailDao.getDoctorAvailabilityForMonth(doctorId, month, year);
+	}
+	
+	@PreAuthorize("hasAnyRole('DOCTOR')")
+	@ResponseStatus(HttpStatus.CREATED)
+	@RequestMapping(path = "/doctors/{doctorId}/availability/regular", method = RequestMethod.POST)
+	public DoctorAvailability setRegularDoctorAvailability(@RequestBody DoctorAvailability regularAvailability) {
+		return drAvailDao.setRegularAvailability(regularAvailability);
+	}
+	
+	@PreAuthorize("hasAnyRole('DOCTOR')")
+	@ResponseStatus(HttpStatus.CREATED)
+	@RequestMapping(path = "/doctors/{doctorId}/availability/specific", method = RequestMethod.POST)
+	public DoctorAvailability setSpecificDoctorAvailability(@RequestBody DoctorAvailability specificAvailability) {
+		return drAvailDao.setSpecificAvailability(specificAvailability);
+	}
+	
+	@PreAuthorize("hasAnyRole('DOCTOR')")
+	@ResponseStatus(HttpStatus.ACCEPTED)
+	@RequestMapping(path = "/doctors/{doctorId}/availability/regular", method = RequestMethod.PUT)
+	public DoctorAvailability updateRegularDoctorAvailability(@RequestBody DoctorAvailability regularAvailability) {
+		return drAvailDao.updateRegularAvailability(regularAvailability);
+	}
+	
+	@PreAuthorize("hasAnyRole('DOCTOR')")
+	@ResponseStatus(HttpStatus.ACCEPTED)
+	@RequestMapping(path = "/doctors/{doctorId}/availability/specific", method = RequestMethod.PUT)
+	public DoctorAvailability updateSpecificDoctorAvailability(@RequestBody DoctorAvailability specificAvailability) {
+		return drAvailDao.updateSpecificAvailability(specificAvailability);
+	}
+	
+	@PreAuthorize("hasAnyRole('DOCTOR')")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@RequestMapping(path = "/doctors/{doctorId}/availability/specific", method = RequestMethod.DELETE)
+	public void deleteSpecificDoctorAvailability(@RequestBody DoctorAvailability specificAvailability) {
+		drAvailDao.deleteSpecificAvailability(specificAvailability);
+	}
+	
+	@PreAuthorize("hasAnyRole('DOCTOR')")
+	@ResponseStatus(HttpStatus.ACCEPTED)
+	@RequestMapping(path = "/appointments/{appointmentId}", method = RequestMethod.PUT)
 	public Appointment updateAppointment(@RequestBody Appointment appointment, @PathVariable Long appointmentId) {
 		return appointmentDao.updateAppointment(appointment, appointmentId);
 	}
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
+	//NOT IN USE
+	
+	/*
+	@PreAuthorize("permitAll")
+	@RequestMapping(path = "/offices/{officeId}/reviews", method = RequestMethod.GET)
+	public List<Review> getReviewsByOffice(@PathVariable Long officeId) {
+		List<Review> reviewList = reviewDao.getReviewsByOffice(officeId);
+		return reviewList;
+	}
+	
+	@PreAuthorize("hasAnyRole('DOCTOR', 'ADMIN')")
+	@RequestMapping(path = "/doctors/{doctorId}/patients", method = RequestMethod.GET)
+	public List<Patient> getPatientsByDoctor(@PathVariable Long doctorId) {
+		return patientDao.getPatientsByDoctor(doctorId);
+	}
+	
+	
+	
+	
+	*/
 }

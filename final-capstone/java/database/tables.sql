@@ -98,6 +98,13 @@ end_time TIME,
 CONSTRAINT pk_availability PRIMARY KEY (availability_id)
 );
 
+CREATE TABLE admin_office (
+admin_id INT NOT NULL,
+office_id INT NOT NULL,
+
+CONSTRAINT pk_admin_office PRIMARY KEY (admin_id, office_id)
+);
+
 
 ALTER TABLE doctors
 ADD FOREIGN KEY (doctor_id)
@@ -150,6 +157,15 @@ REFERENCES offices (office_id);
 ALTER TABLE doctor_availability
 ADD FOREIGN KEY (doctor_id)
 REFERENCES doctors (doctor_id);
+
+ALTER TABLE admin_office
+ADD FOREIGN KEY (admin_id)
+REFERENCES users (user_id);
+
+ALTER TABLE admin_office
+ADD FOREIGN KEY (office_id)
+REFERENCES offices (office_id);
+
 
 
 SELECT * FROM doctors;

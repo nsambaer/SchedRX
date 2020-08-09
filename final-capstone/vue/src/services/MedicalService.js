@@ -8,12 +8,8 @@ const http = axios.create({
   export default {
 
     addPatient(patient) {
-      return http.post('/createPatient', patient)
+      return http.post('/patients', patient)
     },
-
-    // updatePatient(patient) {
-    //   return http.put(`/login/${}`);
-    // },
 
     listAllOffices() {
         return http.get('/offices');

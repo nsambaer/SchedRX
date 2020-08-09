@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import Logout from '../views/Logout.vue'
 import Register from '../views/Register.vue'
 import store from '../store/index'
+import Redirect from '@/views/Redirect'
 
 Vue.use(Router)
 
@@ -51,7 +52,7 @@ const router = new Router({
       if (store.state.userRole === "ROLE_PATIENT") {
       return import('../views/Patient.vue');
       } else {
-        return import('../views/Home.vue');
+        return import('../views/Redirect.vue');
       }
     },
     meta: {
@@ -65,7 +66,7 @@ const router = new Router({
         if (store.state.userRole === "ROLE_DOCTOR") {
           return import('../views/Doctor.vue');
         } else {
-          return import('../views/Home.vue');
+          return import('../views/Redirect.vue');
         }
       },
       meta: {
@@ -79,9 +80,14 @@ const router = new Router({
         if (store.state.userRole === "ROLE_ADMIN") {
           return import('../views/Admin.vue');
         } else {
-          return import ('../views/Home.vue');
+          return import ('../views/Redirect.vue');
         }
       }
+    },
+    {
+      path: "/redirect",
+      name: "redirect",
+      component: Redirect
     }
   ]
 })

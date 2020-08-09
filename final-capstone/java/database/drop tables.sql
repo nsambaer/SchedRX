@@ -6,3 +6,4 @@ DROP TABLE office_hours CASCADE;
 DROP TABLE offices CASCADE;
 DROP TABLE patients CASCADE;
 DROP TABLE reviews CASCADE;
+DROP TABLE admin_office CASCADE;
