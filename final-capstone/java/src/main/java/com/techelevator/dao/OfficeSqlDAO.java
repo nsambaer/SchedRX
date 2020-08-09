@@ -119,6 +119,29 @@ public class OfficeSqlDAO implements OfficeDAO {
 						office.getCost(), office.getOpenHours(), office.getCloseHours(), officeId);
 		return result;
 	}
+	
+	@Override
+	public Office getOfficeByAdmin(Long adminId) {
+		Office office = new Office();
+		
+		String officeSelect = "SELECT o.* FROM offices o INNER JOIN admin a ON o.office_id = a.office_id WHERE admin_id = ?";
+
+		SqlRowSet results = jdbc.queryForRowSet(officeSelect, adminId);
+
+		if (results.next()) {
+			int officeId = results.getInt("office_id");
+
+			String startSelect = "SELECT office_id, day_of_week, start_time FROM office_hours WHERE office_id = ?";
+			SqlRowSet startResults = jdbc.queryForRowSet(startSelect, officeId);
+
+			String endSelect = "SELECT office_id, day_of_week, end_time FROM office_hours WHERE office_id = ?";
+			SqlRowSet endResults = jdbc.queryForRowSet(endSelect, officeId);
+
+			office = mapRowToOfficeWithHours(results, startResults, endResults);
+		}
+
+		return office;
+	}
 
 	private Office mapRowToOffice(SqlRowSet results) {
 		Office office = new Office();
@@ -134,6 +157,8 @@ public class OfficeSqlDAO implements OfficeDAO {
 		return office;
 	}
 
+	
+	
 	private Office mapRowToOfficeWithHours(SqlRowSet officeResults, SqlRowSet startResults, SqlRowSet endResults) {
 		Office office = new Office();
 

@@ -16,5 +16,7 @@ public interface OfficeDAO {
 	
 	public Office updateOffice(Office office, Long officeId);
 	
+	public Office getOfficeByAdmin(Long adminId);
+	
 	
 }

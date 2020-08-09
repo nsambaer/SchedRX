@@ -51,27 +51,33 @@ public class MedicalSchedulingController {
 		
 	}
 	
-	@PreAuthorize("permitAll")
+	@PreAuthorize("permitAll()")
 	@RequestMapping(path = "/offices", method = RequestMethod.GET)
 	public List<Office> getAllOffices() {
 		List<Office> officeList = officeDao.getAllOffices();
 		return officeList;
 	}
 	
-	@PreAuthorize("permitAll")
+	@PreAuthorize("permitAll()")
 	@RequestMapping(path = "/offices/{officeId}", method = RequestMethod.GET)
 	public Office getOfficeById(@PathVariable Long officeId) {
 		return officeDao.getOfficeById(officeId);
 	}
 	
-	@PreAuthorize("permitAll")
+	@PreAuthorize("permitAll()")
+	@RequestMapping(path = "/offices/{adminId}/current-office", method = RequestMethod.GET)
+	public Office getOfficeByAdmin(@PathVariable Long adminId) {
+		return officeDao.getOfficeByAdmin(adminId);
+	}
+	
+	@PreAuthorize("permitAll()")
 	@RequestMapping(path = "/offices/{officeId}/reviews", method = RequestMethod.GET)
 	public List<Review> getReviewsByOffice(@PathVariable Long officeId) {
 		List<Review> reviewList = reviewDao.getReviewsByOffice(officeId);
 		return reviewList;
 	}
 	
-	@PreAuthorize("permitAll")
+	@PreAuthorize("permitAll()")
 	@RequestMapping(path = "/offices/{officeId}/doctors", method = RequestMethod.GET)
 	public List<Doctor> getDoctorsByOffice(@PathVariable Long officeId) {
 		return doctorDao.getDoctorsByOffice(officeId);
@@ -95,7 +101,7 @@ public class MedicalSchedulingController {
 		return appointmentDao.getAppointmentsByPatient(patientId);
 	}
 	
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("permitAll()")
 	@ResponseStatus(HttpStatus.CREATED)
 	@RequestMapping(path = "/offices/create", method = RequestMethod.POST)
 	public Office createOffice(@RequestBody Office office) {
