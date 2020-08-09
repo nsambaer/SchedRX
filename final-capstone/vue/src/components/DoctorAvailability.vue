@@ -114,7 +114,10 @@ export default {
     }
   },
   created(){
-    this.updateAvailability(8,2020);
+    const today = new Date();
+    const currentMonth = today.getMonth()+1;
+    const currentYear = today.getFullYear();
+    this.updateAvailability(currentMonth,currentYear);
   },
     methods:{
     showDetails(date){
@@ -143,6 +146,9 @@ export default {
       }
     )
 
+    },
+    submitAvailability(){
+      
     }
 
 
