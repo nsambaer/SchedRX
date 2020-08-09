@@ -168,6 +168,7 @@ public class MedicalSchedulingController {
 	@ResponseStatus(HttpStatus.CREATED)
 	@RequestMapping(path = "/doctors/{doctorId}/availability/specific", method = RequestMethod.POST)
 	public DoctorAvailability setSpecificDoctorAvailability(@RequestBody DoctorAvailability specificAvailability) {
+		
 		return drAvailDao.setSpecificAvailability(specificAvailability);
 	}
 	
@@ -189,6 +190,7 @@ public class MedicalSchedulingController {
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@RequestMapping(path = "/doctors/{doctorId}/availability/specific", method = RequestMethod.DELETE)
 	public void deleteSpecificDoctorAvailability(@RequestBody DoctorAvailability specificAvailability) {
+		
 		drAvailDao.deleteSpecificAvailability(specificAvailability);
 	}
 	

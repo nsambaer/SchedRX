@@ -13,6 +13,11 @@ const http = axios.create({
 
     getAvailability(doctorId, month, year){
         return http.get(`/doctors/${doctorId}/availability`, {params: {month: month, year: year}} );
+    },
+
+    addAvailability(doctorId, availability){
+
+      return http.post(`/doctors/${doctorId}/availability/specific`, availability);
     }
 
 
