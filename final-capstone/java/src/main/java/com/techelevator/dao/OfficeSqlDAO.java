@@ -111,12 +111,12 @@ public class OfficeSqlDAO implements OfficeDAO {
 		Office result = office;
 		String sqlUpdateOffice = "UPDATE offices "
 								+ "SET name = ?, address = ?, "
-								+ "city = ?, state = ?, phone = ?, "
-								+ "cost = ?, start_time = ?, end_time = ? "
+								+ "city = ?, state = ?, zip_code = ?, phone = ?, "
+								+ "cost_per_hour = ? "
 								+ "WHERE office_id = ?";
 		jdbc.update(sqlUpdateOffice, office.getOfficeName(), office.getAddress(),
-						office.getCity(), office.getState(), office.getPhoneNumber(),
-						office.getCost(), office.getOpenHours(), office.getCloseHours(), officeId);
+						office.getCity(), office.getState(), office.getZipCode(), office.getPhoneNumber(),
+						office.getCost(), officeId);
 		return result;
 	}
 	

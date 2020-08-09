@@ -16,7 +16,7 @@
       </div>
       </div>
       <div class="set-availability">
-        <form v-on:submit="addAvailability()">
+        <form v-on:submit.prevent="createAvailability()">
         <input type="date" v-model="availabilityDate" />
        <select v-model="availabilityOpenTime">
           <option value="00:00:00">0:00</option>
@@ -75,7 +75,8 @@
           <option value="23:00:00">23:00</option>
           <option value="24:00:00">24:00</option>
         </select>
-        <button type="submit">Update Selected Availability </button>
+        <button v-on:click="submitAvailability" v-show="showSubmitAvailability">Submit Availability Function </button>
+        <button type="submit">Create Availability Function</button>
         </form>
       </div>
   
@@ -100,15 +101,16 @@ export default {
       newAvailability: {
         doctorId: this.$store.state.user.id,
         specificOpenHours: {
-          "":""
+          
         },
         specificCloseHours: {
-          "":""
+          
         }
       },
       activeClass: 'is-visible',
       active: null,
-      availability:[]
+      availability:[],
+      showSubmitAvailability: false
 
       
     }
@@ -147,16 +149,33 @@ export default {
     )
 
     },
+    createAvailability(){
+      this.newAvailability.specificOpenHours[this.availabilityDate] = this.availabilityOpenTime;
+      this.newAvailability.specificCloseHours[this.availabilityDate] = this.availabilityCloseTime;
+      if(this.$store.state.doctorAppointments.some(appointment => appointment.appointmentDate == this.availabilityDate)){
+        window.alert("There is already an appointment on that day")
+      } else if (this.availabilityOpenTime > this.availabilityCloseTime){
+        window.alert("Close time must be laster than open time")
+      } else {
+        //window.alert("Availabilty available (lol)")
+        this.showSubmitAvailability = true;
+      }
+    },
     submitAvailability(){
-      
+    
+      this.newAvailability.specificOpenHours[this.availabilityDate] = this.availabilityOpenTime;
+      this.newAvailability.specificCloseHours[this.availabilityDate] = this.availabilityCloseTime;
+      doctorService.addAvailability(this.newAvailability.doctorId,this.newAvailability)
+      this.showSubmitAvailability = false;
     }
-
-
 
   },
   watch:{
     availabilityMonth: function(newMonth){
       this.updateAvailability(newMonth,this.availabilityYear)
+    },
+    availabilityDate: function() {
+      this.showSubmitAvailability = false;
     }
     
   },
