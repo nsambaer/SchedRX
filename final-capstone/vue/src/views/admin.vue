@@ -23,13 +23,9 @@ export default {
     }
   },
   created() {
-    adminService.getOffice(this.$store.state.user.id).then(
-      response => {
-        if(response.status === 200) {
-          this.currentOffice = response.data;
-        }
-      }
-    )
+    adminService.getOffice(this.$store.state.user.id).then( response => {
+            this.$store.commit("SET_CURRENT_OFFICE", response.data);
+        });
   }
 }
 </script>

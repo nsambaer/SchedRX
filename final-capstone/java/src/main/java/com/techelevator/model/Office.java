@@ -18,6 +18,7 @@ public class Office {
 	@NotBlank(message = "The state cannot be blank")
 	private String state;
 	@NotBlank(message = "The phone number cannot be blank")
+	private String zipCode;
 	private String phoneNumber;
 	private BigDecimal cost;
 	private Map<String, LocalTime> openHours;
@@ -25,7 +26,10 @@ public class Office {
 	
 	public Office() {}	
 	
-	public Office(Long officeId, String officeName, String address, String city, String state, String phoneNumber, BigDecimal cost,
+	
+
+	public Office(Long officeId, String officeName, String address, String city, String state,
+			 String zipCode, String phoneNumber, BigDecimal cost,
 			Map<String, LocalTime> openHours, Map<String, LocalTime> closeHours) {
 		super();
 		this.officeId = officeId;
@@ -33,19 +37,23 @@ public class Office {
 		this.address = address;
 		this.city = city;
 		this.state = state;
+		this.zipCode = zipCode;
 		this.phoneNumber = phoneNumber;
 		this.cost = cost;
 		this.openHours = openHours;
 		this.closeHours = closeHours;
 	}
 
-	public Office(String officeName, String address, String city, String state, String phoneNumber, BigDecimal cost,
+
+
+	public Office(String officeName, String address, String city, String state, String zipCode, String phoneNumber, BigDecimal cost,
 			Map<String, LocalTime> openHours, Map<String, LocalTime> closeHours) {
 		super();
 		this.officeName = officeName;
 		this.address = address;
 		this.city = city;
 		this.state = state;
+		this.zipCode = zipCode;
 		this.phoneNumber = phoneNumber;
 		this.cost = cost;
 		this.openHours = openHours;
@@ -90,6 +98,14 @@ public class Office {
 
 	public void setState(String state) {
 		this.state = state;
+	}
+
+	public String getZipCode() {
+		return zipCode;
+	}
+
+	public void setZipCode(String zipCode) {
+		this.zipCode = zipCode;
 	}
 
 	public String getPhoneNumber() {

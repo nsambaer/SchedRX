@@ -24,7 +24,8 @@ export default new Vuex.Store({
     user: currentUser || {},
     userRole: currentRole || '',
     patient: currentPatient || {},
-    patientAppointments: []
+    patientAppointments: [],
+    currentOffice: {}
 
   },
   mutations: {
@@ -55,6 +56,9 @@ export default new Vuex.Store({
     NEW_PRIMARY_DOCTOR(state, doctorId) {
       state.patient.primaryDoctorId = doctorId;
     },
+    SET_CURRENT_OFFICE(state, office) {
+      state.currentOffice = office;
+    },
 
     LOGOUT(state) {
       localStorage.removeItem('token');
@@ -67,6 +71,7 @@ export default new Vuex.Store({
       axios.defaults.headers.common = {};
       state.patient = {};
       state.patientAppointment = '';
+      state.currentOffice = {};
     }
   }
 })

@@ -79,7 +79,7 @@ export default {
         doctorId: "",
         firstName: "",
         lastName: "",
-        officeId: adminService.getOffice(this.$store.state.user.id),
+        officeId: ""
       },
       registrationErrors: false,
       registrationErrorMsg: "There were problems registering this user.",
@@ -95,12 +95,13 @@ export default {
           .register(this.user)
           .then((response) => {
             this.doctor.doctorId = response.data;
+            this.doctor.officeId = this.$store.state.currentOffice.officeId;
             adminService
                 .registerDoctor(this.doctor)
                 .then(response => {
                     if (response.status === 201) {
                         this.$router.push({
-                            name: 'admin'
+                            name: 'redirect'
                         });
                     }
                 })

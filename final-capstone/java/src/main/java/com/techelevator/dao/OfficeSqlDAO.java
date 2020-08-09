@@ -165,6 +165,9 @@ public class OfficeSqlDAO implements OfficeDAO {
 		office.setOfficeId(officeResults.getLong("office_id"));
 		office.setOfficeName(officeResults.getString("name"));
 		office.setAddress(officeResults.getString("address"));
+		office.setCity(officeResults.getString("city"));
+		office.setState(officeResults.getString("state"));
+		office.setZipCode(officeResults.getString("zip_code"));
 		office.setPhoneNumber(officeResults.getString("phone"));
 		office.setCost(officeResults.getBigDecimal("cost_per_hour"));
 		office.setOpenHours(mapRowToHours(startResults));
