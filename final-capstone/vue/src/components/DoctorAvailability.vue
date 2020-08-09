@@ -16,7 +16,7 @@
       </div>
       </div>
       <div class="set-availability">
-        <form v-on:submit="addAvailability()">
+        <form v-on:submit.prevent="createAvailability()">
         <input type="date" v-model="availabilityDate" />
        <select v-model="availabilityOpenTime">
           <option value="00:00:00">0:00</option>
@@ -75,6 +75,7 @@
           <option value="23:00:00">23:00</option>
           <option value="24:00:00">24:00</option>
         </select>
+        <button v-on:click="submitAvailability">Confirm Availability </button>
         <button type="submit">Update Selected Availability </button>
         </form>
       </div>
@@ -100,10 +101,10 @@ export default {
       newAvailability: {
         doctorId: this.$store.state.user.id,
         specificOpenHours: {
-          "":""
+          
         },
         specificCloseHours: {
-          "":""
+          
         }
       },
       activeClass: 'is-visible',
@@ -147,11 +148,16 @@ export default {
     )
 
     },
+    createAvailability(){
+      this.newAvailability.specificOpenHours[this.availabilityDate] = this.availabilityOpenTime;
+      this.newAvailability.specificCloseHours[this.availabilityDate] = this.availabilityCloseTime;
+    },
     submitAvailability(){
-      
+    
+      this.newAvailability.specificOpenHours[this.availabilityDate] = this.availabilityOpenTime;
+      this.newAvailability.specificCloseHours[this.availabilityDate] = this.availabilityCloseTime;
+      doctorService.addAvailability(this.newAvailability.doctorId,this.newAvailability)
     }
-
-
 
   },
   watch:{

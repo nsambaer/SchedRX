@@ -59,7 +59,7 @@ public class DoctorAvailabilitySqlDAO implements DoctorAvailabilityDAO {
 
 	@Override
 	public DoctorAvailability setSpecificAvailability(DoctorAvailability specificAvailability) {
-		String SqlInsertAvail = "INSERT INTO doctor_availability (doctor_id, date_availability, specific_date, start_time, end_time) "
+		String SqlInsertAvail = "INSERT INTO doctor_availability (doctor_id, availability_date, specific_date, start_time, end_time) "
 				+ "VALUES (?, ?, ?, ?, ?)";
 
 		Set<LocalDate> dates = specificAvailability.getSpecificOpenHours().keySet();
