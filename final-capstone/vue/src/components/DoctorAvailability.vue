@@ -75,8 +75,8 @@
           <option value="23:00:00">23:00</option>
           <option value="24:00:00">24:00</option>
         </select>
-        <button v-on:click="submitAvailability">Confirm Availability </button>
-        <button type="submit">Update Selected Availability </button>
+        <button v-on:click="submitAvailability" v-show="showSubmitAvailability">Submit Availability Function </button>
+        <button type="submit">Create Availability Function</button>
         </form>
       </div>
   
@@ -109,7 +109,8 @@ export default {
       },
       activeClass: 'is-visible',
       active: null,
-      availability:[]
+      availability:[],
+      showSubmitAvailability: false
 
       
     }
@@ -151,18 +152,31 @@ export default {
     createAvailability(){
       this.newAvailability.specificOpenHours[this.availabilityDate] = this.availabilityOpenTime;
       this.newAvailability.specificCloseHours[this.availabilityDate] = this.availabilityCloseTime;
+      window.alert(this.$store.state.doctorAppointments.some(appointment => appointment.appointmentDate == this.availabilityDate));
+      if(this.$store.state.doctorAppointments.some(appointment => appointment.appointmentDate == this.availabilityDate)){
+        window.alert("There is already an appointment on that day")
+      } else if (this.availabilityOpenTime > this.availabilityCloseTime){
+        window.alert("Close time must be laster than open time")
+      } else {
+        window.alert("Availabilty available (lol)")
+        this.showSubmitAvailability = true;
+      }
     },
     submitAvailability(){
     
       this.newAvailability.specificOpenHours[this.availabilityDate] = this.availabilityOpenTime;
       this.newAvailability.specificCloseHours[this.availabilityDate] = this.availabilityCloseTime;
       doctorService.addAvailability(this.newAvailability.doctorId,this.newAvailability)
+      this.showSubmitAvailability = false;
     }
 
   },
   watch:{
     availabilityMonth: function(newMonth){
       this.updateAvailability(newMonth,this.availabilityYear)
+    },
+    availabilityDate: function() {
+      this.showSubmitAvailability = false;
     }
     
   },
