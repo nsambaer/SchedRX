@@ -64,11 +64,9 @@ export default {
       newAppointment: {
         patientId: "",
         doctorId: "",
-        officeId: "1",
+        officeId: "",
         appointmentDate: "",
         appointmentTime: "",
-        lastUpdatedDate: "",
-        lastUpdatedTime: "",
         visitReason: "",
         appointmentType: "",
       },
@@ -81,7 +79,7 @@ export default {
 
   computed: {
     primaryDoctorId() {
-      let id = this.$store.state.patient.primaryDoctorId;
+      let id = this.$store.state.patient.primaryDoctor.doctorId;
       return id;
     },
 
@@ -132,7 +130,7 @@ export default {
       const today = new Date();
       this.newAppointment.patientId = this.patientId;
       this.newAppointment.doctorId = this.primaryDoctorId;
-      this.newAppointment.officeId = 1;
+      this.newAppointment.officeId = this.$store.state.patient.primaryDoctor.officeId;
       this.newAppointment.lastUpdatedDate = this.currentDate;
       this.newAppointment.lastUpdatedTime = today.toTimeString;
 
@@ -143,8 +141,6 @@ export default {
         doctorId: "",
         officeId: "",
         appointmentTime: "",
-        lastUpdatedDate: "",
-        lastUpdatedTime: "",
         visitReason: "",
         appointmentType: "",
       }
