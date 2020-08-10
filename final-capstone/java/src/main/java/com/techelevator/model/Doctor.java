@@ -17,13 +17,6 @@ public class Doctor {
 		this.lastName = lastName;
 	}
 
-	public Doctor(Long officeId, String firstName, String lastName) {
-		super();
-		this.officeId = officeId;
-		this.firstName = firstName;
-		this.lastName = lastName;
-	}
-
 	public Long getDoctorId() {
 		return doctorId;
 	}

@@ -7,7 +7,7 @@ public class Patient {
 	private Long patientId;
 	private String firstName;
 	private String lastName;
-	private Long primaryDoctorId;
+	private Doctor primaryDoctor;
 	private String address;
 	private String state;
 	private String city;
@@ -17,13 +17,13 @@ public class Patient {
 	
 	public Patient() {};
 	
-	public Patient(Long patientId, String firstName, String lastName, Long primaryDoctorId, String address,
+	public Patient(Long patientId, String firstName, String lastName, Doctor primaryDoctor, String address,
 			String state, String city, String zipCode, String phone, LocalDate birthdate) {
 		super();
 		this.patientId = patientId;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.primaryDoctorId = primaryDoctorId;
+		this.primaryDoctor = primaryDoctor;
 		this.address = address;
 		this.state = state;
 		this.city = city;
@@ -32,12 +32,12 @@ public class Patient {
 		this.birthdate = birthdate;
 	}
 
-	public Patient(String firstName, String lastName, Long primaryDoctorId, String address, String state, String city,
+	public Patient(String firstName, String lastName, Doctor primaryDoctor, String address, String state, String city,
 			String zipCode, String phone, LocalDate birthdate) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.primaryDoctorId = primaryDoctorId;
+		this.primaryDoctor = primaryDoctor;
 		this.address = address;
 		this.state = state;
 		this.city = city;
@@ -84,12 +84,12 @@ public class Patient {
 		this.lastName = lastName;
 	}
 
-	public Long getPrimaryDoctorId() {
-		return primaryDoctorId;
+	public Doctor getPrimaryDoctor() {
+		return primaryDoctor;
 	}
 
-	public void setPrimaryDoctorId(Long primaryDoctorId) {
-		this.primaryDoctorId = primaryDoctorId;
+	public void setPrimaryDoctor(Doctor primaryDoctor) {
+		this.primaryDoctor = primaryDoctor;
 	}
 
 	public String getAddress() {
