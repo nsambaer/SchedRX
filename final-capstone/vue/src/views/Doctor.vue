@@ -12,7 +12,7 @@
       <h1> this is where the doctor reviews component will go </h1>
     </div>
     <div class="doctor-update-availability">
-      <h1> this is where the doctor update availability component will be </h1>
+     
       <doctor-availability />
 
       
