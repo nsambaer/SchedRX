@@ -1,21 +1,7 @@
 <template>
   <div class = "doctor-availability-container">
-    <div class="doctor-availability">
-      <div v-for="(times, date) in availability.availability" v-bind:key = "date">
-        <div class = "availiability-date" v-if="times != null">
-          <button v-on:click="showDetails(date)" >{{date}} </button>
-        <ul>
-          <div class="details" :class="date == active ? activeClass : 'hidden'">
-            <button v-on:click="blockDate(date)">Block Entire Day </button>
-           <li v-for="time in times" v-bind:key="time" >
-            <button class="time-button" v-on:click="blockTime(time,date)">{{time}}</button>
-          </li>
-          </div>
-        </ul>
-        </div>
-      </div>
-      </div>
-      <div class="set-availability">
+
+     <div class="set-availability">
         <form v-on:submit.prevent="createAvailability()">
         <input type="date" v-model="availabilityDate" />
        <select v-model="availabilityOpenTime">
@@ -79,6 +65,24 @@
         <button type="submit">Create Availability Function</button>
         </form>
       </div>
+
+    <div class="doctor-availability">
+      <div v-for="(times, date) in availability.availability" v-bind:key = "date">
+        <div class = "availiability-date" v-if="times != null">
+          <p v-on:click="showDetails(date)" >{{date}} </p>
+        <table>
+          <div class="details" :class="date == active ? activeClass : 'hidden'" >
+            <tr class ="availability-row-details">
+           <td v-for="time in times" v-bind:key="time" >
+            {{time}}
+          </td>
+          </tr>
+          </div>
+        </table>
+        </div>
+      </div>
+      </div>
+     
   
     
 </div>
@@ -156,6 +160,8 @@ export default {
         window.alert("There is already an appointment on that day")
       } else if (this.availabilityOpenTime > this.availabilityCloseTime){
         window.alert("Close time must be laster than open time")
+      } else if(this.availabilityDate == null){
+        window.alert("Please select a date")
       } else {
         //window.alert("Availabilty available (lol)")
         this.showSubmitAvailability = true;
@@ -204,9 +210,13 @@ export default {
 
 .doctor-availability-container{
   display: flex;
+  flex-direction: column;
 }
 
 .hidden{
   display: none;
+}
+.availability-row-details{
+  background: whitesmoke;
 }
 </style>
