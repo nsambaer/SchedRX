@@ -47,6 +47,9 @@ INSERT INTO doctors (doctor_id, first_name, last_name, office_id)
 VALUES ((SELECT user_id FROM users WHERE username ILIKE 'doctorF'), 'Doctor', 'Foxtrot', (SELECT office_id FROM offices WHERE name ILIKE 'Office Bravo'));
 
 INSERT INTO patients (patient_id, first_name, last_name, phone, address, city, state, zip_code, primary_doctor_id, date_of_birth)
+VALUES ((SELECT user_id FROM users WHERE username ILIKE 'testPatient'), 'Test', 'Patient', '517-555-7453', '145 Test Avenue', 'Mason', 'MI', '48912',
+        NULL, '1991-08-12');
+INSERT INTO patients (patient_id, first_name, last_name, phone, address, city, state, zip_code, primary_doctor_id, date_of_birth)
 VALUES ((SELECT user_id FROM users WHERE username ILIKE 'patientG'), 'Patient', 'Golf', '517-555-7913', '123 Boulevard Avenue', 'Dewitt', 'MI', '48912',
         (SELECT doctor_id FROM doctors WHERE first_name ILIKE 'Doctor' AND last_name ILIKE 'Charlie'), '1993-06-12');
 INSERT INTO patients (patient_id, first_name, last_name, phone, address, city, state, zip_code, primary_doctor_id, date_of_birth)
@@ -85,6 +88,8 @@ INSERT INTO appointment_types (appointment_type)
 VALUES ('Pre-travel consultation');
 INSERT INTO appointment_types (appointment_type)
 VALUES ('Blood Draw/Vaccinations');
+
+SELECT * FROM patients;
 
 INSERT INTO appointments (office_id, doctor_id, patient_id, appt_date, appt_time, appt_mod_date, appt_mod_time, visit_reason, appt_type_id) 
 VALUES ((SELECT office_id FROM offices WHERE name ILIKE 'Office Alpha'), (SELECT doctor_id FROM doctors WHERE first_name ILIKE 'Doctor' AND last_name ILIKE 'Charlie'), 

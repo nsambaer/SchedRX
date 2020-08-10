@@ -105,7 +105,7 @@ office_id INT NOT NULL,
 CONSTRAINT pk_admin_office PRIMARY KEY (admin_id, office_id)
 );
 
-CREATE TABLE notifications {
+CREATE TABLE notifications (
 user_id INT NOT NULL,
 message VARCHAR NOT NULL,
 message_read BOOLEAN NOT NULL,
@@ -173,7 +173,7 @@ REFERENCES users (user_id);
 
 ALTER TABLE notifications
 ADD FOREIGN KEY (user_id)
-REFERENCES user (user_id);
+REFERENCES users (user_id);
 
 ALTER TABLE admin_office
 ADD FOREIGN KEY (office_id)

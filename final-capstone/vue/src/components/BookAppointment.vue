@@ -100,7 +100,7 @@ export default {
     },
 
     primaryDoctor() {
-      if (typeof primaryDoctorId === "undefined") {
+      if (typeof this.primaryDoctorId === "undefined") {
         return false;
       } else {
         return true;
@@ -187,9 +187,6 @@ export default {
     const today = new Date();
     const currentMonth =  String(today.getMonth() + 1).padStart(2, "0");
     const currentYear = today.getFullYear();
-    const currentDay = String(today.getDate()).padStart(2, "0");
-    this.currentDate = `${currentYear}-${currentMonth}-${currentDay}`;
-    this.newAppointment.appointmentDate = `${currentYear}-${currentMonth}-${currentDay}`;
     this.updateAvailability(currentMonth, currentYear);
   },
 };
