@@ -45,5 +45,7 @@ export default {
 </script>
 
 <style>
-
+.office-listing{
+  background-color:white;
+}
 </style>

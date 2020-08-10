@@ -64,7 +64,7 @@ export default {
       newAppointment: {
         patientId: "",
         doctorId: "",
-        officeId: "",
+        officeId: "1",
         appointmentDate: "",
         appointmentTime: "",
         lastUpdatedDate: "",
@@ -132,7 +132,7 @@ export default {
       const today = new Date();
       this.newAppointment.patientId = this.patientId;
       this.newAppointment.doctorId = this.primaryDoctorId;
-      this.newAppointment.officeId = this.$store.state.patient.primaryDoctor;
+      this.newAppointment.officeId = 1;
       this.newAppointment.lastUpdatedDate = this.currentDate;
       this.newAppointment.lastUpdatedTime = today.toTimeString;
 

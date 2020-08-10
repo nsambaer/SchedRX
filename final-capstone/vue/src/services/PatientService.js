@@ -32,7 +32,7 @@ const http = axios.create({
     },
 
     postAppointment(appointment) {
-      return http.post(`/patients/${appointment.patientId}/appointments`);
+      return http.post(`/patients/${appointment.patientId}/appointments`, appointment);
     },
 
   }

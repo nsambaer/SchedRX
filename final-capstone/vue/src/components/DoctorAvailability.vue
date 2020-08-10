@@ -66,7 +66,7 @@
         <button type="submit">Request Availability</button>
         <div class="submit-availability-div" v-show="showSubmitAvailability">
           <p>Availability request allowed! Would you like to submit your availability request? </p>
-        <button v-on:click="submitAvailability" >Submit Availability Request </button>
+        <button v-on:click.prevent="submitAvailability" >Submit Availability Request </button>
         </div>
         </form>
       </div>
@@ -178,8 +178,15 @@ export default {
     
       this.newAvailability.specificOpenHours[this.availabilityDate] = this.availabilityOpenTime;
       this.newAvailability.specificCloseHours[this.availabilityDate] = this.availabilityCloseTime;
-      doctorService.addAvailability(this.newAvailability.doctorId,this.newAvailability)
+      doctorService.addAvailability(this.newAvailability.doctorId,this.newAvailability).then(response => {
+        if(response.status == 201){
+          window.alert("availability created");
+        }
+      });
+      this.updateAvailability(this.availabilityMonth,this.availabilityYear);
       this.showSubmitAvailability = false;
+
+      
     }
 
   },
