@@ -41,7 +41,7 @@
           <option v-for="type in appointmentTypes" v-bind:key="type.id" v-bind:value="type">{{ type }}</option>
         </select> <br>
         <label for="visit-reason">Please list your reasons for the appointment: </label>
-        <textarea id="visit-reason" required/>
+        <textarea id="visit-reason" v-model="newAppointment.visitReason" required/>
         <input type="submit" />
       </form>
     </div>
@@ -130,16 +130,15 @@ export default {
       this.newAppointment.lastUpdatedDate = this.currentDate;
       this.newAppointment.lastUpdatedTime = today.toTimeString;
 
-      patientService.postAppointment(this.newAppointment).then( () => {
-        
-        this.newAppointment= {
-        patientId: "",
-        doctorId: "",
-        officeId: "",
-        appointmentTime: "",
-        visitReason: "",
-        appointmentType: "",
-      }
+      patientService.postAppointment(this.newAppointment).then( (response) => {
+        alert(response.status + ' ' + response.data);
+        this.newAppointment.patientId = "";
+        this.newAppointment.doctorId = "";
+        this.newAppointment.officeId = "";
+        this.newAppointment.appointmentTime = "";
+        this.newAppointment.visitReason = "";
+        this.newAppointment.appointmentType = "";
+        this.updateAvailability(this.availabilityMonth, this.availabilityYear);
       }).catch((error) => {
         const response = error.response;
         this.errors = true;
