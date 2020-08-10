@@ -1,21 +1,9 @@
 <template>
   <div class = "doctor-availability-container">
-    <div class="doctor-availability">
-      <div v-for="(times, date) in availability.availability" v-bind:key = "date">
-        <div class = "availiability-date" v-if="times != null">
-          <button v-on:click="showDetails(date)" >{{date}} </button>
-        <ul>
-          <div class="details" :class="date == active ? activeClass : 'hidden'">
-            <button v-on:click="blockDate(date)">Block Entire Day </button>
-           <li v-for="time in times" v-bind:key="time" >
-            <button class="time-button" v-on:click="blockTime(time,date)">{{time}}</button>
-          </li>
-          </div>
-        </ul>
-        </div>
-      </div>
-      </div>
-      <div class="set-availability">
+
+    <h3>Add or Adjust Your Availability </h3>
+
+     <div class="set-availability">
         <form v-on:submit.prevent="createAvailability()">
         <input type="date" v-model="availabilityDate" />
        <select v-model="availabilityOpenTime">
@@ -75,10 +63,32 @@
           <option value="23:00:00">23:00</option>
           <option value="24:00:00">24:00</option>
         </select>
-        <button v-on:click="submitAvailability">Confirm Availability </button>
-        <button type="submit">Update Selected Availability </button>
+        <button type="submit">Request Availability</button>
+        <div class="submit-availability-div" v-show="showSubmitAvailability">
+          <p>Availability request allowed! Would you like to submit your availability request? </p>
+        <button v-on:click="submitAvailability" >Submit Availability Request </button>
+        </div>
         </form>
       </div>
+
+    <div class="doctor-availability" >
+      <button v-on:click="showCurrentAvailabilities = !showCurrentAvailabilities">Show Current Availabilities for Selected Month</button>
+      <div v-for="(times, date) in availability.availability" v-bind:key = "date" v-show="showCurrentAvailabilities">
+        <div class = "availability-date" v-if="times != null">
+          <p v-on:click="showDetails(date)" >{{date}} </p>
+        <table>
+          <div class="details" :class="date == active ? activeClass : 'hidden'" >
+            <tr class ="availability-row-details">
+           <td v-for="time in times" v-bind:key="time" >
+            {{time}}
+          </td>
+          </tr>
+          </div>
+        </table>
+        </div>
+      </div>
+      </div>
+     
   
     
 </div>
@@ -97,6 +107,7 @@ export default {
       availabilityDate:"",
       availabilityOpenTime:"",
       availabilityCloseTime:"",
+      showCurrentAvailabilities: false,
 
       newAvailability: {
         doctorId: this.$store.state.user.id,
@@ -109,7 +120,8 @@ export default {
       },
       activeClass: 'is-visible',
       active: null,
-      availability:[]
+      availability:[],
+      showSubmitAvailability: false
 
       
     }
@@ -151,18 +163,32 @@ export default {
     createAvailability(){
       this.newAvailability.specificOpenHours[this.availabilityDate] = this.availabilityOpenTime;
       this.newAvailability.specificCloseHours[this.availabilityDate] = this.availabilityCloseTime;
+      if(this.$store.state.doctorAppointments.some(appointment => appointment.appointmentDate == this.availabilityDate)){
+        window.alert("There is already an appointment on that day")
+      } else if (this.availabilityOpenTime > this.availabilityCloseTime){
+        window.alert("Close time must be laster than open time")
+      } else if(this.availabilityDate == ""){
+        window.alert("Please select a date");
+        }else {
+        //window.alert("Availabilty available (lol)")
+        this.showSubmitAvailability = true;
+      }
     },
     submitAvailability(){
     
       this.newAvailability.specificOpenHours[this.availabilityDate] = this.availabilityOpenTime;
       this.newAvailability.specificCloseHours[this.availabilityDate] = this.availabilityCloseTime;
       doctorService.addAvailability(this.newAvailability.doctorId,this.newAvailability)
+      this.showSubmitAvailability = false;
     }
 
   },
   watch:{
     availabilityMonth: function(newMonth){
       this.updateAvailability(newMonth,this.availabilityYear)
+    },
+    availabilityDate: function() {
+      this.showSubmitAvailability = false;
     }
     
   },
@@ -185,15 +211,29 @@ export default {
 </script>
 
 <style>
+
+:root{
+--main-color-turqoise: #086972;
+--main-color-blue-green: #01a9b4;
+--main-color-light-blue: #87dfd6;
+--accent-color-yellow: #fbfd8a;
+}
 .is-visible{
   display:show;
 }
 
 .doctor-availability-container{
   display: flex;
+  flex-direction: column;
+}
+.availability-date{
+  background-color: var(--main-color-blue-green);
 }
 
 .hidden{
   display: none;
+}
+.availability-row-details{
+  background: whitesmoke;
 }
 </style>

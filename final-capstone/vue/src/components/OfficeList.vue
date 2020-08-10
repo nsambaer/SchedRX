@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-for="office in offices" v-bind:key="office.officeId"  >
+    <div v-bind:class="office-listing" v-for="office in offices" v-bind:key="office.officeId"  >
 
       
         <office-details v-bind:office="office"  />
@@ -45,4 +45,5 @@ export default {
 </script>
 
 <style>
+
 </style>

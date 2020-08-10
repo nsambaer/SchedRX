@@ -21,14 +21,28 @@
     <p></p>
     <p></p>
     <div v-show="primaryDoctor">
-      <form>
+      <form v-on:submit.prevent="submitAppointment">
         <label for="date-selector">Choose a date:</label>
         <input id="date-selector" type="date" required v-model="newAppointment.appointmentDate" />
         <br />
-        <select id="time-selector" v-model="newAppointment.appointmentTime" required>
-          <option value='' selected="true">--Please select a time--</option>
-          <!--<option v-for="timeslot in availability" v-bind:key="timeslot.id" value="timeslot" >{{ timeslot }}</option> -->
-        </select>
+
+        <div v-for="(times, date) in availability" v-bind:key="date">
+          <select
+            v-show="newAppointment.appointmentDate == date"
+            id="time-selector"
+            v-model="newAppointment.appointmentTime"
+          >
+            <option value selected="true">--Please select a time--</option>
+            <option v-for="time in times" v-bind:key="time.id" v-bind:value="time">{{ time }}</option>-->
+          </select>
+        </div>
+        <label for="appointment-type">Select an appointment type: </label>
+        <select id="appointment-type" v-model="newAppointment.appointmentType" required>
+          <option v-for="type in appointmentTypes" v-bind:key="type.id" v-bind:value="type">{{ type }}</option>
+        </select> <br>
+        <label for="visit-reason">Please list your reasons for the appointment: </label>
+        <textarea id="visit-reason" required/>
+        <input type="submit" />
       </form>
     </div>
   </div>
@@ -45,17 +59,20 @@ export default {
       patientId: this.$store.state.user.id,
       doctors: [],
       selectedDoctor: {},
+      availability: {},
+      currentDate: '',
       newAppointment: {
-        patientId: '',
-        doctorId: '',
-        officeId: '',
-        appointmentDate: '',
-        appointmentTime: '',
-        lastUpdatedDate: '',
-        lastUpdatedTime: '',
-        visitReason: '',
-        appointmentType: ''
+        patientId: "",
+        doctorId: "",
+        officeId: "",
+        appointmentDate: "",
+        appointmentTime: "",
+        lastUpdatedDate: "",
+        lastUpdatedTime: "",
+        visitReason: "",
+        appointmentType: "",
       },
+      appointmentTypes: [],
       // primaryDoctorId: this.$store.state.patient.primaryDoctorId
       // primaryDoctorId: '',
       // primaryDoctor: false
@@ -65,15 +82,20 @@ export default {
   computed: {
     primaryDoctorId() {
       let id = this.$store.state.patient.primaryDoctorId;
-      return id
+      return id;
     },
-    // primaryDoctor() {
-    //   if (typeof primaryDoctorId === 'undefined') {
-    //     return false;
-    //   } else {
-    //   return true;
-    //   }
-    // }
+
+    availabilityMonth() {
+      console.log("Month ");
+      console.log(this.newAppointment.appointmentDate.substr(5, 2));
+      return this.newAppointment.appointmentDate.substr(5, 2);
+    },
+
+    availabilityYear() {
+      console.log("Year ");
+      console.log(typeof this.newAppointment.appointmentDate);
+      return this.newAppointment.appointmentDate.substr(0, 4);
+    },
   },
 
   methods: {
@@ -84,15 +106,65 @@ export default {
     },
 
     primaryDoctor() {
-      if (typeof primaryDoctorId === 'undefined') {
+      if (typeof primaryDoctorId === "undefined") {
         return false;
       } else {
-      return true;
+        return true;
       }
+    },
+
+    updateAvailability(month, year) {
+      patientService
+        .getAvailability(this.primaryDoctorId, month, year)
+        .then((response) => {
+          this.availability = response.data.availability;
+        })
+        .catch((error) => {
+          const response = error.response;
+          this.errors = true;
+          if (response.status === 400) {
+            this.errorMsg = "Bad Request: Validation Errors";
+          }
+        });
+    },
+
+    submitAppointment() {
+      const today = new Date();
+      this.newAppointment.patientId = this.patientId;
+      this.newAppointment.doctorId = this.primaryDoctorId;
+      this.newAppointment.officeId = this.$store.state.patient.primaryDoctor;
+      this.newAppointment.lastUpdatedDate = this.currentDate;
+      this.newAppointment.lastUpdatedTime = today.toTimeString;
+
+      patientService.postAppointment(this.newAppointment).then( () => {
+        
+        this.newAppointment= {
+        patientId: "",
+        doctorId: "",
+        officeId: "",
+        appointmentTime: "",
+        lastUpdatedDate: "",
+        lastUpdatedTime: "",
+        visitReason: "",
+        appointmentType: "",
+      }
+      }).catch((error) => {
+        const response = error.response;
+        this.errors = true;
+        if (response.status === 400) {
+          this.errorMsg = "Bad Request: Validation Errors";
+        }
+      });
+
     }
 
   },
 
+  watch: {
+    availabilityMonth: function (newMonth) {
+      this.updateAvailability(newMonth, this.availabilityYear);
+    },
+  },
 
   created() {
     patientService
@@ -107,6 +179,27 @@ export default {
           this.errorMsg = "Bad Request: Validation Errors";
         }
       });
+
+    patientService
+      .getAppointmentTypes()
+      .then((response) => {
+        this.appointmentTypes = response.data;
+      })
+      .catch((error) => {
+        const response = error.response;
+        this.errors = true;
+        if (response.status === 400) {
+          this.errorMsg = "Bad Request: Validation Errors";
+        }
+      });
+
+    const today = new Date();
+    const currentMonth =  String(today.getMonth() + 1).padStart(2, "0");
+    const currentYear = today.getFullYear();
+    const currentDay = String(today.getDate()).padStart(2, "0");
+    this.currentDate = `${currentYear}-${currentMonth}-${currentDay}`;
+    this.newAppointment.appointmentDate = `${currentYear}-${currentMonth}-${currentDay}`;
+    this.updateAvailability(currentMonth, currentYear);
   },
 };
 </script>
