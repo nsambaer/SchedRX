@@ -12,8 +12,6 @@ public interface PatientDAO {
 	
 	public List<Patient> getPatientsByOffice(Long officeId);
 	
-	public List<Patient> getPatientsByDate(LocalDate date);
-	
 	public Patient createPatient(Patient patient);
 	
 	public Patient updatePatient(Patient patient);

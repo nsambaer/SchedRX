@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
+import com.techelevator.model.Doctor;
 import com.techelevator.model.Patient;
 
 @Component
@@ -21,7 +22,8 @@ public class PatientSqlDAO implements PatientDAO {
 
 	@Override
 	public Patient getPatientById(Long patientId) {
-		String sqlGetPatient = "SELECT * FROM patients WHERE patient_id = ?";
+		String sqlGetPatient = "SELECT *, p.first_name AS patient_first, p.last_name AS patient_last, d.first_name AS doctor_first, d.last_name AS doctor_last "
+				+ "FROM patients p INNER JOIN doctors d ON p.primary_doctor_id = d.doctor_id WHERE patient_id = ?";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetPatient, patientId);
 		results.next();
 		return mapRowToPatient(results);
@@ -30,7 +32,8 @@ public class PatientSqlDAO implements PatientDAO {
 	@Override
 	public List<Patient> getPatientsByDoctor(Long doctorId) {
 		List<Patient> patientList = new ArrayList<>();
-		String sqlPatientsByDoctor = "SELECT * FROM patients WHERE primary_doctor_id = ?";
+		String sqlPatientsByDoctor = "SELECT *, p.first_name AS patient_first, p.last_name AS patient_last, d.first_name AS doctor_first, d.last_name AS doctor_last "
+				+ "FROM patients p INNER JOIN doctors d ON p.primary_doctor_id = d.doctor_id WHERE primary_doctor_id = ?";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlPatientsByDoctor, doctorId);
 		while (results.next()) {
 			Patient thePatient = mapRowToPatient(results);
@@ -42,8 +45,8 @@ public class PatientSqlDAO implements PatientDAO {
 	@Override
 	public List<Patient> getPatientsByOffice(Long officeId) {
 		List<Patient> patientList = new ArrayList<>();
-		String sqlPatientsByOffice = "SELECT * FROM patients p " + "INNER JOIN doctors d "
-				+ "ON p.primary_doctor_id = d.doctor_id " + "WHERE d.office_id = ?";
+		String sqlPatientsByOffice = "SELECT *, p.first_name AS patient_first, p.last_name AS patient_last, d.first_name AS doctor_first, d.last_name AS doctor_last "
+				+ "FROM patients p INNER JOIN doctors d ON p.primary_doctor_id = d.doctor_id WHERE d.office_id = ?";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlPatientsByOffice, officeId);
 		while (results.next()) {
 			Patient thePatient = mapRowToPatient(results);
@@ -52,19 +55,6 @@ public class PatientSqlDAO implements PatientDAO {
 		return null;
 	}
 
-	@Override
-	public List<Patient> getPatientsByDate(LocalDate date) {
-		List<Patient> patientList = new ArrayList<>();
-		String sqlPatientsByDate = "SELECT * FROM patients p " + "INNER JOIN appointments a "
-				+ "ON p.patient_id = a.patient_id " + "WHERE appt_date = ? " + "ORDER BY p.last_name ASC, "
-				+ "p.first_name ASC";
-		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlPatientsByDate, date);
-		while (results.next()) {
-			Patient thePatient = mapRowToPatient(results);
-			patientList.add(thePatient);
-		}
-		return patientList;
-	}
 
 	@Override
 	public Patient createPatient(Patient patient) {
@@ -84,18 +74,23 @@ public class PatientSqlDAO implements PatientDAO {
 				+ "primary_doctor_id = ?, date_of_birth = ? WHERE patient_id = ?";
 
 		jdbcTemplate.update(SqlUpdatePatient, patient.getFirstName(), patient.getLastName(), patient.getPhone(), patient.getAddress(), patient.getCity(), patient.getState(), patient.getZipCode(), 
-				patient.getPrimaryDoctorId(), patient.getBirthdate(), patient.getPatientId());
+				patient.getPrimaryDoctor().getDoctorId(), patient.getBirthdate(), patient.getPatientId());
 		
 		return patient;
 	}
 
 	private Patient mapRowToPatient(SqlRowSet results) {
 		Patient thePatient = new Patient();
+		Doctor primaryDoctor = new Doctor();
 
 		thePatient.setPatientId(results.getLong("patient_id"));
-		thePatient.setFirstName(results.getString("first_name"));
-		thePatient.setLastName(results.getString("last_name"));
-		thePatient.setPrimaryDoctorId(results.getLong("primary_doctor_id"));
+		thePatient.setFirstName(results.getString("patient_first"));
+		thePatient.setLastName(results.getString("patient_last"));
+		primaryDoctor.setDoctorId(results.getLong("doctor_id"));
+		primaryDoctor.setFirstName(results.getString("doctor_first"));
+		primaryDoctor.setLastName(results.getString("doctor_last"));
+		primaryDoctor.setOfficeId(results.getLong("office_id"));
+		thePatient.setPrimaryDoctor(primaryDoctor);
 		thePatient.setAddress(results.getString("address"));
 		thePatient.setState(results.getString("state"));
 		thePatient.setCity(results.getString("city"));
