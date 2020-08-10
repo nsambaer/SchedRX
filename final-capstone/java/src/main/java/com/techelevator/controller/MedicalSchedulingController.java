@@ -220,7 +220,7 @@ public class MedicalSchedulingController {
 	
 	//NOTIFICATION
 	
-	@RequestMapping(path = "/users/{userId}/notifications", method = RequestMethod.GET)
+	@RequestMapping(path = "/users/{userId}/notifications/recent", method = RequestMethod.GET)
 	public List<Notification> listRecentNotifications(@PathVariable Long userId) {
 		return notificationDao.getRecentNotifications(userId);
 	}
