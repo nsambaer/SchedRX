@@ -19,12 +19,14 @@ import com.techelevator.dao.AppointmentDAO;
 import com.techelevator.dao.AppointmentTypesDAO;
 import com.techelevator.dao.DoctorAvailabilityDAO;
 import com.techelevator.dao.DoctorDAO;
+import com.techelevator.dao.NotificationDAO;
 import com.techelevator.dao.OfficeDAO;
 import com.techelevator.dao.PatientDAO;
 import com.techelevator.dao.ReviewDAO;
 import com.techelevator.model.Appointment;
 import com.techelevator.model.Doctor;
 import com.techelevator.model.DoctorAvailability;
+import com.techelevator.model.Notification;
 import com.techelevator.model.Office;
 import com.techelevator.model.Patient;
 
@@ -40,9 +42,10 @@ public class MedicalSchedulingController {
 	private ReviewDAO reviewDao;
 	private DoctorAvailabilityDAO drAvailDao;
 	private AppointmentTypesDAO apptTypesDao;
+	private NotificationDAO notificationDao;
 	
 	public MedicalSchedulingController(AppointmentDAO appointmentDao, DoctorDAO doctorDao, OfficeDAO officeDao,
-			PatientDAO patientDao, ReviewDAO reviewDao, DoctorAvailabilityDAO doctorAvailabilityDao, AppointmentTypesDAO appointmentTypesDao) {
+			PatientDAO patientDao, ReviewDAO reviewDao, DoctorAvailabilityDAO doctorAvailabilityDao, AppointmentTypesDAO appointmentTypesDao, NotificationDAO notificationDao) {
 		super();
 		this.appointmentDao = appointmentDao;
 		this.doctorDao = doctorDao;
@@ -51,6 +54,7 @@ public class MedicalSchedulingController {
 		this.reviewDao = reviewDao;
 		this.drAvailDao = doctorAvailabilityDao;
 		this.apptTypesDao = appointmentTypesDao;
+		this.notificationDao = notificationDao;
 	}
 	
 	//OFFICE METHODS
@@ -214,6 +218,24 @@ public class MedicalSchedulingController {
 	}
 	
 	
+	//NOTIFICATION
+	
+	@RequestMapping(path = "/users/{userId}/notifications", method = RequestMethod.GET)
+	public List<Notification> listRecentNotifications(@PathVariable Long userId) {
+		return notificationDao.getRecentNotifications(userId);
+	}
+	
+	@ResponseStatus(HttpStatus.ACCEPTED)
+	@RequestMapping(path = "/notifications/{notificationId}", method = RequestMethod.PUT)
+	public boolean markRead(@PathVariable Long notificationId) {
+		return notificationDao.markRead(notificationId);
+	}
+	
+	@ResponseStatus(HttpStatus.CREATED)
+	@RequestMapping(path = "/notifications", method = RequestMethod.POST)
+	public Notification addNotification(@RequestBody Notification notification) {
+		return notificationDao.createNotification(notification);
+	}
 	
 	
 	
