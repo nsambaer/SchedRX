@@ -23,6 +23,7 @@ import com.techelevator.dao.UserDAO;
 import com.techelevator.model.ForgotPasswordDTO;
 import com.techelevator.model.LoginDTO;
 import com.techelevator.model.RegisterUserDTO;
+import com.techelevator.model.UpdatePasswordDTO;
 import com.techelevator.model.User;
 import com.techelevator.model.UserAlreadyExistsException;
 import com.techelevator.security.jwt.JWTFilter;
@@ -70,9 +71,8 @@ public class AuthenticationController {
         }
     }
     
-
     
-    @PreAuthorize("hasRole('ADMIN')")
+    
     @RequestMapping(path = "/reset-password", method = RequestMethod.PUT)
     public void resetPassword(@RequestBody ForgotPasswordDTO user) {
     	userDAO.resetPassword(user);

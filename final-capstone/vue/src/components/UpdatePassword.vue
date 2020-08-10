@@ -1,25 +1,12 @@
 <template>
   <div>
       <form v-on:submit.prevent="resetPassword">
-          <label for="username">Username: </label>
-          <input 
-            type="text" 
-            id="username" 
-            class="form-control"
-            v-model="user.username"
-          >
-          <label for="confirm-username">Confirm Username: </label>
-          <input 
-            type="text" 
-            id="confirm-username" 
-            class="form-control"
-          >
           <label for="old-password">Old Password: </label>
           <input 
             type="text"
             id="old-password"
             class="form-control"
-            v-model="user.oldPassword"
+            v-model="loginUser.oldPassword"
           >
           <label for="new-password">New Password: </label>
           <input 
@@ -39,11 +26,9 @@
 export default {
     data() {
         return{
-            user: {
-                username: "",
-                confirmUsername: "",
-                oldPassword: "",
-                newPassword: ""
+            loginUser: {
+              username: "",
+              oldPassword: "",
             }
         }
         
