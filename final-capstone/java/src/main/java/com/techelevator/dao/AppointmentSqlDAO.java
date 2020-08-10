@@ -90,7 +90,7 @@ public class AppointmentSqlDAO implements AppointmentDAO {
 	public Appointment createAppointment(Appointment appointment) {
 		String sqlCreateAppointment = "INSERT INTO appointments "
 				+ "(patient_id, doctor_id, office_id, appt_date, appt_time, appt_mod_date, appt_mod_time, visit_reason, appt_type_id) "
-				+ "VALUES(?, ?, ?, ?, ?, ?, (SELECT appointment_types_id FROM appointment_types WHERE appointment_type ILIKE ?))";
+				+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, (SELECT appointment_types_id FROM appointment_types WHERE appointment_type ILIKE ?))";
 		jdbcTemplate.update(sqlCreateAppointment, appointment.getPatientId(), appointment.getDoctorId(), appointment.getOfficeId(), 
 							appointment.getAppointmentDate(), appointment.getAppointmentTime(), appointment.getLastUpdatedDate(), appointment.getLastUpdatedTime(),
 							appointment.getVisitReason(), appointment.getAppointmentType());
