@@ -9,7 +9,7 @@
         >
         <label for="new-password">New Password: </label>
         <input 
-            type="text"
+            type="password"
             id="new-password"
             v-model="user.newPassword"
         >
