@@ -11,6 +11,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.techelevator.model.ForgotPasswordDTO;
+import com.techelevator.model.UpdatePasswordDTO;
 import com.techelevator.model.User;
 
 @Service
@@ -87,13 +89,17 @@ public class UserSqlDAO implements UserDAO {
     }
     
     @Override
-    public void updatePassword(String username, String newPassword) {
-    	String sqlUpdatePassword = "update users set password = ? where username = ?";
-    	String passwordHash = new BCryptPasswordEncoder().encode(newPassword);
-    	jdbcTemplate.update(sqlUpdatePassword, passwordHash, username);
+    public void updatePassword(UpdatePasswordDTO user) {
     	
     }
 
+    @Override
+    public void resetPassword(ForgotPasswordDTO user) {
+    	String sqlUpdatePassword = "update users set password_hash = ? where username = ?";
+    	String passwordHash = new BCryptPasswordEncoder().encode(user.getNewPassword());
+    	jdbcTemplate.update(sqlUpdatePassword, passwordHash, user.getUsername());
+    }
+    
     private User mapRowToUser(SqlRowSet rs) {
         User user = new User();
         user.setId(rs.getLong("user_id"));

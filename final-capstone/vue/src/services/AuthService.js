@@ -12,6 +12,10 @@ export default {
 
   register(user) {
     return http.post('/register', user)
+  },
+
+  resetPassword(user) {
+    return http.put('/reset-password', user)
   }
 
 }

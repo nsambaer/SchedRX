@@ -1,8 +1,10 @@
 package com.techelevator.dao;
 
-import com.techelevator.model.User;
-
 import java.util.List;
+
+import com.techelevator.model.ForgotPasswordDTO;
+import com.techelevator.model.UpdatePasswordDTO;
+import com.techelevator.model.User;
 
 public interface UserDAO {
 
@@ -16,5 +18,7 @@ public interface UserDAO {
 
     int create(String username, String password, String role);
     
-    void updatePassword(String username, String newPassword);
+    void updatePassword(UpdatePasswordDTO user);
+    
+    void resetPassword(ForgotPasswordDTO user);
 }

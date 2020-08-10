@@ -1,5 +1,7 @@
 package com.techelevator.controller;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -126,6 +128,9 @@ public class MedicalSchedulingController {
 	@ResponseStatus(HttpStatus.CREATED)
 	@RequestMapping(path = "/patients/{patientId}/appointments", method = RequestMethod.POST)
 	public Appointment createAppointment(@RequestBody Appointment appointment) {
+		
+		appointment.setLastUpdatedDate(LocalDate.now());
+		appointment.setLastUpdatedTime(LocalTime.now());
 		return appointmentDao.createAppointment(appointment);
 	}
 	

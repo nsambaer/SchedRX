@@ -6,6 +6,9 @@
     <div class="register-doctor-container">
       <register-doctor/>
     </div>
+    <div class="reset-password-container">
+      <reset-password/>
+    </div>
     
 
     
@@ -16,11 +19,13 @@
 import adminService from "../services/AdminService.js";
 import OfficeAdmin from "../components/OfficeAdmin.vue"
 import RegisterDoctor from "../components/RegisterDoctor.vue"
+import ResetPassword from "../components/AdminResetPassword.vue"
 export default {
   name: 'admin',
   components: {
     OfficeAdmin,
-    RegisterDoctor
+    RegisterDoctor,
+    ResetPassword
   },
   data() {
     return {
