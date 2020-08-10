@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-bind:class="office-listing" v-for="office in offices" v-bind:key="office.officeId"  >
+    <div class="office-listing" v-for="office in offices" v-bind:key="office.officeId"  >
 
       
         <office-details v-bind:office="office"  />

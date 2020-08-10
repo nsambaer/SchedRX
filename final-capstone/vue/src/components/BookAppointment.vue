@@ -84,14 +84,10 @@ export default {
     },
 
     availabilityMonth() {
-      console.log("Month ");
-      console.log(this.newAppointment.appointmentDate.substr(5, 2));
       return this.newAppointment.appointmentDate.substr(5, 2);
     },
 
     availabilityYear() {
-      console.log("Year ");
-      console.log(typeof this.newAppointment.appointmentDate);
       return this.newAppointment.appointmentDate.substr(0, 4);
     },
   },
