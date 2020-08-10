@@ -5,15 +5,22 @@ import javax.validation.Valid;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.techelevator.dao.UserDAO;
+import com.techelevator.model.ForgotPasswordDTO;
 import com.techelevator.model.LoginDTO;
 import com.techelevator.model.RegisterUserDTO;
 import com.techelevator.model.User;
@@ -63,9 +70,12 @@ public class AuthenticationController {
         }
     }
     
-    @RequestMapping(path = "/update-password", method = RequestMethod.PUT)
-    public void updatePassword(String username, String newPassword) {
-    	userDAO.updatePassword(username, newPassword);
+
+    
+    @PreAuthorize("hasRole('ADMIN')")
+    @RequestMapping(path = "/reset-password", method = RequestMethod.PUT)
+    public void resetPassword(@RequestBody ForgotPasswordDTO user) {
+    	userDAO.resetPassword(user);
     }
     /**
      * Object to return as body in JWT Authentication.
