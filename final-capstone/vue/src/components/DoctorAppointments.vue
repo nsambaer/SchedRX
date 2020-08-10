@@ -1,11 +1,26 @@
 <template>
   <div class = "appointment-container">
-    <div v-for="appointment in appointments" v-bind:key = "appointment.id">
-        <h2>Appointment Date: {{appointment.appointmentDate}}</h2>
-        <h3>{{appointment.appointmentTime}}</h3>
-        <h4> {{appointment.patientId}}</h4>
-        <p>{{appointment.appointmentType}}</p>
-        <p>{{appointment.visitReason}}</p>
+    <h3 class="appointment-header">Your Upcoming Appointments</h3>
+
+    <div v-for="appointment in appointments" v-bind:key = "appointment.appointmentId" class="appointment-slot">
+
+      <table class="appointment-slot-table">
+        <tr class="appointment-first-row">
+          <td>Appointment Date: {{appointment.appointmentDate}} </td>
+          <td>, {{appointment.appointmentTime}}</td>
+          <td> at Office {{appointment.officeId}}</td>
+        </tr>
+        <tr class="appointment-second-row">
+          <td>  Patient: {{appointment.patientId}} </td>
+          <td><button v-on:click="showAppointmentDetails(appointment.appointmentId)">Show Details </button></td>
+        </tr>
+        <tr  class="details" :class="appointment.appointmentId == active ? activeClass : 'hidden'">
+          <p>Type: {{appointment.appointmentType}}</p>
+        <p>Reason: {{appointment.visitReason}}</p>
+        </tr>
+      </table>
+  
+        
     </div>
 
     </div>
@@ -19,7 +34,8 @@ export default {
 
     data(){
         return{
-            
+            activeClass: 'is-visible',
+            active:null
         }
     },
     created(){
@@ -35,6 +51,16 @@ export default {
       appointments() {
         return this.$store.state.doctorAppointments;
     }
+    },
+    methods:{
+      showAppointmentDetails(id){
+        if(this.active == id){
+        this.active = null;
+      } else{
+        this.active = id;
+      }
+
+      }
     }
 
     
@@ -43,5 +69,47 @@ export default {
 </script>
 
 <style>
+
+:root{
+--main-color-turqoise: #086972;
+--main-color-blue-green: #01a9b4;
+--main-color-light-blue: #87dfd6;
+--accent-color-yellow: #fbfd8a;
+}
+
+.appointment-slot{
+  background-color:whitesmoke;
+  border-color: black;
+  color: black;
+  border: 4px;
+  width:90%;
+}
+
+.appointment-slot-table{
+  background-color:whitesmoke;
+  border-color: black;
+  color: black;
+  border: 4px;
+}
+.appointment-container{
+  display:flex;
+  flex-direction: column;
+ background-color: var(--main-color-turqoise);
+ align-items: center;
+ color: white;
+ padding:5px;
+
+}
+.appointment-header{
+  text-align: center;
+}
+
+.is-visible{
+  display:show;
+}
+
+.hidden{
+  display: none;
+}
 
 </style>
