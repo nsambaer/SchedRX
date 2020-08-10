@@ -105,6 +105,15 @@ office_id INT NOT NULL,
 CONSTRAINT pk_admin_office PRIMARY KEY (admin_id, office_id)
 );
 
+CREATE TABLE notifications {
+user_id INT NOT NULL,
+message VARCHAR NOT NULL,
+message_read BOOLEAN NOT NULL,
+
+CONSTRAINT pk_notifications PRIMARY KEY (user_id)
+);
+
+
 
 ALTER TABLE doctors
 ADD FOREIGN KEY (doctor_id)
@@ -162,10 +171,13 @@ ALTER TABLE admin_office
 ADD FOREIGN KEY (admin_id)
 REFERENCES users (user_id);
 
+ALTER TABLE notifications
+ADD FOREIGN KEY (user_id)
+REFERENCES user (user_id);
+
 ALTER TABLE admin_office
 ADD FOREIGN KEY (office_id)
 REFERENCES offices (office_id);
-
 
 
 SELECT * FROM doctors;
@@ -176,5 +188,7 @@ SELECT * FROM appointment_types;
 SELECT * FROM offices;
 SELECT * FROM office_hours;
 SELECT * FROM doctor_availability;
+SELECT * FROM admin_office;
+SELECT * FROM notifications;
 
 COMMIT;
