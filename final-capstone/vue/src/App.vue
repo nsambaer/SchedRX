@@ -1,17 +1,16 @@
 <template>
   <div id="app">
     <div id="title-banner">
-      <h1>The ol' Medical Scheduling App </h1>
+      <h1>Ye olde Medical Scheduling App </h1>
     </div>
     <div id="nav">
       <router-link  v-bind:to="{ name: 'home' }" class="nav-button">
-      <div class="nav-button-text" >
-        <p>Home</p>
-      </div>
+     
+        Home
+     
       </router-link>
-    <div class="nav-button">
-      <router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link>
-    </div>  
+      <router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''" class="nav-button">Logout</router-link>
+        
     </div>
     <div id="content">
     <router-view></router-view>
@@ -39,6 +38,7 @@ export default {
   grid-template-areas:
   "header header  header"
   "nav content  .";
+ 
 }
   @import url('https://fonts.googleapis.com/css?family=Lemonada');
 
@@ -57,23 +57,45 @@ body{
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: 5px;
 }
 
 #content {
   grid-area: content;
+  margin: 10px;
 }
 .nav-button{
   display:flex;
   align-items: center;
-  justify-items: center;
+  color:white;
+  font-size: 1.5em;
+ 
+  justify-content: center;
+  text-align: center;
   height: 50px;
   width:100%;
   margin:10px;
   background-color: var(--main-color-blue-green);
 }
+.nav-button-text{
+  display: flex;
+  justify-items: center;
+  text-align: center;
+  font-size: 1.5em;
+  color: white;
+}
 
 .nav-button:hover{
   background-color: var(--accent-color-yellow);
+  color:black;
+}
+.nav-button .nav-button-text:hover{
+  color:black;
+}
+
+a{
+  text-decoration: none;
+
 }
 
 </style>

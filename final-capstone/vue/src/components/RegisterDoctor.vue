@@ -1,6 +1,6 @@
 <template>
   <div id="register" class="text-center">
-    <h1 class="h3 mb-3 font-weight-normal">Register Doctor</h1>
+    <h2 class="h3 mb-3 font-weight-normal">Register Doctor</h2>
     <form class="form-register" @submit.prevent="register">
       
       <div
@@ -56,7 +56,7 @@
           required
         />
       
-      <router-link :to="{ name: 'home' }">Have an account?</router-link>
+      
       <button class="btn btn-lg btn-primary btn-block" type="submit">Register Doctor</button>
     </form>
   </div>

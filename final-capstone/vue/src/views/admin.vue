@@ -1,7 +1,12 @@
 <template>
   <div class="admin-view-container">
-    <office-admin/>
-    <register-doctor/>
+    <div class="office-info-container">
+      <office-admin/>
+    </div>
+    <div class="register-doctor-container">
+      <register-doctor/>
+    </div>
+    
 
     
   </div>
@@ -31,5 +36,18 @@ export default {
 </script>
 
 <style>
+  .admin-view-container {
+    display: grid;
+    grid-template-columns: 2fr, 1fr;
+    grid-template-areas: 
+      "office-info register-doctor";
+  }
 
+  .office-info-container {
+    grid-area: "office-info"
+  }
+
+  .register-doctor-container {
+    grid-area: "register-doctor"
+  }
 </style>

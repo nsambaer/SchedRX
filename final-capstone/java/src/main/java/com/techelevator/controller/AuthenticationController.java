@@ -63,7 +63,7 @@ public class AuthenticationController {
         }
     }
     
-    @RequestMapping(path = "/updatePassword", method = RequestMethod.PUT)
+    @RequestMapping(path = "/update-password", method = RequestMethod.PUT)
     public void updatePassword(String username, String newPassword) {
     	userDAO.updatePassword(username, newPassword);
     }

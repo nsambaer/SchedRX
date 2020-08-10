@@ -55,6 +55,7 @@
                 
           </form>
       </div>
+
   </div>
 </template>
 
@@ -116,9 +117,11 @@ export default {
 </script>
 
 <style>
+    
     .edit-office-form {
         display: grid;
-        grid-template-columns: 200px 200px;
+        grid-area: "office-form";
+        grid-template-columns: 150px 200px;
 
     }
 </style>
