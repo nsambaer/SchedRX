@@ -10,9 +10,9 @@ Vue.use(Vuex)
  * exists you should set the header so that it will be attached to each request
  */
 const currentToken = localStorage.getItem('token')
-const currentUser = JSON.parse(localStorage.getItem('user'));
+const currentUser = JSON.parse(JSON.stringify(localStorage.getItem('user')));
 const currentRole = localStorage.getItem('role')
-const currentPatient = JSON.parse(localStorage.getItem('patient'))
+const currentPatient = JSON.parse(JSON.stringify(localStorage.getItem('patient')));
 
 if(currentToken != null) {
   axios.defaults.headers.common['Authorization'] = `Bearer ${currentToken}`;
