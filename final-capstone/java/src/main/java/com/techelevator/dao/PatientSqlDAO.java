@@ -23,7 +23,7 @@ public class PatientSqlDAO implements PatientDAO {
 	@Override
 	public Patient getPatientById(Long patientId) {
 		String sqlGetPatient = "SELECT *, p.first_name AS patient_first, p.last_name AS patient_last, d.first_name AS doctor_first, d.last_name AS doctor_last "
-				+ "FROM patients p INNER JOIN doctors d ON p.primary_doctor_id = d.doctor_id WHERE patient_id = ?";
+				+ "FROM patients p LEFT OUTER JOIN doctors d ON p.primary_doctor_id = d.doctor_id WHERE patient_id = ?";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetPatient, patientId);
 		results.next();
 		return mapRowToPatient(results);
