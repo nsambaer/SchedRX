@@ -35,9 +35,9 @@ export default {
                 if (response.status === 400) {
                     this.errorMsg = "Bad Request: Validation Errors";
                 }
-                })
+            })
                 
-                };
+         }
     },
     computed:{
         currentDoctorId(){

@@ -221,9 +221,9 @@ public class MedicalSchedulingController {
 	
 	//NOTIFICATION
 	@PreAuthorize("permitAll()")
-	@RequestMapping(path = "/users/{userId}/notifications/recent", method = RequestMethod.GET)
+	@RequestMapping(path = "/users/{userId}/notifications", method = RequestMethod.GET)
 	public List<Notification> listRecentNotifications(@PathVariable Long userId) {
-		return notificationDao.getRecentNotifications(userId);
+		return notificationDao.getNotifications(userId);
 	}
 	
 	@PreAuthorize("permitAll()")
@@ -240,6 +240,13 @@ public class MedicalSchedulingController {
 		return notificationDao.createNotification(notification);
 	}
 	
+	@PreAuthorize("permitAll()")
+	@ResponseStatus(HttpStatus.ACCEPTED)
+	@RequestMapping(path = "/users/{userId}/notifications", method = RequestMethod.PUT)
+	public void markAllRead(@PathVariable Long userId) {
+		notificationDao.markAllRead(userId);
+	}
+	
 	
 	//REVIEW METHODS
 	
@@ -251,7 +258,8 @@ public class MedicalSchedulingController {
 //		return reviewList;
 //	}
 	
-	@PreAuthorize("permitAll()")
+
+	@PreAuthorize("hasAnyRole('DOCTOR','ADMIN')")
 	@RequestMapping(path = "/offices/{doctorId}/reviews", method = RequestMethod.GET)
 	public List<Review> getReviewsByDoctor(@PathVariable Long doctorId) {
 		List<Review> reviewList = reviewDao.getReviewsByDoctor(doctorId);

@@ -22,6 +22,10 @@ const http = axios.create({
 
     getDoctorReviews(doctorId){
       return http.get(`/offices/${doctorId}/reviews`);
+    },
+
+    updateAppointment(appointmentId, appointment){
+      return http.put(`/appointments/${appointmentId}`, appointment);
     }
 
 

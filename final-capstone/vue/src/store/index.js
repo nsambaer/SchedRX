@@ -26,7 +26,8 @@ export default new Vuex.Store({
     patient: currentPatient || {},
     patientAppointments: [],
     currentOffice: {},
-    doctorAppointments:[]
+    doctorAppointments:[],
+    availability:[]
   
 
   },
@@ -79,4 +80,5 @@ export default new Vuex.Store({
       state.currentOffice = {};
     }
   }
+  
 })

@@ -73,7 +73,7 @@
 
     <div class="doctor-availability" :key="componentKey">
       <button v-on:click="showCurrentAvailabilities = !showCurrentAvailabilities">Show Current Availabilities for Selected Month</button>
-      <div v-for="(times, date) in availability.availability" v-bind:key = "date" v-show="showCurrentAvailabilities">
+      <div v-for="(times, date) in this.$store.state.availability.availability" v-bind:key = "date" v-show="showCurrentAvailabilities">
         <div class = "availability-date" v-if="times != null">
           <p v-on:click="showDetails(date)" >{{date}} </p>
         <table>
@@ -128,13 +128,10 @@ export default {
     }
   },
   beforeCreate(){
-   
+  
   },
   created(){
-   const today = new Date();
-    const currentMonth = today.getMonth()+1;
-    const currentYear = today.getFullYear();
-    this.updateAvailability(currentMonth,currentYear);  
+   
     
     
   }
@@ -161,7 +158,7 @@ export default {
       doctorService.getAvailability(this.$store.state.user.id, month, year).then(
       response => {
        
-          this.availability = response.data;
+          this.$store.state.availability = response.data;
         
       }
     ).catch((error) => {

@@ -27,6 +27,7 @@
 import DoctorAppointments from "../components/DoctorAppointments.vue"
 import DoctorAvailability  from "../components/DoctorAvailability.vue"
 import NotificationList from '@/components/NotificationList'
+import doctorService from "../services/DoctorService"
 
 export default {
 
@@ -44,7 +45,23 @@ export default {
     
   },
   created(){
-    
+
+    const today = new Date();
+    const currentMonth = today.getMonth()+1;
+    const currentYear = today.getFullYear();
+    doctorService.getAvailability(this.$store.state.user.id, currentMonth, currentYear).then(
+      response => {
+       
+          this.$store.state.availability = response.data;
+        
+      }
+    ).catch((error) => {
+          const response = error.response;
+          this.errors = true;
+          if (response.status === 400) {
+            this.errorMsg = "Bad Request: Validation Errors";
+          }
+        });
   }
 
 }
