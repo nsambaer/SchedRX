@@ -16,6 +16,10 @@ export default {
 
   resetPassword(user) {
     return http.put('/reset-password', user)
+  },
+
+  getUserIdByUsername(username) {
+    return http.get(`/user-by-id/${username}`);
   }
 
 }

@@ -17,6 +17,10 @@ const http = axios.create({
 
     markAllRead() {
         return '';
+    },
+
+    createNotification(notification) {
+        return http.post('/notifications', notification);
     }
 
   }

@@ -231,6 +231,7 @@ public class MedicalSchedulingController {
 		return notificationDao.markRead(notificationId);
 	}
 	
+	@PreAuthorize("permitAll()")
 	@ResponseStatus(HttpStatus.CREATED)
 	@RequestMapping(path = "/notifications", method = RequestMethod.POST)
 	public Notification addNotification(@RequestBody Notification notification) {
