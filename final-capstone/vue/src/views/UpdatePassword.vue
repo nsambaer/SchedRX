@@ -1,0 +1,19 @@
+<template>
+  <div>
+      <update-password/>
+  </div>
+</template>
+
+<script>
+import UpdatePassword from "../components/UpdatePassword.vue";
+
+export default {
+    components: {
+        UpdatePassword
+    }
+}
+</script>
+
+<style>
+
+</style>

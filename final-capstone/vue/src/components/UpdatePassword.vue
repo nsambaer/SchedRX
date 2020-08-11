@@ -1,6 +1,6 @@
 <template>
   <div>
-      <form v-on:submit.prevent="resetPassword">
+      <form v-on:submit.prevent="resetPassword()">
           <label for="old-password">Old Password: </label>
           <input 
             type="text"
@@ -13,10 +13,14 @@
             type="text"
             id="new-password"
             class="form-control"
-            v-model="updatedUser.password"
+            v-model="updatedUser.newPassword"
           >
           <button type="submit">Change Password</button>
       </form>
+      <div
+        class="update-success"
+        v-if="updateSuccess"
+      >Password updated!</div>
       <div
         class="invalid-password"
         v-if="invalidCredentials"
@@ -24,7 +28,7 @@
       <div
         class="update-error"
         v-if="updateError"
-      >{{updateErrorMessage}}</div>
+      >Update error</div>
   </div>
 </template>
 
@@ -40,7 +44,7 @@ export default {
             },
             updatedUser: {
               username: "",
-              password: "",
+              newPassword: "",
             },
             updateSuccess: false,
             updateError: false,
@@ -58,23 +62,23 @@ export default {
           authService
             .login(this.loginUser)
             .then((response) => {
-              if (response.status === 201) {
+              if (response.status === 200) {
                 authService
                   .resetPassword(this.updatedUser)
                   .then((response) => {
                     if (response.status === 200) {
                       this.updateSuccess = true;
                       this.loginUser.password = "";
-                      this.updatedUser.password = "";
+                      this.updatedUser.newPassword = "";
                     }
                   })
-                  .catch((updateError) => {
+                  .catch((error) => {
                     this.updateError = true;
-                    if (updateError.response) {
+                    if (error.response) {
                       this.updateErrorMsg = 
                         "Error updating password. Response received was '" +
-                        updateError.response.statusText + "'.";
-                    } else if (updateError.request) {
+                        error.response.statusText + "'.";
+                    } else if (error.request) {
                       this.updateErrorMessage = 
                         "Error updating password. Server could not be reached.";
                     } else {
