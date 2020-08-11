@@ -155,7 +155,22 @@ export default {
       
     }
 
+    .oi-title {
+      background-color: var(--main-color-blue-green);
+      width: 100%;
+      border-style:solid;
+      border-width: 1px;
+      border-radius: 5px;
+    }
+
     .attribute {
+      background-color: var(--main-color-light-blue);
+      border-style: solid;
+      border-radius: 5px;
+      border-width: 1px;
+    }
+
+    .value {
       background-color: var(--main-color-light-blue);
       border-style: solid;
       border-radius: 5px;
@@ -176,7 +191,15 @@ export default {
     .edit-office-form {
         display: grid;
         grid-area: "office-form";
-        grid-template-columns: 150px 200px;
+        grid-template-columns: 1fr, 1fr;
 
+    }
+
+    .edit-office-title {
+      background-color: var(--main-color-blue-green);
+      width: 100%;
+      border-style:solid;
+      border-width: 1px;
+      border-radius: 5px;
     }
 </style>
