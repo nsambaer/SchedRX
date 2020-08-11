@@ -1,5 +1,6 @@
 <template>
   <div>
+    Notification List
     <ul>
       <li v-for="notification in notifications" v-bind:key="notification.notificationId">
         <div v-bind:class="{'read' : !notification.read}">{{notification.message}}</div>

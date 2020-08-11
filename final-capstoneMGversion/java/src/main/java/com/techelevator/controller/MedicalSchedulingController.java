@@ -1,5 +1,6 @@
 package com.techelevator.controller;
 
+import java.security.Principal;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
@@ -19,17 +20,14 @@ import com.techelevator.dao.AppointmentDAO;
 import com.techelevator.dao.AppointmentTypesDAO;
 import com.techelevator.dao.DoctorAvailabilityDAO;
 import com.techelevator.dao.DoctorDAO;
-import com.techelevator.dao.NotificationDAO;
 import com.techelevator.dao.OfficeDAO;
 import com.techelevator.dao.PatientDAO;
 import com.techelevator.dao.ReviewDAO;
 import com.techelevator.model.Appointment;
 import com.techelevator.model.Doctor;
 import com.techelevator.model.DoctorAvailability;
-import com.techelevator.model.Notification;
 import com.techelevator.model.Office;
 import com.techelevator.model.Patient;
-import com.techelevator.model.Review;
 
 @PreAuthorize("isAuthenticated()")
 @RestController
@@ -43,10 +41,9 @@ public class MedicalSchedulingController {
 	private ReviewDAO reviewDao;
 	private DoctorAvailabilityDAO drAvailDao;
 	private AppointmentTypesDAO apptTypesDao;
-	private NotificationDAO notificationDao;
 	
 	public MedicalSchedulingController(AppointmentDAO appointmentDao, DoctorDAO doctorDao, OfficeDAO officeDao,
-			PatientDAO patientDao, ReviewDAO reviewDao, DoctorAvailabilityDAO doctorAvailabilityDao, AppointmentTypesDAO appointmentTypesDao, NotificationDAO notificationDao) {
+			PatientDAO patientDao, ReviewDAO reviewDao, DoctorAvailabilityDAO doctorAvailabilityDao, AppointmentTypesDAO appointmentTypesDao) {
 		super();
 		this.appointmentDao = appointmentDao;
 		this.doctorDao = doctorDao;
@@ -55,7 +52,6 @@ public class MedicalSchedulingController {
 		this.reviewDao = reviewDao;
 		this.drAvailDao = doctorAvailabilityDao;
 		this.apptTypesDao = appointmentTypesDao;
-		this.notificationDao = notificationDao;
 	}
 	
 	//OFFICE METHODS
@@ -104,13 +100,16 @@ public class MedicalSchedulingController {
 	
 	//PATIENT METHODS
 	
-	@PreAuthorize("hasRole('PATIENT')")
+	@PreAuthorize("permitAll()")
 	@RequestMapping(path = "/patients/{patientId}", method = RequestMethod.GET)
 	public Patient getPatientById(@PathVariable Long patientId) {
-		return patientDao.getPatientById(patientId);
+		Patient pat =  patientDao.getPatientById(patientId);
+		System.out.println("Patient " + pat.getLastName());
+		System.out.println(pat.getPrimaryDoctor().getDoctorId());
+		return pat;
 	}
 	
-	@PreAuthorize("hasRole('PATIENT')")
+	@PreAuthorize("permitAll()")
 	@RequestMapping(path = "/patients/{patientId}", method = RequestMethod.PUT)
 	public Patient updatePatient(@RequestBody Patient patient) {
 		return patientDao.updatePatient(patient);
@@ -123,13 +122,13 @@ public class MedicalSchedulingController {
 		return patientDao.createPatient(patient);
 	}
 	
-	@PreAuthorize("hasAnyRole('PATIENT')")
+	@PreAuthorize("permitAll()")
 	@RequestMapping(path = "/patients/{patientId}/appointments", method = RequestMethod.GET)
 	public List<Appointment> getAppointmentsByPatient(@PathVariable Long patientId) {
 		return appointmentDao.getAppointmentsByPatient(patientId);
 	}
 	
-	@PreAuthorize("hasAnyRole('PATIENT')")
+	@PreAuthorize("permitAll()")
 	@ResponseStatus(HttpStatus.CREATED)
 	@RequestMapping(path = "/patients/{patientId}/appointments", method = RequestMethod.POST)
 	public Appointment createAppointment(@RequestBody Appointment appointment) {
@@ -139,7 +138,7 @@ public class MedicalSchedulingController {
 		return appointmentDao.createAppointment(appointment);
 	}
 	
-	@PreAuthorize("hasAnyRole('PATIENT')")
+	@PreAuthorize("permitAll()")
 	@RequestMapping(path = "/appointment-types", method = RequestMethod.GET)
 	public List<String> listAppointmentTypes() {
 		return apptTypesDao.getAppointmentTypes();
@@ -148,7 +147,7 @@ public class MedicalSchedulingController {
 	
 	//DOCTOR METHODS
 	
-	@PreAuthorize("hasAnyRole('PATIENT')")
+	@PreAuthorize("permitAll()")
 	@RequestMapping(path = "/doctors", method = RequestMethod.GET)
 	public List<Doctor> listDoctors() {
 		return doctorDao.getAllDoctors();
@@ -219,42 +218,22 @@ public class MedicalSchedulingController {
 	}
 	
 	
-	//NOTIFICATION
-	@PreAuthorize("permitAll()")
-	@RequestMapping(path = "/users/{userId}/notifications/recent", method = RequestMethod.GET)
-	public List<Notification> listRecentNotifications(@PathVariable Long userId) {
-		return notificationDao.getRecentNotifications(userId);
-	}
-	
-	@PreAuthorize("permitAll()")
-	@ResponseStatus(HttpStatus.ACCEPTED)
-	@RequestMapping(path = "/notifications/{notificationId}", method = RequestMethod.PUT)
-	public boolean markRead(@PathVariable Long notificationId) {
-		return notificationDao.markRead(notificationId);
-	}
-	
-	@PreAuthorize("permitAll()")
-	@ResponseStatus(HttpStatus.CREATED)
-	@RequestMapping(path = "/notifications", method = RequestMethod.POST)
-	public Notification addNotification(@RequestBody Notification notification) {
-		return notificationDao.createNotification(notification);
-	}
 	
 	
-	//REVIEW METHODS
 	
 	
-//	@PreAuthorize("permitAll")
-//	@RequestMapping(path = "/offices/{officeId}/reviews", method = RequestMethod.GET)
-//	public List<Review> getReviewsByOffice(@PathVariable Long officeId) {
-//		List<Review> reviewList = reviewDao.getReviewsByOffice(officeId);
-//		return reviewList;
-//	}
 	
+	
+	
+	
+
+	//NOT IN USE
+	
+	/*
 	@PreAuthorize("permitAll")
-	@RequestMapping(path = "/offices/{doctorId}/reviews", method = RequestMethod.GET)
-	public List<Review> getReviewsByDoctor(@PathVariable Long doctorId) {
-		List<Review> reviewList = reviewDao.getReviewsByDoctor(doctorId);
+	@RequestMapping(path = "/offices/{officeId}/reviews", method = RequestMethod.GET)
+	public List<Review> getReviewsByOffice(@PathVariable Long officeId) {
+		List<Review> reviewList = reviewDao.getReviewsByOffice(officeId);
 		return reviewList;
 	}
 	
@@ -267,5 +246,5 @@ public class MedicalSchedulingController {
 	
 	
 	
-
+	*/
 }
