@@ -2,6 +2,7 @@ package com.techelevator.model;
 
 import java.math.BigDecimal;
 import java.time.LocalTime;
+import java.util.List;
 import java.util.Map;
 
 import javax.validation.constraints.NotBlank;
@@ -23,14 +24,37 @@ public class Office {
 	private BigDecimal cost;
 	private Map<String, LocalTime> openHours;
 	private Map<String, LocalTime> closeHours;
+	private List<Doctor> doctorList;
+	
 	
 	public Office() {}	
 	
-	
+		
+	public Office(@NotBlank(message = "The office name cannot be blank") String officeName,
+			@NotBlank(message = "The address cannot be blank") String address,
+			@NotBlank(message = "The city cannot be blank") String city,
+			@NotBlank(message = "The state cannot be blank") String state,
+			@NotBlank(message = "The phone number cannot be blank") String zipCode, String phoneNumber, BigDecimal cost,
+			Map<String, LocalTime> openHours, Map<String, LocalTime> closeHours, List<Doctor> doctorList) {
+		super();
+		this.officeName = officeName;
+		this.address = address;
+		this.city = city;
+		this.state = state;
+		this.zipCode = zipCode;
+		this.phoneNumber = phoneNumber;
+		this.cost = cost;
+		this.openHours = openHours;
+		this.closeHours = closeHours;
+		this.doctorList = doctorList;
+	}
 
-	public Office(Long officeId, String officeName, String address, String city, String state,
-			 String zipCode, String phoneNumber, BigDecimal cost,
-			Map<String, LocalTime> openHours, Map<String, LocalTime> closeHours) {
+	public Office(Long officeId, @NotBlank(message = "The office name cannot be blank") String officeName,
+			@NotBlank(message = "The address cannot be blank") String address,
+			@NotBlank(message = "The city cannot be blank") String city,
+			@NotBlank(message = "The state cannot be blank") String state,
+			@NotBlank(message = "The phone number cannot be blank") String zipCode, String phoneNumber, BigDecimal cost,
+			Map<String, LocalTime> openHours, Map<String, LocalTime> closeHours, List<Doctor> doctorList) {
 		super();
 		this.officeId = officeId;
 		this.officeName = officeName;
@@ -42,23 +66,9 @@ public class Office {
 		this.cost = cost;
 		this.openHours = openHours;
 		this.closeHours = closeHours;
+		this.doctorList = doctorList;
 	}
 
-
-
-	public Office(String officeName, String address, String city, String state, String zipCode, String phoneNumber, BigDecimal cost,
-			Map<String, LocalTime> openHours, Map<String, LocalTime> closeHours) {
-		super();
-		this.officeName = officeName;
-		this.address = address;
-		this.city = city;
-		this.state = state;
-		this.zipCode = zipCode;
-		this.phoneNumber = phoneNumber;
-		this.cost = cost;
-		this.openHours = openHours;
-		this.closeHours = closeHours;
-	}
 
 	public Long getOfficeId() {
 		return officeId;
@@ -139,6 +149,14 @@ public class Office {
 
 	public void setCloseHours(Map<String, LocalTime> closeHours) {
 		this.closeHours = closeHours;
+	}
+	
+	public List<Doctor> getDoctorList() {
+		return doctorList;
+	}
+	
+	public void setDoctorList(List<Doctor> doctorList) {
+		this.doctorList = doctorList;
 	}
 	
 	

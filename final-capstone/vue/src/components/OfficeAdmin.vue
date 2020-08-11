@@ -1,14 +1,15 @@
 <template>
   <div class="office-admin-container">
-      <div class="office-info">
+      <div class="office-info" v-show="!showEditForm">
         <h2>Office name: {{office.officeName}}</h2>
         <h4>Address: {{office.address}}, {{office.city}}, {{office.state}}, {{office.zipCode}}</h4>
         <h4>Phone: {{office.phoneNumber}}</h4>
         <h4>Cost per hour: {{office.cost}}</h4>
+        <button v-on:click="showEditForm = !showEditForm; populateDefaults()">Edit Office Information</button>
       </div>
-      <button v-on:click="showEditForm = !showEditForm; populateDefaults()">Edit Office Information</button>  
+        
       <div class="edit-office" v-show="showEditForm">
-          <form class="edit-office-form" v-on:submit.prevent="updateOffice()">
+          <form class="edit-office-form" v-on:submit.prevent="updateOffice()" v-on:reset.prevent="cancelChanges()">
               <label for="office-name">Office name: </label>
               <input
                 id="office-name" 
@@ -52,6 +53,7 @@
                 v-model="updatedOffice.cost"
               />
               <button type="submit">Save Changes</button>
+              <button type="reset">Cancel Changes</button>
                 
           </form>
       </div>
@@ -109,6 +111,10 @@ export default {
                 this.showEditForm = false;
                 
             })
+        },
+        cancelChanges() {
+          this.showEditForm = false;
+          this.populateDefaults();
         }
     }
     
