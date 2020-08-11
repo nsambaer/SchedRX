@@ -1,5 +1,6 @@
 <template>
   <div class="reset-password-container">
+    <div class="title">Reset User Password</div>
     <div class="reset-password-form">
         <form class="reset-password" v-on:submit.prevent="resetPassword">
             <label for="update-username">Username: </label>
@@ -69,10 +70,26 @@ export default {
 
 <style>
 
-.reset-password {
+:root{
+    --main-color-turqoise: #086972;
+    --main-color-blue-green: #01a9b4;
+    --main-color-light-blue: #87dfd6;
+    --accent-color-yellow: #fbfd8a;
+}
+
+.reset-password-container {
+    background-color: var(--main-color-turqoise)
+
+}
+
+.title {
+    background-color: var(--main-color-blue-green)
+}
+
+/* .reset-password {
     display: grid;
     grid-template-columns: 150px;
 
-}
+} */
 
 </style>
