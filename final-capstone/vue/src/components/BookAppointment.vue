@@ -84,7 +84,13 @@ export default {
 
   computed: {
     primaryDoctorId() {
-      let id = this.$store.state.patient.primaryDoctor.doctorId;
+      let id;
+      if (this.$store.state.patient.primaryDoctor === undefined){
+        id = 0;
+      } else {
+        id = this.$store.state.patient.primaryDoctor.doctorId;
+        console.log("the primary doctor id is " + id);
+      }
       return id;
     },
 
@@ -105,7 +111,7 @@ export default {
     },
 
     primaryDoctor() {
-      if (typeof this.primaryDoctorId === "undefined") {
+      if (this.primaryDoctorId === 0) {
         return false;
       } else {
         return true;

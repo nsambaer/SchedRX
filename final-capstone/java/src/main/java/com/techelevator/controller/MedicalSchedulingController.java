@@ -86,14 +86,14 @@ public class MedicalSchedulingController {
 	}
 	
 	
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("permitAll()")
 	@ResponseStatus(HttpStatus.CREATED)
 	@RequestMapping(path = "/offices", method = RequestMethod.POST)
 	public Office createOffice(@RequestBody Office office) {
 		return officeDao.createOffice(office);
 	}
 
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("permitAll()")
 	@ResponseStatus(HttpStatus.ACCEPTED)
 	@RequestMapping(path = "/offices/{officeId}", method = RequestMethod.PUT)
 	public Office updateOffice(@RequestBody Office office, @PathVariable Long officeId) {
@@ -104,13 +104,13 @@ public class MedicalSchedulingController {
 	
 	//PATIENT METHODS
 	
-	@PreAuthorize("hasRole('PATIENT')")
+	@PreAuthorize("permitAll()")
 	@RequestMapping(path = "/patients/{patientId}", method = RequestMethod.GET)
 	public Patient getPatientById(@PathVariable Long patientId) {
 		return patientDao.getPatientById(patientId);
 	}
 	
-	@PreAuthorize("hasRole('PATIENT')")
+	@PreAuthorize("permitAll()")
 	@RequestMapping(path = "/patients/{patientId}", method = RequestMethod.PUT)
 	public Patient updatePatient(@RequestBody Patient patient) {
 		return patientDao.updatePatient(patient);
@@ -123,13 +123,13 @@ public class MedicalSchedulingController {
 		return patientDao.createPatient(patient);
 	}
 	
-	@PreAuthorize("hasAnyRole('PATIENT')")
+	@PreAuthorize("permitAll()")
 	@RequestMapping(path = "/patients/{patientId}/appointments", method = RequestMethod.GET)
 	public List<Appointment> getAppointmentsByPatient(@PathVariable Long patientId) {
 		return appointmentDao.getAppointmentsByPatient(patientId);
 	}
 	
-	@PreAuthorize("hasAnyRole('PATIENT')")
+	@PreAuthorize("permitAll()")
 	@ResponseStatus(HttpStatus.CREATED)
 	@RequestMapping(path = "/patients/{patientId}/appointments", method = RequestMethod.POST)
 	public Appointment createAppointment(@RequestBody Appointment appointment) {
@@ -139,7 +139,7 @@ public class MedicalSchedulingController {
 		return appointmentDao.createAppointment(appointment);
 	}
 	
-	@PreAuthorize("hasAnyRole('PATIENT')")
+	@PreAuthorize("permitAll()")
 	@RequestMapping(path = "/appointment-types", method = RequestMethod.GET)
 	public List<String> listAppointmentTypes() {
 		return apptTypesDao.getAppointmentTypes();
@@ -148,19 +148,19 @@ public class MedicalSchedulingController {
 	
 	//DOCTOR METHODS
 	
-	@PreAuthorize("hasAnyRole('PATIENT')")
+	@PreAuthorize("permitAll()")
 	@RequestMapping(path = "/doctors", method = RequestMethod.GET)
 	public List<Doctor> listDoctors() {
 		return doctorDao.getAllDoctors();
 	}
 	
-	@PreAuthorize("hasAnyRole('DOCTOR')")
+	@PreAuthorize("permitAll()")
 	@RequestMapping(path = "/doctors/{doctorId}/appointments", method = RequestMethod.GET)
 	public List<Appointment> getAppointmentsByDoctor(@PathVariable Long doctorId) {
 		return appointmentDao.getAppointmentsByDoctor(doctorId);
 	}
 	
-	@PreAuthorize("hasAnyRole('ADMIN')")
+	@PreAuthorize("permitAll()")
 	@ResponseStatus(HttpStatus.CREATED)
 	@RequestMapping(path = "/doctors", method = RequestMethod.POST)
 	public Doctor registerDoctor(@RequestBody Doctor doctor) {
@@ -174,14 +174,14 @@ public class MedicalSchedulingController {
 		return drAvailDao.getDoctorAvailabilityForMonth(doctorId, month, year);
 	}
 	
-	@PreAuthorize("hasAnyRole('DOCTOR')")
+	@PreAuthorize("permitAll()")
 	@ResponseStatus(HttpStatus.CREATED)
 	@RequestMapping(path = "/doctors/{doctorId}/availability/regular", method = RequestMethod.POST)
 	public DoctorAvailability setRegularDoctorAvailability(@RequestBody DoctorAvailability regularAvailability) {
 		return drAvailDao.setRegularAvailability(regularAvailability);
 	}
 	
-	@PreAuthorize("hasAnyRole('DOCTOR')")
+	@PreAuthorize("permitAll()")
 	@ResponseStatus(HttpStatus.CREATED)
 	@RequestMapping(path = "/doctors/{doctorId}/availability/specific", method = RequestMethod.POST)
 	public DoctorAvailability setSpecificDoctorAvailability(@RequestBody DoctorAvailability specificAvailability) {
@@ -189,21 +189,21 @@ public class MedicalSchedulingController {
 		return drAvailDao.setSpecificAvailability(specificAvailability);
 	}
 	
-	@PreAuthorize("hasAnyRole('DOCTOR')")
+	@PreAuthorize("permitAll()")
 	@ResponseStatus(HttpStatus.ACCEPTED)
 	@RequestMapping(path = "/doctors/{doctorId}/availability/regular", method = RequestMethod.PUT)
 	public DoctorAvailability updateRegularDoctorAvailability(@RequestBody DoctorAvailability regularAvailability) {
 		return drAvailDao.updateRegularAvailability(regularAvailability);
 	}
 	
-	@PreAuthorize("hasAnyRole('DOCTOR')")
+	@PreAuthorize("permitAll()")
 	@ResponseStatus(HttpStatus.ACCEPTED)
 	@RequestMapping(path = "/doctors/{doctorId}/availability/specific", method = RequestMethod.PUT)
 	public DoctorAvailability updateSpecificDoctorAvailability(@RequestBody DoctorAvailability specificAvailability) {
 		return drAvailDao.updateSpecificAvailability(specificAvailability);
 	}
 	
-	@PreAuthorize("hasAnyRole('DOCTOR')")
+	@PreAuthorize("permitAll()")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@RequestMapping(path = "/doctors/{doctorId}/availability/specific", method = RequestMethod.DELETE)
 	public void deleteSpecificDoctorAvailability(@RequestBody DoctorAvailability specificAvailability) {
@@ -211,7 +211,7 @@ public class MedicalSchedulingController {
 		drAvailDao.deleteSpecificAvailability(specificAvailability);
 	}
 	
-	@PreAuthorize("hasAnyRole('DOCTOR')")
+	@PreAuthorize("permitAll()")
 	@ResponseStatus(HttpStatus.ACCEPTED)
 	@RequestMapping(path = "/appointments/{appointmentId}", method = RequestMethod.PUT)
 	public Appointment updateAppointment(@RequestBody Appointment appointment, @PathVariable Long appointmentId) {
@@ -251,14 +251,14 @@ public class MedicalSchedulingController {
 //		return reviewList;
 //	}
 	
-	@PreAuthorize("hasAnyRole('DOCTOR,'ADMIN')")
+	@PreAuthorize("permitAll()")
 	@RequestMapping(path = "/offices/{doctorId}/reviews", method = RequestMethod.GET)
 	public List<Review> getReviewsByDoctor(@PathVariable Long doctorId) {
 		List<Review> reviewList = reviewDao.getReviewsByDoctor(doctorId);
 		return reviewList;
 	}
 	
-	@PreAuthorize("hasAnyRole('DOCTOR', 'ADMIN')")
+	@PreAuthorize("permitAll()")
 	@RequestMapping(path = "/doctors/{doctorId}/patients", method = RequestMethod.GET)
 	public List<Patient> getPatientsByDoctor(@PathVariable Long doctorId) {
 		return patientDao.getPatientsByDoctor(doctorId);

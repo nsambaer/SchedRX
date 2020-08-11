@@ -44,6 +44,7 @@
 
 <script>
 import authService from "../services/AuthService";
+import patientService from '@/services/PatientService';
 
 export default {
   name: "login",
@@ -72,6 +73,7 @@ export default {
 
           switch (this.role)  {
             case "ROLE_PATIENT":
+              this.setPatient();
               this.$router.push({ name: "patient" });
               break;
             case "ROLE_DOCTOR":
@@ -84,8 +86,7 @@ export default {
             this.roleError = true;
             break;
           }
-        })
-        .catch((error) => {
+        }).catch((error) => {
           const response = error.response;
 
           if (response.status === 401) {
@@ -93,6 +94,23 @@ export default {
           }
         });
     },
+
+      setPatient() {
+      patientService
+        .getPatient(this.$store.state.user.id)
+        .then((response) => {
+          this.$store.commit("SET_PATIENT", response.data);
+        })
+        .catch((error) => {
+          const response = error.response;
+          this.errors = true;
+          if (response.status === 400) {
+            this.errorMsg = "Bad Request: Validation Errors";
+          }
+        });
+      this.$router.push({ name: "patient" });
+    },
+
   },
 };
 </script>
