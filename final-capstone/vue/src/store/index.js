@@ -27,8 +27,10 @@ export default new Vuex.Store({
     patientAppointments: [],
     currentOffice: {},
     doctorAppointments:[]
+  
 
   },
+  
   mutations: {
     SET_AUTH_TOKEN(state, token) {
       state.token = token;

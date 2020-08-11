@@ -5,6 +5,8 @@ public class Review {
 	private Long reviewId;
 	private Long doctorId;
 	private Long patientId;
+	private Doctor doctor;
+	private Patient patient;
 	private String reviewTitle;
 	private int rating;
 	private String reviewDescription;
@@ -88,6 +90,22 @@ public class Review {
 
 	public void setComments(String comments) {
 		this.comments = comments;
+	}
+
+	public Doctor getDoctor() {
+		return doctor;
+	}
+
+	public void setDoctor(Doctor doctor) {
+		this.doctor = doctor;
+	}
+
+	public Patient getPatient() {
+		return patient;
+	}
+
+	public void setPatient(Patient patient) {
+		this.patient = patient;
 	}
 	
 	

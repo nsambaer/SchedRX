@@ -111,7 +111,7 @@ export default {
       componentKey:0,
 
       newAvailability: {
-        doctorId: this.currentDoctorId,
+        doctorId: this.$store.state.user.id,
         specificOpenHours: {
           
         },
@@ -137,9 +137,6 @@ export default {
     this.updateAvailability(currentMonth,currentYear);  
     
     
-  },
-  beforeUpdate(){
-    
   }
   ,
     methods:{
@@ -161,7 +158,7 @@ export default {
     },
 
     updateAvailability(month, year){
-      doctorService.getAvailability(this.currentDoctorId, month, year).then(
+      doctorService.getAvailability(this.$store.state.user.id, month, year).then(
       response => {
        
           this.availability = response.data;
@@ -195,9 +192,12 @@ export default {
     
       this.newAvailability.specificOpenHours[this.availabilityDate] = this.availabilityOpenTime;
       this.newAvailability.specificCloseHours[this.availabilityDate] = this.availabilityCloseTime;
-      doctorService.addAvailability(this.newAvailability.doctorId,this.newAvailability).then(response => {
+      doctorService.addAvailability(this.$store.state.user.id,this.newAvailability).then(response => {
         if(response.status == 201){
           window.alert("availability created");
+          this.updateAvailability(this.availabilityMonth,this.availabilityYear);
+          this.refreshAvailability();
+          this.showSubmitAvailability = false;
         }
       }).catch((error) => {
           const response = error.response;
@@ -206,9 +206,9 @@ export default {
             this.errorMsg = "Bad Request: Validation Errors";
           }
         });
-      this.updateAvailability(this.availabilityMonth,this.availabilityYear);
-      this.refreshAvailability();
-      this.showSubmitAvailability = false;
+      
+
+      
 
       
     },
