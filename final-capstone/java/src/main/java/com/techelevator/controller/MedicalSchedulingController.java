@@ -251,7 +251,7 @@ public class MedicalSchedulingController {
 //		return reviewList;
 //	}
 	
-	@PreAuthorize("hasAnyRole('DOCTOR,'ADMIN')")
+	@PreAuthorize("hasAnyRole('DOCTOR','ADMIN')")
 	@RequestMapping(path = "/offices/{doctorId}/reviews", method = RequestMethod.GET)
 	public List<Review> getReviewsByDoctor(@PathVariable Long doctorId) {
 		List<Review> reviewList = reviewDao.getReviewsByDoctor(doctorId);

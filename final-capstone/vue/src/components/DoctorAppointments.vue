@@ -13,17 +13,45 @@
         <tr class="appointment-second-row">
           <td>  Patient: {{appointment.patientId}} </td>
           <td><button v-on:click="showAppointmentDetails(appointment.appointmentId)">Show Details </button></td>
+          <td><button v-on:click="editAppointmentDetails(appointment.appointmentId)">Edit Appointment </button></td>
         </tr>
         <tr  class="details" :class="appointment.appointmentId == active ? activeClass : 'hidden'">
           <p>Type: {{appointment.appointmentType}}</p>
         <p>Reason: {{appointment.visitReason}}</p>
         </tr>
+        <tr  class="edit-appointment"  >
+
+            
+            
+
+     
+            <div v-for="(times, date) in availability.availability" v-bind:key="date">
+              <select id="time-selector" v-model="newAppointment.appointmentTime">
+                <option v-for="time in times" v-bind:key="time" v-bind:value="time">{{ time }}</option>
+                </select>
+            </div>
+
+            <!-- <div v-for="(times, date) in availability" v-bind:key="date">
+              <select
+                v-show="newAppointment.appointmentDate == date"
+                id="time-selector"
+                v-model="newAppointment.appointmentTime"
+              >
+                <option value selected="true">--Please select a time--</option>
+                <option v-for="time in times" v-bind:key="time.id" v-bind:value="time">{{ time }}</option>
+              </select>
+            </div> -->
+            
+        
+    
+      </tr>
       </table>
+    </div>
+  </div>
+
   
         
-    </div>
-
-    </div>
+  
 </template>
 
 <script>
@@ -35,7 +63,17 @@ export default {
     data(){
         return{
             activeClass: 'is-visible',
-            active:null
+            active:null,
+           
+            newAppointment: {
+                patientId: "",
+                doctorId: "",
+                officeId: "",
+                appointmentDate: "",
+                appointmentTime: "",
+                visitReason: "",
+                appointmentType: "",
+             }
         }
     },
     created(){
@@ -43,14 +81,28 @@ export default {
       response => {
         if(response.status == 200){
           this.$store.state.doctorAppointments = response.data;
+          
         }
       }
-    );
+    ).catch((error) => {
+          const response = error.response;
+          this.errors = true;
+          if (response.status === 400) {
+            this.errorMsg = "Bad Request: Validation Errors";
+          }
+        });
+
+       
     },
+
+
     computed: {
       appointments() {
-        return this.$store.state.doctorAppointments;
-    }
+        return this.$store.state.doctorAppointments; 
+    },
+      availability(){
+        return this.$store.state.availability;
+      }
     },
     methods:{
       showAppointmentDetails(id){
@@ -59,8 +111,15 @@ export default {
       } else{
         this.active = id;
       }
+     
+
+      },
+
+      submitAppointment(){
 
       }
+      
+
     }
 
     
