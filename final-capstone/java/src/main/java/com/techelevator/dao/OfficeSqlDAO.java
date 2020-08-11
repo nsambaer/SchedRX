@@ -3,9 +3,7 @@ package com.techelevator.dao;
 import java.sql.Time;
 import java.time.LocalTime;
 import java.util.ArrayList;
-
 import java.util.HashMap;
-
 import java.util.List;
 import java.util.Map;
 
@@ -13,6 +11,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
+import com.techelevator.model.Doctor;
 import com.techelevator.model.Office;
 
 @Component
@@ -41,8 +40,11 @@ public class OfficeSqlDAO implements OfficeDAO {
 
 			String endSelect = "SELECT office_id, day_of_week, end_time FROM office_hours WHERE office_id = ?";
 			SqlRowSet endResults = jdbc.queryForRowSet(endSelect, officeId);
+			
+			String doctorSelect = "SELECT * FROM doctors WHERE office_id = ?";
+			SqlRowSet doctorResults = jdbc.queryForRowSet(doctorSelect, officeId);
 
-			officeList.add(mapRowToOfficeWithHours(results, startResults, endResults));
+			officeList.add(mapRowToOfficeWithHours(results, startResults, endResults, doctorResults));
 		}
 
 		return officeList;
@@ -63,8 +65,11 @@ public class OfficeSqlDAO implements OfficeDAO {
 
 			String endSelect = "SELECT office_id, day_of_week, end_time FROM office_hours WHERE office_id = ?";
 			SqlRowSet endResults = jdbc.queryForRowSet(endSelect, officeId);
+			
+			String doctorSelect = "SELECT * FROM doctors WHERE office_id = ?";
+			SqlRowSet doctorResults = jdbc.queryForRowSet(doctorSelect, officeId);
 
-			office = mapRowToOfficeWithHours(results, startResults, endResults);
+			office = mapRowToOfficeWithHours(results, startResults, endResults, doctorResults);
 		}
 
 		return office;
@@ -86,8 +91,11 @@ public class OfficeSqlDAO implements OfficeDAO {
 
 			String endSelect = "SELECT office_id, day_of_week, end_time FROM office_hours WHERE office_id = ?";
 			SqlRowSet endResults = jdbc.queryForRowSet(endSelect, officeId);
+			
+			String doctorSelect = "SELECT * FROM doctors WHERE office_id = ?";
+			SqlRowSet doctorResults = jdbc.queryForRowSet(doctorSelect, officeId);
 
-			office = mapRowToOfficeWithHours(results, startResults, endResults);
+			office = mapRowToOfficeWithHours(results, startResults, endResults, doctorResults);
 		}
 
 		return office;
@@ -136,8 +144,11 @@ public class OfficeSqlDAO implements OfficeDAO {
 
 			String endSelect = "SELECT office_id, day_of_week, end_time FROM office_hours WHERE office_id = ?";
 			SqlRowSet endResults = jdbc.queryForRowSet(endSelect, officeId);
+			
+			String doctorSelect = "SELECT * FROM doctors WHERE office_id = ?";
+			SqlRowSet doctorResults = jdbc.queryForRowSet(doctorSelect, officeId);
 
-			office = mapRowToOfficeWithHours(results, startResults, endResults);
+			office = mapRowToOfficeWithHours(results, startResults, endResults, doctorResults);
 		}
 
 		return office;
@@ -159,7 +170,7 @@ public class OfficeSqlDAO implements OfficeDAO {
 
 	
 	
-	private Office mapRowToOfficeWithHours(SqlRowSet officeResults, SqlRowSet startResults, SqlRowSet endResults) {
+	private Office mapRowToOfficeWithHours(SqlRowSet officeResults, SqlRowSet startResults, SqlRowSet endResults, SqlRowSet doctorResults) {
 		Office office = new Office();
 
 		office.setOfficeId(officeResults.getLong("office_id"));
@@ -172,7 +183,9 @@ public class OfficeSqlDAO implements OfficeDAO {
 		office.setCost(officeResults.getBigDecimal("cost_per_hour"));
 		office.setOpenHours(mapRowToHours(startResults));
 		office.setCloseHours(mapRowToHours(endResults));
-
+		office.setDoctorList(mapDoctorsToList(doctorResults));
+		
+		
 		return office;
 	}
 
@@ -214,6 +227,19 @@ public class OfficeSqlDAO implements OfficeDAO {
 		return hours;
 	}
 
-	
+	private List<Doctor> mapDoctorsToList(SqlRowSet results) {
+		List<Doctor> drList = new ArrayList<>();
+		
+		while (results.next()) {
+		Doctor doctor = new Doctor();
+		doctor.setDoctorId(results.getLong("doctor_id"));
+		doctor.setOfficeId(results.getLong("office_id"));
+		doctor.setFirstName(results.getString("first_name"));
+		doctor.setLastName(results.getString("last_name"));
+		drList.add(doctor);
+		}
+		
+		return drList;
+	}
 
 }

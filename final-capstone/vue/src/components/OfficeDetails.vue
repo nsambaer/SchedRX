@@ -19,6 +19,7 @@
             Cost
           </th>
           <th> Hours </th>
+          <th>Doctors</th>
          
         </thead>
         <tbody>
@@ -56,6 +57,9 @@
                 Sunday: {{openHours.Sunday}} - {{closedHours.Sunday}}
               </tr>
               
+            </td>
+            <td>
+              <tr v-for="doctor in office.doctorList" v-bind:key="doctor.doctorId">{{ doctor.firstName }} {{ doctor.lastName }}</tr>
             </td>
             
           </tr>

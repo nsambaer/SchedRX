@@ -173,13 +173,14 @@ ALTER TABLE admin_office
 ADD FOREIGN KEY (admin_id)
 REFERENCES users (user_id);
 
+ALTER TABLE admin_office
+ADD FOREIGN KEY (office_id)
+REFERENCES offices (office_id);
+
 ALTER TABLE notifications
 ADD FOREIGN KEY (user_id)
 REFERENCES users (user_id);
 
-ALTER TABLE admin_office
-ADD FOREIGN KEY (office_id)
-REFERENCES offices (office_id);
 
 
 SELECT * FROM doctors;

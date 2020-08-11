@@ -36,6 +36,12 @@
             <option v-for="time in times" v-bind:key="time.id" v-bind:value="time">{{ time }}</option>-->
           </select>
         </div>
+        <p>Select a location for your appointment: </p>
+        <input type="radio" id="office" value="false" v-model="newAppointment.virtual" />
+        <label for="office">In-person</label>
+        <input type="radio" id="virtual" value="true" v-model="newAppointment.virtual" />
+        <label for="virtual">Virtual</label>
+        <br>
         <label for="appointment-type">Select an appointment type: </label>
         <select id="appointment-type" v-model="newAppointment.appointmentType" required>
           <option v-for="type in appointmentTypes" v-bind:key="type.id" v-bind:value="type">{{ type }}</option>
@@ -68,6 +74,7 @@ export default {
         officeId: "",
         appointmentDate: "",
         appointmentTime: "",
+        virtual: '',
         visitReason: "",
         appointmentType: "",
       },
@@ -161,6 +168,7 @@ export default {
         this.newAppointment.doctorId = "";
         this.newAppointment.officeId = "";
         this.newAppointment.appointmentTime = "";
+        this.newAppointment.virtual = "";
         this.newAppointment.visitReason = "";
         this.newAppointment.appointmentType = "";
 
