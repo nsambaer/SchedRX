@@ -108,7 +108,6 @@ export default {
             this.errorMsg = "Bad Request: Validation Errors";
           }
         });
-      this.$router.push({ name: "patient" });
     },
 
   },
