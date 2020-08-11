@@ -8,15 +8,15 @@ const http = axios.create({
   export default {
 
     getRecentNotifications(userId) {
-        return http.get(`/users/${userId}/notifications/recent`);
+        return http.get(`/users/${userId}/notifications`);
     },
 
     markNotificationRead(notificationId) {
         return http.put(`/notifications/${notificationId}`)
     },
 
-    markAllRead() {
-        return '';
+    markAllRead(userId) {
+        return http.put(`/users/${userId}/notifications`);
     },
 
     createNotification(notification) {

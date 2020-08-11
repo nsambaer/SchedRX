@@ -221,9 +221,9 @@ public class MedicalSchedulingController {
 	
 	//NOTIFICATION
 	@PreAuthorize("permitAll()")
-	@RequestMapping(path = "/users/{userId}/notifications/recent", method = RequestMethod.GET)
+	@RequestMapping(path = "/users/{userId}/notifications", method = RequestMethod.GET)
 	public List<Notification> listRecentNotifications(@PathVariable Long userId) {
-		return notificationDao.getRecentNotifications(userId);
+		return notificationDao.getNotifications(userId);
 	}
 	
 	@PreAuthorize("permitAll()")
@@ -238,6 +238,13 @@ public class MedicalSchedulingController {
 	@RequestMapping(path = "/notifications", method = RequestMethod.POST)
 	public Notification addNotification(@RequestBody Notification notification) {
 		return notificationDao.createNotification(notification);
+	}
+	
+	@PreAuthorize("permitAll()")
+	@ResponseStatus(HttpStatus.ACCEPTED)
+	@RequestMapping(path = "/users/{userId}/notifications", method = RequestMethod.PUT)
+	public void markAllRead(@PathVariable Long userId) {
+		notificationDao.markAllRead(userId);
 	}
 	
 	

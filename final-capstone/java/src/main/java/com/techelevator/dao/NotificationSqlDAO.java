@@ -19,7 +19,7 @@ public class NotificationSqlDAO implements NotificationDAO {
 	}
 	
 	@Override
-	public List<Notification> getRecentNotifications(Long userId) {
+	public List<Notification> getNotifications(Long userId) {
 		List<Notification> notifList = new ArrayList<>();
 		
 		String SqlSelect = "SELECT * FROM notifications WHERE user_id = ? ORDER BY notification_id";
@@ -40,6 +40,14 @@ public class NotificationSqlDAO implements NotificationDAO {
 		int updated = jdbc.update(SqlUpdate, notificationId);
 		
 		return updated == 1;
+	}
+	
+	@Override
+	public void markAllRead(Long userId) {
+		String SqlUpdate = "UPDATE notifications SET message_read = TRUE WHERE user_id = ?";
+		
+		int updated = jdbc.update(SqlUpdate, userId);
+
 	}
 
 	@Override
