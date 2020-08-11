@@ -45,6 +45,7 @@
 <script>
 import authService from "../services/AuthService";
 import patientService from '@/services/PatientService';
+import adminService from '../services/AdminService';
 
 export default {
   name: "login",
@@ -110,6 +111,21 @@ export default {
         });
       this.$router.push({ name: "patient" });
     },
+
+    setOffice() {
+      adminService
+        .getOffice(this.$store.state.user.id)
+        .then((response) => {
+          this.$store.commit("SET_CURRENT_OFFICE", response.data);
+        })
+        .catch((error) => {
+          const response = error.response;
+          this.errors = true;
+          if (response.status === 400) {
+            this.errorMsg = "Bad Request: Validation Errors"
+          }
+        })
+    }
 
   },
 };

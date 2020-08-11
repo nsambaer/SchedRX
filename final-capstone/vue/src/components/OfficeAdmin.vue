@@ -68,7 +68,7 @@ export default {
 
     data() {
         return {
-            
+            office: this.$store.state.currentOffice,
             showEditForm: false,
             updatedOffice: {
                 officeId: "",
@@ -83,11 +83,11 @@ export default {
         }
     },
 
-    computed: {
-        office() {
-            return this.$store.state.currentOffice;
+   mounted() {
+        if (localStorage.getItem('office')) {
+            this.office = JSON.parse(localStorage.getItem('office'));
         }
-    },
+    }, 
 
     methods: {
         populateDefaults() {
@@ -103,10 +103,13 @@ export default {
         updateOffice() {
             adminService.updateOffice(this.updatedOffice)
             .then(response => {
-                if (response.status === 200) {
-                    this.$store.commit("SET_CURRENT_OFFICE", this.updatedOffice);
-                    this.office = this.updatedOffice;
-                }
+                
+                this.$store.commit("SET_CURRENT_OFFICE", response.data);
+                this.office = response.data;    
+                localStorage.setItem('office',JSON.stringify(this.updatedOffice));
+                this.office = JSON.parse(localStorage.getItem('office'));
+                this.showEditForm = false;
+                
             })
         }
     }

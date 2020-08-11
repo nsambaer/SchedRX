@@ -82,10 +82,19 @@ export default {
         lastName: "",
         officeId: ""
       },
+      registrationSuccess: false,
       registrationErrors: false,
       registrationErrorMsg: "There were problems registering this user.",
     };
   },
+  
+  mounted() {
+    if (localStorage.getItem('office')) {
+            const currentOffice = JSON.parse(localStorage.getItem('office'));
+            this.doctor.officeId = currentOffice.officeId;
+        }
+  },
+  
   methods: {
     register() {
       if (this.user.password != this.user.confirmPassword) {
@@ -96,14 +105,12 @@ export default {
           .register(this.user)
           .then((response) => {
             this.doctor.doctorId = response.data;
-            this.doctor.officeId = this.$store.state.currentOffice.officeId;
             adminService
                 .registerDoctor(this.doctor)
                 .then(response => {
                     if (response.status === 201) {
-                        this.$router.push({
-                            name: 'redirect'
-                        });
+                        this.registrationSuccess = true;
+                        this.clearForm();
                     }
                 })
                 .catch((doctorError) => {
@@ -121,6 +128,13 @@ export default {
             }
           });
       }
+    },
+    clearForm() {
+      this.user.username = '';
+      this.user.password = '';
+      this.user.confirmPassword = '';
+      this.doctor.firstName = '';
+      this.doctor.lastName = '';
     },
     clearErrors() {
       this.registrationErrors = false;

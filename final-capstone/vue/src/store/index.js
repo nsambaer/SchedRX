@@ -61,6 +61,7 @@ export default new Vuex.Store({
     },
     SET_CURRENT_OFFICE(state, office) {
       state.currentOffice = office;
+      localStorage.setItem('office', office);
       
     },
 
