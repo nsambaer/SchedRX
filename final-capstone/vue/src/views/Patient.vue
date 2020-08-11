@@ -60,6 +60,8 @@ export default {
     "reviews reviews";
 }
 
+
+
 .book-appointments {
   grid-area: "book";
   background-color: rgb(178, 236, 255);
@@ -68,7 +70,7 @@ export default {
 .patient-upcoming-appointments {
   grid-area: "schedule";
   background-color: rgb(178, 236, 255);
-  height: 400px;
+  height: auto;
 }
 
 .patient-notifications {
