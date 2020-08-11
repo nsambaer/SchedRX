@@ -11,9 +11,10 @@
       <li v-for="notification in filteredNotifications" v-bind:key="notification.notificationId">
         <div v-bind:class="{'read' : !notification.read}">{{notification.message}}</div>
         <div>
-          <button v-on:click="markRead(notification.notificationId)">Mark Read</button>
+          <button v-show="!notification.read" v-on:click="markRead(notification.notificationId)">Mark Read</button>
         </div>
       </li>
+      <li v-show="filteredNotifications.length === 0">No Notifications</li>
     </ul>
   </div>
 </template>
@@ -109,6 +110,11 @@ export default {
           }
         });
     },
+
+    notificationEmpty() {
+      return this.filteredNotifications === [];
+    }
+
   },
 };
 </script>
