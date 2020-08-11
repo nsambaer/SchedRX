@@ -17,8 +17,10 @@ const http = axios.create({
 
     updateOffice(updatedOffice) {
         return http.put(`/offices/${updatedOffice.officeId}`, updatedOffice);
-    }
+    },
 
-
+    setDoctorHours(doctorId, availability) {
+        return http.post(`/doctors/${doctorId}/availability/regular`, availability)
+    },
 
   }

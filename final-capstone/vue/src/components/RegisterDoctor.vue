@@ -107,18 +107,30 @@ export default {
             this.doctor.doctorId = response.data;
             adminService
                 .registerDoctor(this.doctor)
-                .then(response => {
+                .then( () => {
+                  this.availability.doctorId = this.doctor.doctorId;
+                  this.availability.regularOpenHours = this.$store.state.currentOffice.openHours;
+                  this.availability.regularCloseHours = this.$store.state.currentOffice.closeHours;
+
+                  adminService.setDoctorHours(this.doctor.doctorId, this.availability).then( (response) => {
+
                     if (response.status === 201) {
                         this.registrationSuccess = true;
                         this.clearForm();
                     }
+                  }).catch((doctorError) => {
+                    const doctorResponse = doctorError.response;
+                    if (doctorResponse.status === 400) {
+                        this.registrationErrorMsg = "Bad Request: Doctor Error";
+                    }
+                });
                 })
                 .catch((doctorError) => {
                     const doctorResponse = doctorError.response;
                     if (doctorResponse.status === 400) {
                         this.registrationErrorMsg = "Bad Request: Doctor Error";
                     }
-                })
+                });
           })
           .catch((error) => {
             const response = error.response;
