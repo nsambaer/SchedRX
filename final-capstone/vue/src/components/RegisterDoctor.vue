@@ -82,6 +82,13 @@ export default {
         lastName: "",
         officeId: ""
       },
+
+      availability: {
+        doctorId: '',
+        regularOpenHours: '',
+        regularCloseHours: ''
+    },
+
       registrationErrors: false,
       registrationErrorMsg: "There were problems registering this user.",
     };
@@ -99,19 +106,31 @@ export default {
             this.doctor.officeId = this.$store.state.currentOffice.officeId;
             adminService
                 .registerDoctor(this.doctor)
-                .then(response => {
+                .then( () => {
+                  this.availability.doctorId = this.doctor.doctorId;
+                  this.availability.regularOpenHours = this.$store.state.currentOffice.openHours;
+                  this.availability.regularCloseHours = this.$store.state.currentOffice.closeHours;
+
+                  adminService.setDoctorHours(this.doctor.doctorId, this.availability).then( (response) => {
+
                     if (response.status === 201) {
-                        this.$router.push({
-                            name: 'redirect'
-                        });
+                      this.$router.push({
+                        name: 'redirect'
+                      });
                     }
+                  }).catch((doctorError) => {
+                    const doctorResponse = doctorError.response;
+                    if (doctorResponse.status === 400) {
+                        this.registrationErrorMsg = "Bad Request: Doctor Error";
+                    }
+                });
                 })
                 .catch((doctorError) => {
                     const doctorResponse = doctorError.response;
                     if (doctorResponse.status === 400) {
                         this.registrationErrorMsg = "Bad Request: Doctor Error";
                     }
-                })
+                });
           })
           .catch((error) => {
             const response = error.response;
