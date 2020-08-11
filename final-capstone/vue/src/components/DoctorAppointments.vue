@@ -15,20 +15,22 @@
           <td><button v-on:click="showAppointmentDetails(appointment.appointmentId)">Show Details </button></td>
           <td><button v-on:click="editAppointmentDetails(appointment.appointmentId)">Edit Appointment </button></td>
         </tr>
-        <tr  class="details" :class="appointment.appointmentId == active ? activeClass : 'hidden'">
+        <tr  class="details" :class="appointment.appointmentId == activeDetails ? activeClass : 'hidden'">
           <p>Type: {{appointment.appointmentType}}</p>
         <p>Reason: {{appointment.visitReason}}</p>
         </tr>
-        <tr  class="edit-appointment"  >
+        <tr  class="edit-appointment" :class="appointment.appointmentId == activeEdit ? activeClass : 'hidden'" >
+                 <label for="date-selector">Choose a new date:</label>
+            <input id="date-selector" type="date" required v-model="newAppointment.appointmentDate" />
 
-            
-            
+            <div v-for="(times, date) in availability.availability" v-bind:key="date"  >
+             
+         
 
-          
-            <div v-for="(times, date) in availability.availability" v-bind:key="date">
-              <select id="time-selector" v-model="newAppointment.appointmentTime" v-show="newAppointment.appointmentDate == date">
+              <select id="time-selector" v-model="newAppointment.appointmentTime" v-show="date==newAppointment.appointmentDate" >
                 <option v-for="time in times" v-bind:key="time" v-bind:value="time">{{ time }}</option>
-                </select>
+              </select>
+              <button v-on:click="submitNewAppointment(appointment)" v-show="(date==newAppointment.appointmentDate) && (newAppointment.appointmentTime != '')" >Change Appointment </button>
             </div>
 
             <!-- <div v-for="(times, date) in availability" v-bind:key="date">
@@ -63,9 +65,10 @@ export default {
     data(){
         return{
             activeClass: 'is-visible',
-            active:null,
-           
+            activeDetails:null,
+            activeEdit:null,
             newAppointment: {
+                appointmentId:0,
                 patientId: "",
                 doctorId: "",
                 officeId: "",
@@ -73,6 +76,7 @@ export default {
                 appointmentTime: "",
                 visitReason: "",
                 appointmentType: "",
+                virtual:""
              }
         }
     },
@@ -106,20 +110,26 @@ export default {
     },
     methods:{
       showAppointmentDetails(id){
-        if(this.active == id){
-        this.active = null;
+        if(this.activeDetails == id){
+        this.activeDetails = null;
+        
       } else{
-        this.active = id;
+        this.activeDetails = id;
       }
      
 
       },
 
-      submitAppointment(){
-
+      editAppointmentDetails(id){
+        if(this.activeEdit == id){
+        this.activeEdit = null;
+        this.newAppointment.appointmentId = 0;
+      } else{
+        this.activeEdit = id;
+        this.newAppointment.appointmentId = id;
       }
       
-
+      }
     }
 
     
