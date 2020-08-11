@@ -48,6 +48,7 @@ appt_date DATE NOT NULL,
 appt_time TIME NOT NULL,
 appt_mod_date DATE NOT NULL,
 appt_mod_time TIME NOT NULL,
+virtual BOOLEAN NOT NULL,
 visit_reason VARCHAR(128) NOT NULL,
 appt_type_id INT NOT NULL,
 

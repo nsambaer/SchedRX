@@ -14,15 +14,30 @@ public class Appointment {
 	private LocalTime appointmentTime;
 	private LocalDate lastUpdatedDate;
 	private LocalTime lastUpdatedTime;
+	private boolean isVirtual;
 	private String visitReason;
 	private String appointmentType;
 	
 	
 	public Appointment() {}
 
+	
+
+	public boolean isVirtual() {
+		return isVirtual;
+	}
+
+
+
+	public void setVirtual(boolean isVirtual) {
+		this.isVirtual = isVirtual;
+	}
+
+
+
 	public Appointment(Long patientId, Long doctorId, Long officeId, LocalDate appointmentDate,
-			LocalTime appointmentTime, LocalDate lastUpdatedDate, LocalTime lastUpdatedTime, String visitReason,
-			String appointmentType) {
+			LocalTime appointmentTime, LocalDate lastUpdatedDate, LocalTime lastUpdatedTime, boolean isVirtual,
+			String visitReason, String appointmentType) {
 		super();
 		this.patientId = patientId;
 		this.doctorId = doctorId;
@@ -31,13 +46,16 @@ public class Appointment {
 		this.appointmentTime = appointmentTime;
 		this.lastUpdatedDate = lastUpdatedDate;
 		this.lastUpdatedTime = lastUpdatedTime;
+		this.isVirtual = isVirtual;
 		this.visitReason = visitReason;
 		this.appointmentType = appointmentType;
 	}
 
+
+
 	public Appointment(Long appointmentId, Long patientId, Long doctorId, Long officeId, LocalDate appointmentDate,
-			LocalTime appointmentTime, LocalDate lastUpdatedDate,
-			LocalTime lastUpdatedTime, String visitReason, String appointmentType) {
+			LocalTime appointmentTime, LocalDate lastUpdatedDate, LocalTime lastUpdatedTime, boolean isVirtual,
+			String visitReason, String appointmentType) {
 		super();
 		this.appointmentId = appointmentId;
 		this.patientId = patientId;
@@ -47,9 +65,12 @@ public class Appointment {
 		this.appointmentTime = appointmentTime;
 		this.lastUpdatedDate = lastUpdatedDate;
 		this.lastUpdatedTime = lastUpdatedTime;
+		this.isVirtual = isVirtual;
 		this.visitReason = visitReason;
 		this.appointmentType = appointmentType;
 	}
+
+
 
 	public Long getAppointmentId() {
 		return appointmentId;
