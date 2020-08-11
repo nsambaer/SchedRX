@@ -87,13 +87,7 @@ export default {
       registrationErrorMsg: "There were problems registering this user.",
     };
   },
-  
-  mounted() {
-    if (localStorage.getItem('office')) {
-            const currentOffice = JSON.parse(localStorage.getItem('office'));
-            this.doctor.officeId = currentOffice.officeId;
-        }
-  },
+
   
   methods: {
     register() {
@@ -105,6 +99,7 @@ export default {
           .register(this.user)
           .then((response) => {
             this.doctor.doctorId = response.data;
+            this.doctor.officeId = this.$store.state.currentOffice.officeId;
             adminService
                 .registerDoctor(this.doctor)
                 .then( () => {
@@ -118,8 +113,8 @@ export default {
                         this.registrationSuccess = true;
                         this.clearForm();
                     }
-                  }).catch((doctorError) => {
-                    const doctorResponse = doctorError.response;
+                  }).catch((availError) => {
+                    const doctorResponse = availError.response;
                     if (doctorResponse.status === 400) {
                         this.registrationErrorMsg = "Bad Request: Doctor Error";
                     }

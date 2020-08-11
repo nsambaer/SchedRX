@@ -35,14 +35,9 @@ export default {
   },
   data() {
     return {
-      currentOffice: {}
     }
   },
-  created() {
-    // adminService.getOffice(this.$store.state.user.id).then( response => {
-    //         this.$store.commit("SET_CURRENT_OFFICE", response.data);
-    //     });
-  }
+
 }
 </script>
 

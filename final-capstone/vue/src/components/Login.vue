@@ -75,13 +75,12 @@ export default {
           switch (this.role)  {
             case "ROLE_PATIENT":
               this.setPatient();
-              this.$router.push({ name: "patient" });
               break;
             case "ROLE_DOCTOR":
               this.$router.push({ name: "doctor" });
               break;
             case "ROLE_ADMIN":
-              this.$router.push({ name: "admin" });
+              this.setOffice();
               break;
             default:
             this.roleError = true;
@@ -101,6 +100,7 @@ export default {
         .getPatient(this.$store.state.user.id)
         .then((response) => {
           this.$store.commit("SET_PATIENT", response.data);
+          this.$router.push({ name: "patient" });
         })
         .catch((error) => {
           const response = error.response;
@@ -116,6 +116,7 @@ export default {
         .getOffice(this.$store.state.user.id)
         .then((response) => {
           this.$store.commit("SET_CURRENT_OFFICE", response.data);
+          this.$router.push({ name: "admin" });
         })
         .catch((error) => {
           const response = error.response;
