@@ -2,8 +2,7 @@
 
 <div class="office-details-container" >
 
-  <button  v-on:click="showOfficeDetails = !showOfficeDetails">{{office.officeName}} </button>
-  <div class="office-details" v-show="showOfficeDetails">
+  <div class="office-details" >
     
       <table>
         <thead>

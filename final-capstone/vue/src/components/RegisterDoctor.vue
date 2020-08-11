@@ -2,7 +2,6 @@
   <div id="register" class="text-center">
     <h2 class="h3 mb-3 font-weight-normal">Register Doctor</h2>
     <form class="form-register" @submit.prevent="register">
-      
       <div
         class="alert alert-danger"
         role="alert"
@@ -36,27 +35,26 @@
         v-model="user.confirmPassword"
         required
       />
-      
-        <label for="firstName" class="sr-only">First Name:</label>
-        <input
-          type="text"
-          id="firstName"
-          class="form-control"
-          placeholder="First Name"
-          v-model="doctor.firstName"
-          required
-        />
-        <label for="lastName" class="sr-only">Last Name:</label>
-        <input
-          type="text"
-          id="lastName"
-          class="form-control"
-          placeholder="Last Name"
-          v-model="doctor.lastName"
-          required
-        />
-      
-      
+
+      <label for="firstName" class="sr-only">First Name:</label>
+      <input
+        type="text"
+        id="firstName"
+        class="form-control"
+        placeholder="First Name"
+        v-model="doctor.firstName"
+        required
+      />
+      <label for="lastName" class="sr-only">Last Name:</label>
+      <input
+        type="text"
+        id="lastName"
+        class="form-control"
+        placeholder="Last Name"
+        v-model="doctor.lastName"
+        required
+      />
+
       <button class="btn btn-lg btn-primary btn-block" type="submit">Register Doctor</button>
     </form>
   </div>
@@ -80,12 +78,16 @@ export default {
         doctorId: "",
         firstName: "",
         lastName: "",
-        officeId: ""
+        officeId: "",
       },
+      availability: {
+      },
+      registrationSuccess: false,
       registrationErrors: false,
       registrationErrorMsg: "There were problems registering this user.",
     };
   },
+
   methods: {
     register() {
       if (this.user.password != this.user.confirmPassword) {
@@ -98,20 +100,35 @@ export default {
             this.doctor.doctorId = response.data;
             this.doctor.officeId = this.$store.state.currentOffice.officeId;
             adminService
-                .registerDoctor(this.doctor)
-                .then(response => {
-                    if (response.status === 201) {
-                        this.$router.push({
-                            name: 'redirect'
-                        });
+              .registerDoctor(this.doctor)
+              .then((adminResponse) => {
+                adminResponse;
+                this.availability.doctorId = this.doctor.doctorId;
+                this.availability.regularOpenHours = this.$store.state.currentOffice.openHours;
+                this.availability.regularCloseHours = this.$store.state.currentOffice.closeHours;
+
+                adminService
+                  .setDoctorHours(this.doctor.doctorId, this.availability)
+                  .then((adminResponse) => {
+                    if (adminResponse.status === 201) {
+                      this.registrationSuccess = true;
+                      this.clearForm();
                     }
-                })
-                .catch((doctorError) => {
-                    const doctorResponse = doctorError.response;
-                    if (doctorResponse.status === 400) {
-                        this.registrationErrorMsg = "Bad Request: Doctor Error";
+                  })
+                  .catch((availError) => {
+                    const availResponse = availError.response;
+                    if (availResponse.status === 400) {
+                      this.registrationErrorMsg = "Bad Request: Doctor Error";
                     }
-                })
+                  });
+              })
+              .catch((doctorError) => {
+                console.log(doctorError.response + '       ' + doctorError.response.status);
+                const doctorResponse = doctorError.response;
+                if (doctorResponse.status === 400) {
+                  this.registrationErrorMsg = "Bad Request: Doctor Error";
+                }
+              });
           })
           .catch((error) => {
             const response = error.response;
@@ -121,6 +138,13 @@ export default {
             }
           });
       }
+    },
+    clearForm() {
+      this.user.username = "";
+      this.user.password = "";
+      this.user.confirmPassword = "";
+      this.doctor.firstName = "";
+      this.doctor.lastName = "";
     },
     clearErrors() {
       this.registrationErrors = false;
@@ -132,7 +156,7 @@ export default {
 
 <style>
 .form-register {
-    display: grid;
-    grid-template-columns: 200px 200px;
+  display: grid;
+  grid-template-columns: 200px 200px;
 }
 </style>

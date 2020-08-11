@@ -1,13 +1,20 @@
 <template>
   <div>
-    Notification List
+    <label for="notification-view">View:</label>
+    <select id="notification-view" v-model="notifView">
+      <option value="unread">View Unread Notifications</option>
+      <option value="all">View All Notifications</option>
+    </select>
+    <br />
+    <button v-on:click="markAllRead">Mark All Read</button>
     <ul>
-      <li v-for="notification in notifications" v-bind:key="notification.notificationId">
+      <li v-for="notification in filteredNotifications" v-bind:key="notification.notificationId">
         <div v-bind:class="{'read' : !notification.read}">{{notification.message}}</div>
         <div>
-          <button v-on:click="markRead(notification.notificationId)">Mark Read</button>
+          <button v-show="!notification.read" v-on:click="markRead(notification.notificationId)">Mark Read</button>
         </div>
       </li>
+      <li v-show="filteredNotifications.length === 0">No Notifications</li>
     </ul>
   </div>
 </template>
@@ -19,7 +26,20 @@ export default {
   data() {
     return {
       notifications: [],
+      notifView: "unread",
     };
+  },
+
+  computed: {
+    filteredNotifications() {
+      if (this.notifView == "unread") {
+        return this.notifications.filter((notification) => {
+          return notification.read === false;
+        });
+      } else {
+        return this.notifications;
+      }
+    },
   },
 
   created() {
@@ -64,6 +84,37 @@ export default {
           }
         });
     },
+
+    markAllRead() {
+      notifService
+        .markAllRead(this.$store.state.user.id)
+        .then(() => {
+          notifService
+            .getRecentNotifications(this.$store.state.user.id)
+            .then((response) => {
+              this.notifications = response.data;
+            })
+            .catch((error) => {
+              const response = error.response;
+              this.errors = true;
+              if (response.status === 400) {
+                this.errorMsg = "Bad Request: Validation Errors";
+              }
+            });
+        })
+        .catch((error) => {
+          const response = error.response;
+          this.errors = true;
+          if (response.status === 400) {
+            this.errorMsg = "Bad Request: Validation Errors";
+          }
+        });
+    },
+
+    notificationEmpty() {
+      return this.filteredNotifications === [];
+    }
+
   },
 };
 </script>

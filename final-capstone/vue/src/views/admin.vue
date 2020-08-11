@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import adminService from "../services/AdminService.js";
+//import adminService from "../services/AdminService.js";
 import OfficeAdmin from "../components/OfficeAdmin.vue";
 import RegisterDoctor from "../components/RegisterDoctor.vue";
 import ResetPassword from "../components/AdminResetPassword.vue";
@@ -35,14 +35,9 @@ export default {
   },
   data() {
     return {
-      currentOffice: {}
     }
   },
-  created() {
-    adminService.getOffice(this.$store.state.user.id).then( response => {
-            this.$store.commit("SET_CURRENT_OFFICE", response.data);
-        });
-  }
+
 }
 </script>
 

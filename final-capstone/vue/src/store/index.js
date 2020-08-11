@@ -58,10 +58,11 @@ export default new Vuex.Store({
     },
 
     NEW_PRIMARY_DOCTOR(state, doctorId) {
-      state.patient.primaryDoctorId = doctorId;
+      state.patient.primaryDoctor.doctorId = doctorId;
     },
     SET_CURRENT_OFFICE(state, office) {
       state.currentOffice = office;
+      localStorage.setItem('office', office);
       
     },
 

@@ -2,7 +2,7 @@
   <div>
     <div class="primary-care">
       <p
-        v-show="!primaryDoctor"
+        v-show="primaryDoctorId === 0"
       >You have not chose a primary care physician. To book an appointment, please choose a primary physician</p>
       <form v-on:submit.prevent="newPrimaryDoctor">
         <label
@@ -20,7 +20,7 @@
     </div>
     <p></p>
     <p></p>
-    <div v-show="primaryDoctor">
+    <div v-show="primaryDoctorId > 0">
       <form v-on:submit.prevent="submitAppointment">
         <label for="date-selector">Choose a date:</label>
         <input id="date-selector" type="date" required v-model="newAppointment.appointmentDate" />
@@ -84,7 +84,13 @@ export default {
 
   computed: {
     primaryDoctorId() {
-      let id = this.$store.state.patient.primaryDoctor.doctorId;
+      let id;
+      if (this.$store.state.patient.primaryDoctor === undefined){
+        id = 0;
+      } else {
+        id = this.$store.state.patient.primaryDoctor.doctorId;
+        console.log("the primary doctor id is " + id);
+      }
       return id;
     },
 
@@ -101,11 +107,12 @@ export default {
     newPrimaryDoctor() {
       this.$store.commit("NEW_PRIMARY_DOCTOR", this.selectedDoctor.doctorId);
       patientService.updatePrimaryDoctor(this.$store.state.patient);
+      this.updateAvailability(this.availabilityMonth, this.availabilityYear)
       this.$forceUpdate();
     },
 
     primaryDoctor() {
-      if (typeof this.primaryDoctorId === "undefined") {
+      if (this.primaryDoctorId === 0) {
         return false;
       } else {
         return true;
@@ -139,7 +146,7 @@ export default {
         alert(response.status + ' You have booked an appointment!');
 
         this.notification.userId = this.primaryDoctorId;
-        this.notification.message = `A new appointment has been booked with ${this.patient.firstName} ${this.patient.lastName} at ${this.newAppointment.appointmentTime} on ${this.newAppointment.appointmentDate}`
+        this.notification.message = `A new appointment has been booked with ${this.$store.state.patient.firstName} ${this.$store.state.patient.lastName} at ${this.newAppointment.appointmentTime} on ${this.newAppointment.appointmentDate}`
 
         notifService.createNotification(this.notification).then( () => {
 

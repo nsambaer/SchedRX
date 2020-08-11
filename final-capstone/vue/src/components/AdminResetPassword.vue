@@ -1,21 +1,23 @@
 <template>
-  <div>
-    <form class="reset-password" v-on:submit.prevent="resetPassword">
-        <label for="update-username">Username: </label>
-        <input 
-            type="text"
-            id="update-username"
-            v-model="user.username"
-        >
-        <label for="new-password">New Password: </label>
-        <input 
-            type="password"
-            id="new-password"
-            v-model="user.newPassword"
-        >
-        <button type="submit">Update User Password</button>
+  <div class="reset-password-container">
+    <div class="reset-password-form">
+        <form class="reset-password" v-on:submit.prevent="resetPassword">
+            <label for="update-username">Username: </label>
+            <input 
+                type="text"
+                id="update-username"
+                v-model="user.username"
+            >
+            <label for="new-password">New Password: </label>
+            <input 
+                type="password"
+                id="new-password"
+                v-model="user.newPassword"
+            >
+            <button type="submit">Update User Password</button>
 
-    </form>
+        </form>
+    </div>
     <div class="update-error" v-if="updateError">
 
     </div>
@@ -66,5 +68,11 @@ export default {
 </script>
 
 <style>
+
+.reset-password {
+    display: grid;
+    grid-template-columns: 150px;
+
+}
 
 </style>

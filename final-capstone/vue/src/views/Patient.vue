@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import patientService from "../services/PatientService.js";
+//import patientService from "../services/PatientService.js";
 import PatientAppointments from "../components/PatientAppointments.vue";
 import BookAppointment from "../components/BookAppointment.vue";
 
@@ -34,18 +34,18 @@ export default {
   },
   created() {
 
-    patientService
-      .getPatient(this.$store.state.user.id)
-      .then((response) => {
-        this.$store.commit('SET_PATIENT', response.data)
-      })
-      .catch((error) => {
-        const response = error.response;
-        this.errors = true;
-        if (response.status === 400) {
-          this.errorMsg = "Bad Request: Validation Errors";
-        }
-      });
+    // patientService
+    //   .getPatient(this.$store.state.user.id)
+    //   .then((response) => {
+    //     this.$store.commit('SET_PATIENT', response.data)
+    //   })
+    //   .catch((error) => {
+    //     const response = error.response;
+    //     this.errors = true;
+    //     if (response.status === 400) {
+    //       this.errorMsg = "Bad Request: Validation Errors";
+    //     }
+    //   });
   },
 };
 </script>
@@ -60,6 +60,8 @@ export default {
     "reviews reviews";
 }
 
+
+
 .book-appointments {
   grid-area: "book";
   background-color: rgb(178, 236, 255);
@@ -68,7 +70,7 @@ export default {
 .patient-upcoming-appointments {
   grid-area: "schedule";
   background-color: rgb(178, 236, 255);
-  height: 400px;
+  height: auto;
 }
 
 .patient-notifications {

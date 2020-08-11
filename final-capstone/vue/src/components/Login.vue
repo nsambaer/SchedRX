@@ -44,6 +44,8 @@
 
 <script>
 import authService from "../services/AuthService";
+import patientService from '@/services/PatientService';
+import adminService from '../services/AdminService';
 
 export default {
   name: "login",
@@ -72,20 +74,19 @@ export default {
 
           switch (this.role)  {
             case "ROLE_PATIENT":
-              this.$router.push({ name: "patient" });
+              this.setPatient();
               break;
             case "ROLE_DOCTOR":
               this.$router.push({ name: "doctor" });
               break;
             case "ROLE_ADMIN":
-              this.$router.push({ name: "admin" });
+              this.setOffice();
               break;
             default:
             this.roleError = true;
             break;
           }
-        })
-        .catch((error) => {
+        }).catch((error) => {
           const response = error.response;
 
           if (response.status === 401) {
@@ -93,6 +94,39 @@ export default {
           }
         });
     },
+
+      setPatient() {
+      patientService
+        .getPatient(this.$store.state.user.id)
+        .then((response) => {
+          this.$store.commit("SET_PATIENT", response.data);
+          this.$router.push({ name: "patient" });
+        })
+        .catch((error) => {
+          const response = error.response;
+          this.errors = true;
+          if (response.status === 400) {
+            this.errorMsg = "Bad Request: Validation Errors";
+          }
+        });
+    },
+
+    setOffice() {
+      adminService
+        .getOffice(this.$store.state.user.id)
+        .then((response) => {
+          this.$store.commit("SET_CURRENT_OFFICE", response.data);
+          this.$router.push({ name: "admin" });
+        })
+        .catch((error) => {
+          const response = error.response;
+          this.errors = true;
+          if (response.status === 400) {
+            this.errorMsg = "Bad Request: Validation Errors"
+          }
+        })
+    }
+
   },
 };
 </script>

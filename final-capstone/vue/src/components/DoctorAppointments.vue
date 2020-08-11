@@ -24,9 +24,9 @@
             
             
 
-     
+          
             <div v-for="(times, date) in availability.availability" v-bind:key="date">
-              <select id="time-selector" v-model="newAppointment.appointmentTime">
+              <select id="time-selector" v-model="newAppointment.appointmentTime" v-show="newAppointment.appointmentDate == date">
                 <option v-for="time in times" v-bind:key="time" v-bind:value="time">{{ time }}</option>
                 </select>
             </div>
