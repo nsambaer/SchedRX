@@ -71,7 +71,7 @@
         </form>
       </div>
 
-    <div class="doctor-availability" >
+    <div class="doctor-availability" :key="componentKey">
       <button v-on:click="showCurrentAvailabilities = !showCurrentAvailabilities">Show Current Availabilities for Selected Month</button>
       <div v-for="(times, date) in availability.availability" v-bind:key = "date" v-show="showCurrentAvailabilities">
         <div class = "availability-date" v-if="times != null">
@@ -108,9 +108,10 @@ export default {
       availabilityOpenTime:"",
       availabilityCloseTime:"",
       showCurrentAvailabilities: false,
+      componentKey:0,
 
       newAvailability: {
-        doctorId: this.$store.state.user.id,
+        doctorId: this.currentDoctorId,
         specificOpenHours: {
           
         },
@@ -126,12 +127,21 @@ export default {
       
     }
   },
+  beforeCreate(){
+   
+  },
   created(){
-    const today = new Date();
+   const today = new Date();
     const currentMonth = today.getMonth()+1;
     const currentYear = today.getFullYear();
-    this.updateAvailability(currentMonth,currentYear);
+    this.updateAvailability(currentMonth,currentYear);  
+    
+    
   },
+  beforeUpdate(){
+    
+  }
+  ,
     methods:{
     showDetails(date){
       if(this.active == date){
@@ -151,13 +161,20 @@ export default {
     },
 
     updateAvailability(month, year){
-      doctorService.getAvailability(this.$store.state.user.id, month, year).then(
+      doctorService.getAvailability(this.currentDoctorId, month, year).then(
       response => {
        
           this.availability = response.data;
         
       }
-    )
+    ).catch((error) => {
+          const response = error.response;
+          this.errors = true;
+          if (response.status === 400) {
+            this.errorMsg = "Bad Request: Validation Errors";
+          }
+        });
+       
 
     },
     createAvailability(){
@@ -182,11 +199,21 @@ export default {
         if(response.status == 201){
           window.alert("availability created");
         }
-      });
+      }).catch((error) => {
+          const response = error.response;
+          this.errors = true;
+          if (response.status === 400) {
+            this.errorMsg = "Bad Request: Validation Errors";
+          }
+        });
       this.updateAvailability(this.availabilityMonth,this.availabilityYear);
+      this.refreshAvailability();
       this.showSubmitAvailability = false;
 
       
+    },
+    refreshAvailability(){
+      this.componentKey +=1;
     }
 
   },
@@ -206,6 +233,9 @@ export default {
       },
       availabilityYear(){
         return this.availabilityDate.substr(0,4);
+      },
+      currentDoctorId(){
+        return this.$store.state.user.id;
       }
 
       

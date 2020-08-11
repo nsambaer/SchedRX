@@ -7,6 +7,7 @@
     </div>
     <div class="doctor-notifications">
       <h1> this is where the doctor notifications component will be </h1>
+      <notification-list />
     </div>
     <div class="doctor-reviews">
       <h1> this is where the doctor reviews component will go </h1>
@@ -23,22 +24,26 @@
 </template>
 
 <script>
-
-
 import DoctorAppointments from "../components/DoctorAppointments.vue"
 import DoctorAvailability  from "../components/DoctorAvailability.vue"
+import NotificationList from '@/components/NotificationList'
+
 export default {
 
   name:"doctor",
   components:{
     DoctorAppointments,
-    DoctorAvailability
+    DoctorAvailability,
+    NotificationList
   },
   data(){
     return{
       appointments:[],
       availability:[]
     };
+    
+  },
+  created(){
     
   }
 

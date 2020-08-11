@@ -42,6 +42,20 @@ public class ReviewSqlDAO implements ReviewDAO {
 		}
 		return reviewList;
 	}
+	
+	@Override
+	public List<Review> getReviewsByDoctor(Long doctorId) {
+		List<Review> reviewList = new ArrayList<>();
+		String sqlReviewsByOffice = "SELECT * FROM reviews r "
+									+ "WHERE doctor_id= ?";
+		
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlReviewsByOffice, doctorId);
+		while (results.next()) {
+			Review theReview = mapRowToReview(results);
+			reviewList.add(theReview);
+		}
+		return reviewList;
+	}
 
 	private Review mapRowToReview(SqlRowSet results) {
 		Review theReview = new Review();

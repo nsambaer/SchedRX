@@ -12,6 +12,7 @@
       <h1>Patient notifications including updated appointments and prescriptions</h1>
     </div>
     <div class="patient-reviews"></div>
+    <router-link :to=" {name: 'update-password'}">Update Password</router-link>
   </div>
 </template>
 
