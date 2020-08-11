@@ -69,6 +69,8 @@ export default {
 
 <style>
 
+
+
 .reset-password {
     display: grid;
     grid-template-columns: 150px;

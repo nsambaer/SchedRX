@@ -47,18 +47,30 @@ export default {
 </script>
 
 <style>
+
+  
   .admin-view-container {
     display: grid;
     grid-template-columns: 2fr, 1fr;
     grid-template-areas: 
-      "office-info register-doctor";
+      "office-info notifications"
+      "office-info register-doctor"
+      "reset-password reset-password";
   }
 
   .office-info-container {
-    grid-area: "office-info"
+    grid-area: office-info
   }
 
   .register-doctor-container {
-    grid-area: "register-doctor"
+    grid-area: register-doctor;
+  }
+
+  .reset-password-container {
+    grid-area: reset-password;
+  }
+
+  .notification-container {
+    grid-area: notifications;
   }
 </style>
