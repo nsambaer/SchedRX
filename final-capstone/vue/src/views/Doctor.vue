@@ -40,6 +40,9 @@ export default {
       availability:[]
     };
     
+  },
+  created(){
+    this.$store.dispatch()
   }
 
 }

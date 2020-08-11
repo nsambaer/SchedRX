@@ -11,7 +11,7 @@ Vue.use(Vuex)
  */
 const currentToken = localStorage.getItem('token')
 const currentUser = JSON.parse(JSON.stringify(localStorage.getItem('user')));
-const currentRole = localStorage.getItem('role')
+const currentRole = localStorage.getItem('role');
 const currentPatient = JSON.parse(JSON.stringify(localStorage.getItem('patient')));
 
 if(currentToken != null) {

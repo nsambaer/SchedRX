@@ -9,4 +9,6 @@ public interface ReviewDAO {
 	public Review getAllReviews();
 	
 	public List<Review> getReviewsByOffice(Long officeId);
+	
+	public List<Review> getReviewsByDoctor(Long doctorId);
 }

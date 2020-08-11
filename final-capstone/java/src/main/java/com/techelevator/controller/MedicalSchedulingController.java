@@ -27,6 +27,7 @@ import com.techelevator.model.Doctor;
 import com.techelevator.model.DoctorAvailability;
 import com.techelevator.model.Office;
 import com.techelevator.model.Patient;
+import com.techelevator.model.Review;
 
 @PreAuthorize("isAuthenticated()")
 @RestController
@@ -219,13 +220,6 @@ public class MedicalSchedulingController {
 	
 	
 	
-	
-	
-	
-
-	//NOT IN USE
-	
-	/*
 	@PreAuthorize("permitAll")
 	@RequestMapping(path = "/offices/{officeId}/reviews", method = RequestMethod.GET)
 	public List<Review> getReviewsByOffice(@PathVariable Long officeId) {
@@ -242,5 +236,5 @@ public class MedicalSchedulingController {
 	
 	
 	
-	*/
+
 }
