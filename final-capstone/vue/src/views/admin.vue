@@ -9,6 +9,9 @@
     <div class="reset-password-container">
       <reset-password/>
     </div>
+    <div class="notification-container">
+      <notification-list/>
+    </div>
     
 
     
@@ -17,15 +20,18 @@
 
 <script>
 import adminService from "../services/AdminService.js";
-import OfficeAdmin from "../components/OfficeAdmin.vue"
-import RegisterDoctor from "../components/RegisterDoctor.vue"
-import ResetPassword from "../components/AdminResetPassword.vue"
+import OfficeAdmin from "../components/OfficeAdmin.vue";
+import RegisterDoctor from "../components/RegisterDoctor.vue";
+import ResetPassword from "../components/AdminResetPassword.vue";
+import NotificationList from "../components/NotificationList.vue";
+
 export default {
   name: 'admin',
   components: {
     OfficeAdmin,
     RegisterDoctor,
-    ResetPassword
+    ResetPassword,
+    NotificationList
   },
   data() {
     return {
