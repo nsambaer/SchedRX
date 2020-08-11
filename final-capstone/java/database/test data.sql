@@ -91,10 +91,10 @@ VALUES ('Blood Draw/Vaccinations');
 
 SELECT * FROM patients;
 
-INSERT INTO appointments (office_id, doctor_id, patient_id, appt_date, appt_time, appt_mod_date, appt_mod_time, visit_reason, appt_type_id) 
+INSERT INTO appointments (office_id, doctor_id, patient_id, appt_date, appt_time, appt_mod_date, appt_mod_time, virtual, visit_reason, appt_type_id) 
 VALUES ((SELECT office_id FROM offices WHERE name ILIKE 'Office Alpha'), (SELECT doctor_id FROM doctors WHERE first_name ILIKE 'Doctor' AND last_name ILIKE 'Charlie'), 
         (SELECT patient_id FROM patients WHERE first_name ILIKE 'Patient' AND last_name ILIKE 'Golf'), 
-        '2020-08-17', '10:00', '2020-08-04', '14:15', 'I have an ouchie', (SELECT appointment_types_id FROM appointment_types WHERE appointment_type ILIKE 'Office visit'));
+        '2020-08-17', '10:00', '2020-08-04', '14:15', false, 'I have an ouchie', (SELECT appointment_types_id FROM appointment_types WHERE appointment_type ILIKE 'Office visit'));
 
 INSERT INTO reviews (office_id, doctor_id, patient_id, title, rating, description, comments)
 VALUES ((SELECT office_id FROM offices WHERE name ILIKE 'Office Bravo'), (SELECT doctor_id FROM doctors WHERE first_name ILIKE 'Doctor' AND last_name ILIKE 'Charlie'), 

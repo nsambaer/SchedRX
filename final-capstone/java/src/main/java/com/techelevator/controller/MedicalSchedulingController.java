@@ -214,8 +214,10 @@ public class MedicalSchedulingController {
 	@PreAuthorize("permitAll()")
 	@ResponseStatus(HttpStatus.ACCEPTED)
 	@RequestMapping(path = "/appointments/{appointmentId}", method = RequestMethod.PUT)
-	public Appointment updateAppointment(@RequestBody Appointment appointment, @PathVariable Long appointmentId) {
-		return appointmentDao.updateAppointment(appointment, appointmentId);
+	public Appointment updateAppointment(@RequestBody Appointment appointment) {
+		appointment.setLastUpdatedDate(LocalDate.now());
+		appointment.setLastUpdatedTime(LocalTime.now());
+		return appointmentDao.updateAppointment(appointment);
 	}
 	
 	

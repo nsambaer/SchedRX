@@ -89,23 +89,25 @@ public class AppointmentSqlDAO implements AppointmentDAO {
 	@Override
 	public Appointment createAppointment(Appointment appointment) {
 		String sqlCreateAppointment = "INSERT INTO appointments "
-				+ "(patient_id, doctor_id, office_id, appt_date, appt_time, appt_mod_date, appt_mod_time, visit_reason, appt_type_id) "
-				+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, (SELECT appointment_types_id FROM appointment_types WHERE appointment_type ILIKE ?))";
+				+ "(patient_id, doctor_id, office_id, appt_date, appt_time, appt_mod_date, appt_mod_time, virtual, visit_reason, appt_type_id) "
+				+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, (SELECT appointment_types_id FROM appointment_types WHERE appointment_type ILIKE ?))";
 		jdbcTemplate.update(sqlCreateAppointment, appointment.getPatientId(), appointment.getDoctorId(), appointment.getOfficeId(), 
-							appointment.getAppointmentDate(), appointment.getAppointmentTime(), appointment.getLastUpdatedDate(), appointment.getLastUpdatedTime(),
+							appointment.getAppointmentDate(), appointment.getAppointmentTime(), appointment.getLastUpdatedDate(), appointment.getLastUpdatedTime(), appointment.isVirtual(), 
 							appointment.getVisitReason(), appointment.getAppointmentType());
 		return appointment;
 
 	}
 	
 	@Override
-	public Appointment updateAppointment(Appointment appointment, Long appointmentId) {
+	public Appointment updateAppointment(Appointment appointment) {
 		String sqlUpdateAppointment = "UPDATE appointments SET patient_id = ?, doctor_id = ?, "
-									+ "office_id = ?, appt_date = ?, appt_time = ?, visit_reason = ?, "
-									+ "appt_type_id = (SELECT appointment_types_id FROM appointment_types WHERE appointment_type ILIKE ?) WHERE appointment_id = ?";
+									+ "office_id = ?, appt_date = ?, appt_time = ?, virtual = ?, visit_reason = ?, "
+									+ "appt_type_id = (SELECT appointment_types_id FROM appointment_types WHERE appointment_type ILIKE ?) "
+									+ "appt_mod_date = ?, appt_mod_time = ?, WHERE appointment_id = ?";
 		jdbcTemplate.update(sqlUpdateAppointment, appointment.getPatientId(), appointment.getDoctorId(),
-							appointment.getOfficeId(), appointment.getAppointmentDate(), appointment.getAppointmentTime(),
-							appointment.getVisitReason(), appointmentId);
+							appointment.getOfficeId(), appointment.getAppointmentDate(), appointment.getAppointmentTime(), appointment.isVirtual(),
+							appointment.getVisitReason(), appointment.getAppointmentType(), appointment.getLastUpdatedDate(), appointment.getLastUpdatedTime(), appointment.getAppointmentId());
+		
 		return appointment;
 	}
 
@@ -117,6 +119,7 @@ public class AppointmentSqlDAO implements AppointmentDAO {
 		theAppointment.setOfficeId(results.getLong("office_id"));
 		theAppointment.setAppointmentDate(results.getDate("appt_date").toLocalDate());
 		theAppointment.setAppointmentTime(results.getTime("appt_time").toLocalTime());
+		theAppointment.setVirtual(results.getBoolean("virtual"));
 		theAppointment.setVisitReason(results.getString("visit_reason"));
 		theAppointment.setAppointmentType(results.getString("appointment_type"));
 

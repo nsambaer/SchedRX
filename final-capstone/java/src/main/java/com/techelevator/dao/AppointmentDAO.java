@@ -20,5 +20,5 @@ public interface AppointmentDAO {
 	
 	public Appointment createAppointment(Appointment appointment);
 	
-	public Appointment updateAppointment(Appointment appointment, Long appointmentId);
+	public Appointment updateAppointment(Appointment appointment);
 }
