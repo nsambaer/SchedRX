@@ -76,7 +76,7 @@ export default {
                 appointmentTime: "",
                 visitReason: "",
                 appointmentType: "",
-                virtual:""
+                isVirtual:""
              }
         }
     },
