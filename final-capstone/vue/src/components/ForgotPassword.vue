@@ -38,7 +38,7 @@ export default {
             requestSuccess: false,
             requestError: false,
             notification: {
-                userId: "",
+                userId: 2,
                 message: "Forgot password request"
             }
         }
@@ -53,7 +53,7 @@ export default {
                 .getUserIdByUsername(this.username)
                 .then((response) => {
                     if (response.status === 200) {
-                        this.notification.userId = response.data;
+                       // this.notification.userId = response.data;
                         notificationService
                         .createNotification(this.notification)
                         .then((response) => {

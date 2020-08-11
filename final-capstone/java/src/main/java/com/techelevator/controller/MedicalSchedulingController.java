@@ -220,12 +220,13 @@ public class MedicalSchedulingController {
 	
 	
 	//NOTIFICATION
-	
+	@PreAuthorize("permitAll()")
 	@RequestMapping(path = "/users/{userId}/notifications/recent", method = RequestMethod.GET)
 	public List<Notification> listRecentNotifications(@PathVariable Long userId) {
 		return notificationDao.getRecentNotifications(userId);
 	}
 	
+	@PreAuthorize("permitAll()")
 	@ResponseStatus(HttpStatus.ACCEPTED)
 	@RequestMapping(path = "/notifications/{notificationId}", method = RequestMethod.PUT)
 	public boolean markRead(@PathVariable Long notificationId) {
@@ -250,7 +251,7 @@ public class MedicalSchedulingController {
 //		return reviewList;
 //	}
 	
-	@PreAuthorize("permitAll")
+	@PreAuthorize("hasAnyRole('DOCTOR,'ADMIN')")
 	@RequestMapping(path = "/offices/{doctorId}/reviews", method = RequestMethod.GET)
 	public List<Review> getReviewsByDoctor(@PathVariable Long doctorId) {
 		List<Review> reviewList = reviewDao.getReviewsByDoctor(doctorId);

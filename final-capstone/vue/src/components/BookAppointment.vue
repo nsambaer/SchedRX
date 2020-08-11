@@ -50,6 +50,7 @@
 
 <script>
 import patientService from "@/services/PatientService";
+import notifService from '@/services/NotificationService';
 
 export default {
   name: "book-appointment",
@@ -71,6 +72,10 @@ export default {
         appointmentType: "",
       },
       appointmentTypes: [],
+      notification: {
+        userId: '',
+        message: ''
+      }
       // primaryDoctorId: this.$store.state.patient.primaryDoctorId
       // primaryDoctorId: '',
       // primaryDoctor: false
@@ -131,14 +136,33 @@ export default {
       this.newAppointment.lastUpdatedTime = today.toTimeString;
 
       patientService.postAppointment(this.newAppointment).then( (response) => {
-        alert(response.status + ' ' + response.data);
+        alert(response.status + ' You have booked an appointment!');
+
+        this.notification.userId = this.primaryDoctorId;
+        this.notification.message = `A new appointment has been booked with ${this.patient.firstName} ${this.patient.lastName} at ${this.newAppointment.appointmentTime} on ${this.newAppointment.appointmentDate}`
+
+        notifService.createNotification(this.notification).then( () => {
+
+        }).catch((error) => {
+        const response = error.response;
+        this.errors = true;
+        if (response.status === 400) {
+          this.errorMsg = "Bad Request: Validation Errors";
+        }
+      });
         this.newAppointment.patientId = "";
         this.newAppointment.doctorId = "";
         this.newAppointment.officeId = "";
         this.newAppointment.appointmentTime = "";
         this.newAppointment.visitReason = "";
         this.newAppointment.appointmentType = "";
+
+
+
+
+
         this.updateAvailability(this.availabilityMonth, this.availabilityYear);
+
       }).catch((error) => {
         const response = error.response;
         this.errors = true;

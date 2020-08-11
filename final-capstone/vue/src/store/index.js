@@ -27,8 +27,10 @@ export default new Vuex.Store({
     patientAppointments: [],
     currentOffice: {},
     doctorAppointments:[]
+  
 
   },
+  
   mutations: {
     SET_AUTH_TOKEN(state, token) {
       state.token = token;
@@ -59,6 +61,7 @@ export default new Vuex.Store({
     },
     SET_CURRENT_OFFICE(state, office) {
       state.currentOffice = office;
+      
     },
 
     LOGOUT(state) {

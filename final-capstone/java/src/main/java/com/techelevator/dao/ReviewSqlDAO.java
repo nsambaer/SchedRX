@@ -3,16 +3,25 @@ package com.techelevator.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
+import com.techelevator.model.Doctor;
+import com.techelevator.model.Patient;
 import com.techelevator.model.Review;
 
 @Component
 public class ReviewSqlDAO implements ReviewDAO {
 	
 	private JdbcTemplate jdbcTemplate;
+	
+	@Autowired
+	DoctorDAO doctorDao;
+	
+	@Autowired
+	PatientDAO patientDao;
 	
 	public ReviewSqlDAO(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
@@ -59,6 +68,7 @@ public class ReviewSqlDAO implements ReviewDAO {
 
 	private Review mapRowToReview(SqlRowSet results) {
 		Review theReview = new Review();
+		
 		theReview.setReviewId(results.getLong("review_id"));
 		theReview.setDoctorId(results.getLong("doctor_id"));
 		theReview.setPatientId(results.getLong("patient_id"));
@@ -66,6 +76,13 @@ public class ReviewSqlDAO implements ReviewDAO {
 		theReview.setRating(results.getInt("rating"));
 		theReview.setReviewDescription(results.getString("description"));
 		theReview.setComments(results.getString("comments"));
+		
+		Doctor reviewDoctor = doctorDao.getDoctorById(theReview.getDoctorId());
+		Patient reviewPatient = patientDao.getPatientById(theReview.getPatientId());
+		theReview.setDoctor(reviewDoctor);
+		theReview.setPatient(reviewPatient);
+		
+		
 		return theReview;
 		
 	}
