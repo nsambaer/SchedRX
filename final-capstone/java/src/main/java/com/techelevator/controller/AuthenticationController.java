@@ -12,6 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,7 +24,6 @@ import com.techelevator.dao.UserDAO;
 import com.techelevator.model.ForgotPasswordDTO;
 import com.techelevator.model.LoginDTO;
 import com.techelevator.model.RegisterUserDTO;
-import com.techelevator.model.UpdatePasswordDTO;
 import com.techelevator.model.User;
 import com.techelevator.model.UserAlreadyExistsException;
 import com.techelevator.security.jwt.JWTFilter;
@@ -76,6 +76,12 @@ public class AuthenticationController {
     @RequestMapping(path = "/reset-password", method = RequestMethod.PUT)
     public void resetPassword(@RequestBody ForgotPasswordDTO user) {
     	userDAO.resetPassword(user);
+    }
+    
+    
+    @RequestMapping(path = "/user-by-id/{username}", method = RequestMethod.GET)
+    public int getUserIdByUsername(@PathVariable String username) {
+    	return userDAO.findIdByUsername(username);
     }
     /**
      * Object to return as body in JWT Authentication.

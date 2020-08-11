@@ -5,6 +5,7 @@ import Logout from '../views/Logout.vue'
 import Register from '../views/Register.vue'
 import store from '../store/index'
 import Redirect from '@/views/Redirect'
+import UpdatePassword from '../views/UpdatePassword.vue'
 
 Vue.use(Router)
 
@@ -88,6 +89,11 @@ const router = new Router({
       path: "/redirect",
       name: "redirect",
       component: Redirect
+    },
+    {
+      path: "/update-password",
+      name: "update-password",
+      component: UpdatePassword
     }
   ]
 })

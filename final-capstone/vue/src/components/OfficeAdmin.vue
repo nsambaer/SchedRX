@@ -104,7 +104,7 @@ export default {
             adminService.updateOffice(this.updatedOffice)
             .then(response => {
                 if (response.status === 200) {
-                    this.$store.commit("SET_CURRENT_OFFICE", this.updatedOffice)
+                    this.$store.commit("SET_CURRENT_OFFICE", this.updatedOffice);
                     this.$router.push({
                         name: "redirect"
                     });

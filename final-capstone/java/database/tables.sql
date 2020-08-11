@@ -106,11 +106,12 @@ CONSTRAINT pk_admin_office PRIMARY KEY (admin_id, office_id)
 );
 
 CREATE TABLE notifications (
+notification_id SERIAL NOT NULL,
 user_id INT NOT NULL,
 message VARCHAR NOT NULL,
 message_read BOOLEAN NOT NULL,
 
-CONSTRAINT pk_notifications PRIMARY KEY (user_id)
+CONSTRAINT pk_notifications PRIMARY KEY (notification_id)
 );
 
 
