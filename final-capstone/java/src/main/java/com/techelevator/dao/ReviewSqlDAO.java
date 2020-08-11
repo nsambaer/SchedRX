@@ -47,9 +47,7 @@ public class ReviewSqlDAO implements ReviewDAO {
 	public List<Review> getReviewsByDoctor(Long doctorId) {
 		List<Review> reviewList = new ArrayList<>();
 		String sqlReviewsByOffice = "SELECT * FROM reviews r "
-									+ "INNER JOIN doctor d "
-									+ "ON r.doctor_id = d.doctor_id "
-									+ "WHERE d.doctor_id= ?";
+									+ "WHERE doctor_id= ?";
 		
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlReviewsByOffice, doctorId);
 		while (results.next()) {

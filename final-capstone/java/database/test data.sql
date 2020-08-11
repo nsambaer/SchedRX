@@ -97,8 +97,10 @@ VALUES ((SELECT office_id FROM offices WHERE name ILIKE 'Office Alpha'), (SELECT
         '2020-08-17', '10:00', '2020-08-04', '14:15', 'I have an ouchie', (SELECT appointment_types_id FROM appointment_types WHERE appointment_type ILIKE 'Office visit'));
 
 INSERT INTO reviews (office_id, doctor_id, patient_id, title, rating, description, comments)
-VALUES ((SELECT office_id FROM offices WHERE name ILIKE 'Office Bravo'), (SELECT doctor_id FROM doctors WHERE first_name ILIKE 'Doctor' AND last_name ILIKE 'Echo'), 
+VALUES ((SELECT office_id FROM offices WHERE name ILIKE 'Office Bravo'), (SELECT doctor_id FROM doctors WHERE first_name ILIKE 'Doctor' AND last_name ILIKE 'Charlie'), 
         (SELECT patient_id FROM patients WHERE first_name ILIKE 'Patient' AND last_name ILIKE 'Golf'), 'Best Doctor Ever', 5, 'What a great visit. The doctor gave me loopy pills!', null);
+        
+        
 
 INSERT INTO admin_office (admin_id, office_id)
 VALUES ((SELECT user_id FROM users WHERE username ILIKE 'admin'), (SELECT office_id FROM offices WHERE name ILIKE 'Office Alpha'));

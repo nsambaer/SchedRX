@@ -18,6 +18,10 @@ const http = axios.create({
     addAvailability(doctorId, availability){
 
       return http.post(`/doctors/${doctorId}/availability/specific`, availability);
+    },
+
+    getDoctorReviews(doctorId){
+      return http.get(`/offices/${doctorId}/reviews`);
     }
 
 

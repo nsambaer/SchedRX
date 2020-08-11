@@ -240,13 +240,20 @@ public class MedicalSchedulingController {
 	}
 	
 	
+	//REVIEW METHODS
 	
 	
+//	@PreAuthorize("permitAll")
+//	@RequestMapping(path = "/offices/{officeId}/reviews", method = RequestMethod.GET)
+//	public List<Review> getReviewsByOffice(@PathVariable Long officeId) {
+//		List<Review> reviewList = reviewDao.getReviewsByOffice(officeId);
+//		return reviewList;
+//	}
 	
 	@PreAuthorize("permitAll")
-	@RequestMapping(path = "/offices/{officeId}/reviews", method = RequestMethod.GET)
-	public List<Review> getReviewsByOffice(@PathVariable Long officeId) {
-		List<Review> reviewList = reviewDao.getReviewsByOffice(officeId);
+	@RequestMapping(path = "/offices/{doctorId}/reviews", method = RequestMethod.GET)
+	public List<Review> getReviewsByDoctor(@PathVariable Long doctorId) {
+		List<Review> reviewList = reviewDao.getReviewsByDoctor(doctorId);
 		return reviewList;
 	}
 	
