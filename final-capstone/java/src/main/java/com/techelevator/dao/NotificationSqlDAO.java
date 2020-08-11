@@ -22,7 +22,7 @@ public class NotificationSqlDAO implements NotificationDAO {
 	public List<Notification> getRecentNotifications(Long userId) {
 		List<Notification> notifList = new ArrayList<>();
 		
-		String SqlSelect = "SELECT * FROM notifications WHERE user_id = ? ORDER BY notification_id LIMIT 10";
+		String SqlSelect = "SELECT * FROM notifications WHERE user_id = ? ORDER BY notification_id";
 		
 		SqlRowSet results = jdbc.queryForRowSet(SqlSelect, userId);
 		

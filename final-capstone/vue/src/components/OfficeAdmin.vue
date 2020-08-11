@@ -8,7 +8,7 @@
       </div>
       <button v-on:click="showEditForm = !showEditForm; populateDefaults()">Edit Office Information</button>  
       <div class="edit-office" v-show="showEditForm">
-          <form class="edit-office-form" v-on:submit="updateOffice()">
+          <form class="edit-office-form" v-on:submit.prevent="updateOffice()">
               <label for="office-name">Office name: </label>
               <input
                 id="office-name" 
@@ -68,7 +68,7 @@ export default {
 
     data() {
         return {
-            office: this.$store.state.currentOffice,
+            office: {},
             showEditForm: false,
             updatedOffice: {
                 officeId: "",
@@ -83,11 +83,9 @@ export default {
         }
     },
 
-   mounted() {
-        if (localStorage.getItem('office')) {
-            this.office = JSON.parse(localStorage.getItem('office'));
-        }
-    }, 
+    created() {
+      this.office = this.$store.state.currentOffice;
+    },
 
     methods: {
         populateDefaults() {
