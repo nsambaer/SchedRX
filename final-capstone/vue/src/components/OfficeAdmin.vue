@@ -68,6 +68,7 @@ export default {
 
     data() {
         return {
+            
             showEditForm: false,
             updatedOffice: {
                 officeId: "",
@@ -81,7 +82,6 @@ export default {
             }
         }
     },
-
 
     computed: {
         office() {
@@ -105,9 +105,7 @@ export default {
             .then(response => {
                 if (response.status === 200) {
                     this.$store.commit("SET_CURRENT_OFFICE", this.updatedOffice);
-                    this.$router.push({
-                        name: "redirect"
-                    });
+                    this.office = this.updatedOffice;
                 }
             })
         }

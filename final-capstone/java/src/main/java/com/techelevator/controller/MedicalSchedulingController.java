@@ -220,12 +220,13 @@ public class MedicalSchedulingController {
 	
 	
 	//NOTIFICATION
-	
+	@PreAuthorize("permitAll()")
 	@RequestMapping(path = "/users/{userId}/notifications/recent", method = RequestMethod.GET)
 	public List<Notification> listRecentNotifications(@PathVariable Long userId) {
 		return notificationDao.getRecentNotifications(userId);
 	}
 	
+	@PreAuthorize("permitAll()")
 	@ResponseStatus(HttpStatus.ACCEPTED)
 	@RequestMapping(path = "/notifications/{notificationId}", method = RequestMethod.PUT)
 	public boolean markRead(@PathVariable Long notificationId) {
