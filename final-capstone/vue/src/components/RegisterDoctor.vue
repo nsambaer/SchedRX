@@ -1,6 +1,6 @@
 <template>
   <div id="register" class="text-center">
-    <h2 class="h3 mb-3 font-weight-normal">Register Doctor</h2>
+    <h2 class="reg-title">Register Doctor</h2>
     <form class="form-register" @submit.prevent="register">
       <div
         class="alert alert-danger"
@@ -155,8 +155,40 @@ export default {
 </script>
 
 <style>
+
+:root{
+    --main-color-turqoise: #086972;
+    --main-color-blue-green: #01a9b4;
+    --main-color-light-blue: #87dfd6;
+    --accent-color-yellow: #fbfd8a;
+}
+
+#register {
+  background-color: #086972;
+  border-radius: 5px;
+  border-style:solid;
+  border-width: 1px;
+}
+
 .form-register {
   display: grid;
   grid-template-columns: 200px 200px;
+  
+}
+
+.reg-title {
+  background-color:#01a9b4;
+  border-radius: 5px;
+  border-style: solid;
+  border-width: 1px;
+}
+
+.sr-only {
+  background-color: var(--main-color-light-blue);
+  border-style: solid;
+  border-color:#086972;
+  border-radius: 5px;
+
+
 }
 </style>

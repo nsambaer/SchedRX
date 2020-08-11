@@ -1,14 +1,36 @@
 <template>
   <div class="office-admin-container">
-      <div class="office-info">
-        <h2>Office name: {{office.officeName}}</h2>
-        <h4>Address: {{office.address}}, {{office.city}}, {{office.state}}, {{office.zipCode}}</h4>
-        <h4>Phone: {{office.phoneNumber}}</h4>
-        <h4>Cost per hour: {{office.cost}}</h4>
+      <div class="office-info" v-show="!showEditForm">
+        
+        <table>
+          <thead>
+            <th class="oi-title"> <h2>Office Information</h2> </th>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="attribute">Office Name: </td>
+              <td class="value">{{office.officeName}}</td>
+            </tr>
+            <tr>
+              <td class="attribute">Address: </td>
+              <td class="value">{{office.address}}, {{office.city}}, {{office.state}}, {{office.zipCode}}</td>
+            </tr>
+            <tr>
+              <td class="attribute">Phone: </td>
+              <td class="value">{{office.phoneNumber}}</td>
+            </tr>
+            <tr>
+              <td class="attribute">Cost per hour: </td>
+              <td class="value">{{office.cost}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <button v-on:click="showEditForm = !showEditForm; populateDefaults()">Edit Office Information</button>
       </div>
-      <button v-on:click="showEditForm = !showEditForm; populateDefaults()">Edit Office Information</button>  
+        
       <div class="edit-office" v-show="showEditForm">
-          <form class="edit-office-form" v-on:submit.prevent="updateOffice()">
+          <h2 class="edit-office-title">Edit Office Information</h2>
+          <form class="edit-office-form" v-on:submit.prevent="updateOffice()" v-on:reset.prevent="cancelChanges()">
               <label for="office-name">Office name: </label>
               <input
                 id="office-name" 
@@ -52,6 +74,7 @@
                 v-model="updatedOffice.cost"
               />
               <button type="submit">Save Changes</button>
+              <button type="reset">Cancel Changes</button>
                 
           </form>
       </div>
@@ -109,6 +132,10 @@ export default {
                 this.showEditForm = false;
                 
             })
+        },
+        cancelChanges() {
+          this.showEditForm = false;
+          this.populateDefaults();
         }
     }
     
@@ -116,7 +143,36 @@ export default {
 </script>
 
 <style>
-    
+    :root{
+      --main-color-turqoise: #086972;
+      --main-color-blue-green: #01a9b4;
+      --main-color-light-blue: #87dfd6;
+      --accent-color-yellow: #fbfd8a;
+    }
+
+    .office-info {
+      display: grid;
+      
+    }
+
+    .attribute {
+      background-color: var(--main-color-light-blue);
+      border-style: solid;
+      border-radius: 5px;
+      border-width: 1px;
+    }
+
+    label {
+      background-color:#01a9b4;
+    }
+
+    .office-admin-container {
+      background-color:var(--main-color-turqoise);
+      border-style: solid;
+      border-width: 1px;
+      border-radius: 5px;
+      width: 100%;
+    }
     .edit-office-form {
         display: grid;
         grid-area: "office-form";

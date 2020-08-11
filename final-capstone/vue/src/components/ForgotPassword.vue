@@ -10,6 +10,8 @@
             type="text"
             v-model="username"
         />
+        <label for="fp-office">Choose your office: </label>
+        <select name="" id=""></select>
         <button type="submit">Request Password Reset</button>
       </form>
       <div 
@@ -39,7 +41,7 @@ export default {
             requestError: false,
             notification: {
                 userId: 2,
-                message: "Forgot password request"
+                message: ""
             }
         }
     },
@@ -49,6 +51,7 @@ export default {
         },
         
         submitForgotPassword() {
+            this.notification.message = "Forgotten password request for user: " + this.username;
             authService
                 .getUserIdByUsername(this.username)
                 .then((response) => {
@@ -59,6 +62,7 @@ export default {
                         .then((response) => {
                             if (response.status === 201) {
                                 this.requestSuccess = true;
+                                this.username = "";
                             }
                         })
                         .catch((error) => {
