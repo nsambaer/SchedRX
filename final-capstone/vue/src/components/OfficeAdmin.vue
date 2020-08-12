@@ -28,48 +28,62 @@
       <div class="edit-office" v-show="showEditForm">
           <h2 class="edit-office-title">Edit Office Information</h2>
           <form class="edit-office-form" v-on:submit.prevent="updateOffice()" v-on:reset.prevent="cancelChanges()">
+              <div>
               <label for="office-name">Office name: </label>
               <input
                 id="office-name" 
                 v-model="updatedOffice.officeName" 
                 type="text"
               />
+              </div>
+              <div>
               <label for="street-address">Street Address: </label>
               <input 
                 id="street-address"
                 type="text"
                 v-model="updatedOffice.address"
               />
+              </div>
+              <div>
               <label for="city">City: </label>
               <input
                 id="city" 
                 type="text"
                 v-model="updatedOffice.city"
               />
+              </div>
+              <div>
               <label for="state">State: </label>
               <input 
                 id="state"
                 type="text"
                 v-model="updatedOffice.state"
               />
+              </div>
+              <div>
               <label for="zip-code">Zip Code: </label>
               <input
                 id="zip-code" 
                 type="text"
                 v-model="updatedOffice.zipCode"
               />
+              </div>
+              <div>
               <label for="phone">Phone: </label>
               <input
                 id="phone" 
                 type="text"
                 v-model="updatedOffice.phoneNumber"
               />
+              </div>
+              <div>
               <label for="cost">Cost: </label>
               <input
                 id="cost" 
                 type="text"
                 v-model="updatedOffice.cost"
               />
+              </div>
               <button type="submit">Save Changes</button>
               <button type="reset">Cancel Changes</button>
                 
@@ -151,7 +165,7 @@ export default {
 
     .oi-title {
       background-color: var(--main-color-dark3);
-      width: 100%;
+      
       border-style:solid;
       border-width: 1px;
       border-radius: 5px;
@@ -176,6 +190,10 @@ export default {
 
     label {
       background-color: var(--main-color-dark3);
+      margin-left:auto;
+      border-radius: 5px;
+      border-style: solid;
+      border-width: 1px;
     }
 
     .office-admin-container {
@@ -186,7 +204,7 @@ export default {
       width: 100%;
     }
     .edit-office-form {
-        display: grid;
+        
         grid-area: "office-form";
         grid-template-columns: 1fr, 1fr;
         text-align: center;
@@ -195,7 +213,7 @@ export default {
 
     .edit-office-title {
       
-      width: 100%;
+      
       border-style:solid;
       border-width: 1px;
       border-radius: 5px;

@@ -102,11 +102,13 @@ export default {
         "user-label user-input"
         "password-label password-input"
         "button button";
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 5px;
 }
 
 .title {
     background-color: var(--main-color-dark3);
-      width: 100%;
       border-style:solid;
       border-width: 1px;
       border-radius: 5px;
