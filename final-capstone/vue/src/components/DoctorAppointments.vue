@@ -8,10 +8,10 @@
         <tr class="appointment-first-row">
           <td>Appointment Date: {{appointment.appointmentDate}} </td>
           <td>, {{appointment.appointmentTime}}</td>
-          <td> at Office {{appointment.officeId}}</td>
+          <td> at {{appointment.office.officeName}}</td>
         </tr>
         <tr class="appointment-second-row">
-          <td>  Patient: {{appointment.patientId}} </td>
+          <td>  Patient: {{appointment.patient.firstName}} {{appointment.patient.lastName}}</td>
           <td><button v-on:click="showAppointmentDetails(appointment.appointmentId)">Show Details </button></td>
           <td><button v-on:click="editAppointmentDetails(appointment.appointmentId)">Edit Appointment </button></td>
         </tr>
@@ -116,8 +116,6 @@ export default {
       } else{
         this.activeDetails = id;
       }
-     
-
       },
 
       editAppointmentDetails(id){
@@ -129,6 +127,23 @@ export default {
         this.newAppointment.appointmentId = id;
       }
       
+      },
+      submitNewAppointment(appointment){
+        appointment.appointmentDate = this.newAppointment.appointmentDate;
+        appointment.appointmentTime = this.newAppointment.appointmentTime;
+        doctorService.updateAppointment(appointment.appointmentId, appointment).then( response => {
+
+          if(response.status == 200){
+            window.alert("Appointment Updated!")
+          }
+        }).catch((error) => {
+          const response = error.response;
+          this.errors = true;
+          if (response.status === 400) {
+            this.errorMsg = "Bad Request: Validation Errors";
+          }
+        });
+
       }
     }
 

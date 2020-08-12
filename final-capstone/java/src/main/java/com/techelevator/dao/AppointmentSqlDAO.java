@@ -124,8 +124,8 @@ public class AppointmentSqlDAO implements AppointmentDAO {
 	public Appointment updateAppointment(Appointment appointment) {
 		String sqlUpdateAppointment = "UPDATE appointments SET patient_id = ?, doctor_id = ?, "
 									+ "office_id = ?, appt_date = ?, appt_time = ?, virtual = ?, visit_reason = ?, "
-									+ "appt_type_id = (SELECT appointment_types_id FROM appointment_types WHERE appointment_type ILIKE ?) "
-									+ "appt_mod_date = ?, appt_mod_time = ?, WHERE appointment_id = ?";
+									+ "appt_type_id = (SELECT appointment_types_id FROM appointment_types WHERE appointment_type ILIKE ?), "
+									+ "appt_mod_date = ?, appt_mod_time = ? WHERE appointment_id = ?";
 		jdbcTemplate.update(sqlUpdateAppointment, appointment.getPatient().getPatientId(), appointment.getDoctor().getDoctorId(),
 							appointment.getOffice().getOfficeId(), appointment.getAppointmentDate(), appointment.getAppointmentTime(), appointment.isVirtual(),
 							appointment.getVisitReason(), appointment.getAppointmentType(), appointment.getLastUpdatedDate(), appointment.getLastUpdatedTime(), appointment.getAppointmentId());
