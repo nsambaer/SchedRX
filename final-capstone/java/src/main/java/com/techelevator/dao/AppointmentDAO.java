@@ -21,4 +21,7 @@ public interface AppointmentDAO {
 	public Appointment createAppointment(Appointment appointment);
 	
 	public Appointment updateAppointment(Appointment appointment);
+	
+	public void deleteAppointment(Long appointmentId);
+	
 }

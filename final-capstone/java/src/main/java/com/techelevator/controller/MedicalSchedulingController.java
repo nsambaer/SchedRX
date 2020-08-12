@@ -232,6 +232,14 @@ public class MedicalSchedulingController {
 		return appointmentDao.updateAppointment(appointment);
 	}
 	
+	@PreAuthorize("permitAll()")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@RequestMapping(path = "/appointments/{appointmentId}", method = RequestMethod.DELETE)
+	public void deleteAppointment(@PathVariable Long appointmentId) {
+		
+		 appointmentDao.deleteAppointment(appointmentId);
+	}
+	
 	
 	//NOTIFICATION
 	@PreAuthorize("permitAll()")

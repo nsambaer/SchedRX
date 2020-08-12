@@ -150,7 +150,22 @@ export default {
   },
   methods: {
     register() {
-      if (this.user.password != this.user.confirmPassword) {
+      let pw = this.user.password;
+      let numCheck = false;
+      for (let x = 0; x < pw.length; x++) {
+        if (!isNaN(pw.charAt(x))) {
+          numCheck = true;
+        }
+      }
+      if (!numCheck) {
+        this.registrationErrors = true;
+        this.registrationErrorMsg = "Password must be at least 7 characters in length and contain at least one number";
+      }
+      else if (this.user.password.length < 7) {
+        this.registrationErrors = true;
+        this.registrationErrorMsg = "Password must be at least 7 characters in length and contain at least one number";
+      }
+      else if (this.user.password != this.user.confirmPassword) {
         this.registrationErrors = true;
         this.registrationErrorMsg = "Password & Confirm Password do not match.";
       } else {
