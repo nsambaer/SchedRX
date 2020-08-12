@@ -23,4 +23,10 @@ const http = axios.create({
         return http.post(`/doctors/${doctorId}/availability/regular`, availability)
     },
 
+    getPatientByUsername(username) {
+        return http.get(`/patients/find/${username}`);
+    },
+
+    
+
   }

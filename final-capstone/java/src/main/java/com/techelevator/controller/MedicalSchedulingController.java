@@ -85,6 +85,12 @@ public class MedicalSchedulingController {
 		return officeDao.getOfficeByAdmin(adminId);
 	}
 	
+	@PreAuthorize("permitAll()")
+	@RequestMapping(path = "/offices/{officeId}/admin", method = RequestMethod.GET)
+	public Long getAdminIdByOfficeName(@PathVariable Long officeId) {
+		return officeDao.getAdminIdbyOfficeId(officeId);
+	}
+	
 	
 	@PreAuthorize("permitAll()")
 	@ResponseStatus(HttpStatus.CREATED)
@@ -108,6 +114,12 @@ public class MedicalSchedulingController {
 	@RequestMapping(path = "/patients/{patientId}", method = RequestMethod.GET)
 	public Patient getPatientById(@PathVariable Long patientId) {
 		return patientDao.getPatientById(patientId);
+	}
+	
+	@PreAuthorize("permitAll()")
+	@RequestMapping(path = "/patients/find/{username}", method = RequestMethod.GET)
+	public Patient getPatientByUsername(@PathVariable String username) {
+		return patientDao.getPatientByUsername(username);
 	}
 	
 	@PreAuthorize("permitAll()")
@@ -228,6 +240,12 @@ public class MedicalSchedulingController {
 		 appointmentDao.deleteAppointment(appointmentId);
 	}
 	
+	@PreAuthorize("permitAll()")
+	@RequestMapping(path = "/doctors/{doctorId}/patients", method = RequestMethod.GET)
+	public List<Patient> getPatientsByDoctor(@PathVariable Long doctorId) {
+		return patientDao.getPatientsByDoctor(doctorId);
+	}
+	
 	
 	//NOTIFICATION
 	@PreAuthorize("permitAll()")
@@ -277,11 +295,10 @@ public class MedicalSchedulingController {
 	}
 	
 	@PreAuthorize("permitAll()")
-	@RequestMapping(path = "/doctors/{doctorId}/patients", method = RequestMethod.GET)
-	public List<Patient> getPatientsByDoctor(@PathVariable Long doctorId) {
-		return patientDao.getPatientsByDoctor(doctorId);
+	@RequestMapping(path = "/patients/{patientId}/reviews", method = RequestMethod.POST)
+	public Review createReview(@RequestBody Review review) {
+		return reviewDao.createReview(review);
 	}
-	
 	
 	
 	

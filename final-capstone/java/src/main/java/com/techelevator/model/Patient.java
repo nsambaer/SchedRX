@@ -17,6 +17,15 @@ public class Patient {
 	
 	public Patient() {};
 	
+	
+	
+	public Patient(Long patientId) {
+		super();
+		this.patientId = patientId;
+	}
+
+
+
 	public Patient(Long patientId, String firstName, String lastName, Doctor primaryDoctor, String address,
 			String state, String city, String zipCode, String phone, LocalDate birthdate) {
 		super();

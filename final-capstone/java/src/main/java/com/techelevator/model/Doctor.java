@@ -9,6 +9,15 @@ public class Doctor {
 	
 	public Doctor() {};
 	
+	
+	
+	public Doctor(Long doctorId) {
+		super();
+		this.doctorId = doctorId;
+	}
+
+
+
 	public Doctor(Long doctorId, Long officeId, String firstName, String lastName) {
 		super();
 		this.doctorId = doctorId;
