@@ -6,11 +6,11 @@
       <doctor-appointments />
     </div>
     <div class="doctor-notifications">
-      <h1> this is where the doctor notifications component will be </h1>
+      
       <notification-list />
     </div>
     <div class="doctor-reviews">
-      <h1> this is where the doctor reviews component will go </h1>
+   
     </div>
     <div class="doctor-update-availability">
      

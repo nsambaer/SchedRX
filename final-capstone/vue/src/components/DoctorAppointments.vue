@@ -20,9 +20,10 @@
         <p>Reason: {{appointment.visitReason}}</p>
         </tr>
         <tr  class="edit-appointment" :class="appointment.appointmentId == activeEdit ? activeClass : 'hidden'" >
+         
                  <label for="date-selector">Choose a new date:</label>
             <input id="date-selector" type="date" required v-model="newAppointment.appointmentDate" />
-
+              <button v-on:click="deleteAppointment(appointment.appointmentId)">Delete Appointment </button>
             <div v-for="(times, date) in availability.availability" v-bind:key="date"  >
              
          
@@ -132,6 +133,18 @@ export default {
       }
       
       },
+
+      deleteAppointment(id){
+        doctorService.deleteAppointment(id).then(response => {
+          window.alert(response.status);
+        }).catch((error) => {
+          const response = error.response;
+          this.errors = true;
+          if (response.status === 400) {
+            this.errorMsg = "Bad Request: Validation Errors";
+          }
+        });
+      },
       submitNewAppointment(appointment){
         let oldAppointmentDate = appointment.appointmentDate;
         let oldAppointmentTime = appointment.appointmentTime;
@@ -145,7 +158,7 @@ export default {
             window.alert(response.status);
           if(response.status == 202){
             window.alert("Appointment Updated!")
-            
+            this.activeEdit = null;
             this.sendNotification(this.newNotification);
           }
         }).catch((error) => {

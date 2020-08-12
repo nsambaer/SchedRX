@@ -31,6 +31,10 @@ const http = axios.create({
     sendNotification(notification){
 
       return http.post(`/notifications`, notification)
+    },
+
+    deleteAppointment(appointmentId){
+      return http.delete(`/appointments/${appointmentId}`);
     }
 
 

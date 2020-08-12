@@ -132,6 +132,13 @@ public class AppointmentSqlDAO implements AppointmentDAO {
 		
 		return appointment;
 	}
+	
+	@Override
+	public void deleteAppointment(Long appointmentId) {
+		String sqlDeleteAppointment = "DELETE FROM appointments WHERE appointment_id = ?";
+		jdbcTemplate.update(sqlDeleteAppointment, appointmentId);
+		
+	}
 
 	private Appointment mapRowToAppointment(SqlRowSet results) {
 		Appointment theAppointment = new Appointment();
