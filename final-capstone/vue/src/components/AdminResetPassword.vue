@@ -1,22 +1,32 @@
 <template>
   <div class="reset-password-container">
-    <div class="title">Reset User Password</div>
+    
+    
+        
+    
     <div class="reset-password-form">
+        <h2 class="title">Reset User Password</h2>
         <form class="reset-password" v-on:submit.prevent="resetPassword">
-            <label for="update-username">Username: </label>
-            <input 
-                type="text"
-                id="update-username"
-                v-model="user.username"
-            >
-            <label for="new-password">New Password: </label>
-            <input 
-                type="password"
-                id="new-password"
-                v-model="user.newPassword"
-            >
+            <div>
+                <label class="username-label" for="update-username">Username: </label>
+                <input
+                    class="username-input" 
+                    type="text"
+                    id="update-username"
+                    v-model="user.username"
+                >
+            </div>
+            <div>
+                <label class="password-label" for="new-password">New Password: </label>
+                <input 
+                    class="password-input"
+                    type="password"
+                    id="new-password"
+                    v-model="user.newPassword"
+                >
+                
+            </div>
             <button type="submit">Update User Password</button>
-
         </form>
     </div>
     <div class="update-error" v-if="updateError">
@@ -71,26 +81,58 @@ export default {
 <style>
 
 :root{
-    --main-color-turqoise: #086972;
-    --main-color-blue-green: #01a9b4;
-    --main-color-light-blue: #87dfd6;
-    --accent-color-yellow: #fbfd8a;
+    --main-color-dark1: #004a7c;
+    --main-color-dark2: #005691;
+    --main-color-dark3: #e8f1f5;
+    --main-color-dark4: #fafafa;
 }
 
 .reset-password-container {
-    background-color: var(--main-color-turqoise);
-    display: grid;
+    background-color: var(--main-color-dark2);
+   
+    text-align: center;
 
+}
+
+.reset-password-form {
+    text-align: center;
+    display: grid;
+    grid-template-areas: 
+        "title title"
+        "user-label user-input"
+        "password-label password-input"
+        "button button";
 }
 
 .title {
-    background-color: var(--main-color-blue-green)
+    background-color: var(--main-color-dark3);
+      width: 100%;
+      border-style:solid;
+      border-width: 1px;
+      border-radius: 5px;
+      text-align: center;
+      grid-area: title;
 }
 
-/* .reset-password {
-    display: grid;
-    grid-template-columns: 150px;
 
-} */
+
+.username-label {
+    grid-area: user-label;
+    width: 100%;
+}
+
+.username-input {
+    grid-area: user-input;
+}
+.password-label {
+    grid-area: password-label;
+}
+.password-input {
+    grid-area: password-input;
+}
+
+button {
+    grid-area: button;
+}
 
 </style>

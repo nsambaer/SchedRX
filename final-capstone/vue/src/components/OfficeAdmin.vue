@@ -141,24 +141,25 @@ export default {
 
 <style>
     :root{
-      --main-color-turqoise: #086972;
-      --main-color-blue-green: #01a9b4;
-      --main-color-light-blue: #87dfd6;
-      --accent-color-yellow: #fbfd8a;
+      --main-color-dark1: #004a7c;
+      --main-color-dark2: #005691;
+      --main-color-dark3: #e8f1f5;
+      --main-color-dark4: #fafafa;
     }
 
     
 
     .oi-title {
-      background-color: var(--main-color-blue-green);
+      background-color: var(--main-color-dark3);
       width: 100%;
       border-style:solid;
       border-width: 1px;
       border-radius: 5px;
+      margin-left:auto;
     }
 
     .attribute {
-      background-color: var(--main-color-light-blue);
+      background-color: var(--main-color-dark3);
       border-style: solid;
       border-radius: 5px;
       border-width: 1px;
@@ -166,7 +167,7 @@ export default {
     }
 
     .value {
-      background-color: var(--main-color-light-blue);
+      background-color: var(--main-color-dark3);
       border-style: solid;
       border-radius: 5px;
       border-width: 1px;
@@ -174,11 +175,11 @@ export default {
     }
 
     label {
-      background-color:#01a9b4;
+      background-color: var(--main-color-dark3);
     }
 
     .office-admin-container {
-      background-color:var(--main-color-turqoise);
+      background-color:var(--main-color-dark2);
       border-style: solid;
       border-width: 1px;
       border-radius: 5px;
@@ -193,12 +194,13 @@ export default {
     }
 
     .edit-office-title {
-      background-color: var(--main-color-blue-green);
+      
       width: 100%;
       border-style:solid;
       border-width: 1px;
       border-radius: 5px;
       text-align: center;
+      background-color: var(--main-color-dark3);
     }
 
     .office-info {
