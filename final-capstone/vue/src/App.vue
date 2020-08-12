@@ -44,13 +44,17 @@ export default {
 
 
 #title-banner{
+  display:flex;
+  justify-content: flex-start;
   grid-area: header;
   text-align: center;
   
 }
 #header-image{
+ 
   height: 354px;
   width:1000px;
+  margin: 20px;
 }
 
 #nav{
