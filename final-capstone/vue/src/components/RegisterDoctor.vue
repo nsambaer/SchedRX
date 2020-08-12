@@ -7,53 +7,62 @@
         role="alert"
         v-if="registrationErrors"
       >{{ registrationErrorMsg }}</div>
-      <label for="username" class="sr-only">Username:</label>
-      <input
-        type="text"
-        id="username"
-        class="form-control"
-        placeholder="Username"
-        v-model="user.username"
-        required
-        autofocus
-      />
+      <div class="username-container">
+        <label for="username" class="sr-only">Username:</label>
+        <input
+          type="text"
+          id="username"
+          class="form-control"
+          placeholder="Username"
+          v-model="user.username"
+          required
+          autofocus
+        />
+      </div>
+      <div class="password-container">
       <label for="password" class="sr-only">Password:</label>
-      <input
-        type="password"
-        id="password"
-        class="form-control"
-        placeholder="Password"
-        v-model="user.password"
-        required
-      />
-      <label for="confirmPassword" class="sr-only">Confirm Password:</label>
-      <input
-        type="password"
-        id="confirmPassword"
-        class="form-control"
-        placeholder="Confirm Password"
-        v-model="user.confirmPassword"
-        required
-      />
-
-      <label for="firstName" class="sr-only">First Name:</label>
-      <input
-        type="text"
-        id="firstName"
-        class="form-control"
-        placeholder="First Name"
-        v-model="doctor.firstName"
-        required
-      />
-      <label for="lastName" class="sr-only">Last Name:</label>
-      <input
-        type="text"
-        id="lastName"
-        class="form-control"
-        placeholder="Last Name"
-        v-model="doctor.lastName"
-        required
-      />
+        <input
+          type="password"
+          id="password"
+          class="form-control"
+          placeholder="Password"
+          v-model="user.password"
+          required
+        />
+      </div>
+      <div class="confirm-container">
+        <label for="confirmPassword" class="sr-only">Confirm Password:</label>
+        <input
+          type="password"
+          id="confirmPassword"
+          class="form-control"
+          placeholder="Confirm Password"
+          v-model="user.confirmPassword"
+          required
+        />
+      </div>
+      <div class="first-name-container">
+        <label for="firstName" class="sr-only">First Name:</label>
+        <input
+          type="text"
+          id="firstName"
+          class="form-control"
+          placeholder="First Name"
+          v-model="doctor.firstName"
+          required
+        />
+      </div>
+      <div class="last-name-container">
+        <label for="lastName" class="sr-only">Last Name:</label>
+        <input
+          type="text"
+          id="lastName"
+          class="form-control"
+          placeholder="Last Name"
+          v-model="doctor.lastName"
+          required
+        />
+      </div>
 
       <button class="btn btn-lg btn-primary btn-block" type="submit">Register Doctor</button>
     </form>
@@ -168,14 +177,47 @@ export default {
   border-radius: 5px;
   border-style:solid;
   border-width: 1px;
+  width: 100%;
+  display: grid;
+  grid-template-areas: 
+    "username"
+    "password"
+    "confirm"
+    "first-name"
+    "last-name";
+  text-align: center;
 }
 
 .form-register {
-  display: grid;
-  grid-template-columns: 200px 200px;
+  
+    width: 100%;
+  
+  
   
 }
+label {
+  width:100%;
+}
 
+input {
+  width: 50%;
+}
+
+.username-container {
+  grid-area: username;
+}
+.password-container {
+  grid-area: password;
+}
+.confirm-container {
+  grid-area: confirm;
+}
+.first-name-container {
+  grid-area: first-name;
+}
+.last-name-container {
+  grid-area: last-name;
+}
 .reg-title {
   background-color:#01a9b4;
   border-radius: 5px;
@@ -188,7 +230,11 @@ export default {
   border-style: solid;
   border-color:#086972;
   border-radius: 5px;
+  width: 50%;
+  
 
 
 }
+
+
 </style>

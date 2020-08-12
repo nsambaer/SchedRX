@@ -1,11 +1,8 @@
 <template>
   <div class="office-admin-container">
       <div class="office-info" v-show="!showEditForm">
-        
-        <table>
-          <thead>
-            <th class="oi-title"> <h2>Office Information</h2> </th>
-          </thead>
+        <h2 class="oi-title">Office Information</h2> 
+        <table class="office-info-table">
           <tbody>
             <tr>
               <td class="attribute">Office Name: </td>
@@ -150,10 +147,7 @@ export default {
       --accent-color-yellow: #fbfd8a;
     }
 
-    .office-info {
-      display: grid;
-      
-    }
+    
 
     .oi-title {
       background-color: var(--main-color-blue-green);
@@ -168,6 +162,7 @@ export default {
       border-style: solid;
       border-radius: 5px;
       border-width: 1px;
+      width: 50%;
     }
 
     .value {
@@ -175,6 +170,7 @@ export default {
       border-style: solid;
       border-radius: 5px;
       border-width: 1px;
+      width: 50%;
     }
 
     label {
@@ -192,6 +188,7 @@ export default {
         display: grid;
         grid-area: "office-form";
         grid-template-columns: 1fr, 1fr;
+        text-align: center;
 
     }
 
@@ -201,5 +198,15 @@ export default {
       border-style:solid;
       border-width: 1px;
       border-radius: 5px;
+      text-align: center;
+    }
+
+    .office-info {
+      text-align: center;
+    }
+
+    .office-info-table {
+      margin-left: auto;
+      margin-right: auto;
     }
 </style>
