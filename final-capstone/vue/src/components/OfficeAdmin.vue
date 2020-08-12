@@ -28,48 +28,62 @@
       <div class="edit-office" v-show="showEditForm">
           <h2 class="edit-office-title">Edit Office Information</h2>
           <form class="edit-office-form" v-on:submit.prevent="updateOffice()" v-on:reset.prevent="cancelChanges()">
+              <div>
               <label for="office-name">Office name: </label>
               <input
                 id="office-name" 
                 v-model="updatedOffice.officeName" 
                 type="text"
               />
+              </div>
+              <div>
               <label for="street-address">Street Address: </label>
               <input 
                 id="street-address"
                 type="text"
                 v-model="updatedOffice.address"
               />
+              </div>
+              <div>
               <label for="city">City: </label>
               <input
                 id="city" 
                 type="text"
                 v-model="updatedOffice.city"
               />
+              </div>
+              <div>
               <label for="state">State: </label>
               <input 
                 id="state"
                 type="text"
                 v-model="updatedOffice.state"
               />
+              </div>
+              <div>
               <label for="zip-code">Zip Code: </label>
               <input
                 id="zip-code" 
                 type="text"
                 v-model="updatedOffice.zipCode"
               />
+              </div>
+              <div>
               <label for="phone">Phone: </label>
               <input
                 id="phone" 
                 type="text"
                 v-model="updatedOffice.phoneNumber"
               />
+              </div>
+              <div>
               <label for="cost">Cost: </label>
               <input
                 id="cost" 
                 type="text"
                 v-model="updatedOffice.cost"
               />
+              </div>
               <button type="submit">Save Changes</button>
               <button type="reset">Cancel Changes</button>
                 
@@ -141,24 +155,25 @@ export default {
 
 <style>
     :root{
-      --main-color-turqoise: #086972;
-      --main-color-blue-green: #01a9b4;
-      --main-color-light-blue: #87dfd6;
-      --accent-color-yellow: #fbfd8a;
+      --main-color-dark1: #004a7c;
+      --main-color-dark2: #005691;
+      --main-color-dark3: #e8f1f5;
+      --main-color-dark4: #fafafa;
     }
 
     
 
     .oi-title {
-      background-color: var(--main-color-blue-green);
-      width: 100%;
+      background-color: var(--main-color-dark3);
+      
       border-style:solid;
       border-width: 1px;
       border-radius: 5px;
+      margin-left:auto;
     }
 
     .attribute {
-      background-color: var(--main-color-light-blue);
+      background-color: var(--main-color-dark3);
       border-style: solid;
       border-radius: 5px;
       border-width: 1px;
@@ -166,7 +181,7 @@ export default {
     }
 
     .value {
-      background-color: var(--main-color-light-blue);
+      background-color: var(--main-color-dark3);
       border-style: solid;
       border-radius: 5px;
       border-width: 1px;
@@ -174,18 +189,22 @@ export default {
     }
 
     label {
-      background-color:#01a9b4;
+      background-color: var(--main-color-dark3);
+      margin-left:auto;
+      border-radius: 5px;
+      border-style: solid;
+      border-width: 1px;
     }
 
     .office-admin-container {
-      background-color:var(--main-color-turqoise);
+      background-color:var(--main-color-dark2);
       border-style: solid;
       border-width: 1px;
       border-radius: 5px;
       width: 100%;
     }
     .edit-office-form {
-        display: grid;
+        
         grid-area: "office-form";
         grid-template-columns: 1fr, 1fr;
         text-align: center;
@@ -193,12 +212,13 @@ export default {
     }
 
     .edit-office-title {
-      background-color: var(--main-color-blue-green);
-      width: 100%;
+      
+      
       border-style:solid;
       border-width: 1px;
       border-radius: 5px;
       text-align: center;
+      background-color: var(--main-color-dark3);
     }
 
     .office-info {
