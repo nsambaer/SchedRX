@@ -55,10 +55,15 @@ export default {
 </script>
 
 <style>
-
+:root{
+--main-color-dark1: #004a7c;
+--main-color-dark2: #005691;
+--main-color-dark3: #e8f1f5;
+--main-color-dark4: #fafafa;
+}
 table {
   border-style: ridge;
-  border-color: #086972;
+  border-color: #004a7c;
   border-width: 4pt;
   
 }
@@ -69,30 +74,30 @@ table {
 
 
 .book-appointments {
-  background-color: rgb(178, 236, 255);
+  background-color: #e8f1f5;
 }
 
 .patient-upcoming-appointments {
   grid-area: "schedule";
-  background-color: rgb(178, 236, 255);
+  background-color: #e8f1f5;
   height: auto;
 }
 
 .patient-notifications {
   grid-area: "notifications";
-  background-color: rgb(178, 236, 255);
+  background-color: #e8f1f5;
 }
 
 .patient-reviews {
-  background-color: rgb(178, 236, 255);
+  background-color: #e8f1f5;
 }
 
 .nav-button-password{
   display:flex;
   align-items: center;
-  color:white;
+  color:#fafafa;
   font-size: 1.5em;
-  border-color: white;
+  border-color: #fafafa;
   border: ridge;
  
   justify-content: center;
@@ -100,7 +105,7 @@ table {
   height: 50px;
   width:auto;
   margin:10px;
-  background-color: var(--main-color-blue-green);
+  background-color: #004a7c;
 }
 .nav-button-password-text{
   display: flex;
