@@ -1,5 +1,5 @@
 <template>
-  <table>
+  <table class="patient-table">
   <div class="patient-view-container">
     <div class="patient-upcoming-appointments">
       <h1>Upcoming Appointments</h1>
@@ -66,7 +66,7 @@ export default {
 --main-color-dark3: #e8f1f5;
 --main-color-dark4: #fafafa;
 }
-table {
+.patient-table {
   border-style: ridge;
   border-color: #004a7c;
   border-width: 4pt;

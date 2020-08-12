@@ -5,34 +5,38 @@
         
     
     <div class="reset-password-form">
-        <h2 class="title">Reset User Password</h2>
+        <h2 class="reset-password-title">Reset User Password</h2>
         <form class="reset-password" v-on:submit.prevent="resetPassword">
             <div>
-                <label class="username-label" for="update-username">Username: </label>
+                <label class="reset-password-label" for="update-username">Username: </label>
                 <input
                     class="username-input" 
                     type="text"
                     id="update-username"
                     v-model="user.username"
+                    required
+                    placeholder="Enter username"
                 >
             </div>
             <div>
-                <label class="password-label" for="new-password">New Password: </label>
+                <label class="reset-password-label" for="new-password">New Password: </label>
                 <input 
                     class="password-input"
                     type="password"
                     id="new-password"
                     v-model="user.newPassword"
+                    required
+                    placeholder="Enter password"
                 >
                 
             </div>
             <button type="submit">Update User Password</button>
         </form>
     </div>
-    <div class="update-error" v-if="updateError">
+    <div class="password-update-error" v-if="updateError">
 
     </div>
-    <div class="update-success" v-if="updateSuccess">
+    <div class="password-update-success" v-if="updateSuccess">
         {{updateSuccessMsg}}
     </div>
   </div>
@@ -80,14 +84,18 @@ export default {
 
 <style>
 
-:root{
+.reset-password-label {
+    display: inline-block;
+    min-width: 150px;
+}
+/*:root{
     --main-color-dark1: #004a7c;
     --main-color-dark2: #005691;
     --main-color-dark3: #e8f1f5;
     --main-color-dark4: #fafafa;
 }
 
-.reset-password-container {
+ .reset-password-container {
     background-color: var(--main-color-dark2);
    
     text-align: center;
@@ -107,7 +115,7 @@ export default {
     border-radius: 5px;
 }
 
-.title {
+.reset-password-title {
     background-color: var(--main-color-dark3);
       border-style:solid;
       border-width: 1px;
@@ -132,9 +140,6 @@ export default {
 .password-input {
     grid-area: password-input;
 }
-
-button {
-    grid-area: button;
-}
+ */
 
 </style>

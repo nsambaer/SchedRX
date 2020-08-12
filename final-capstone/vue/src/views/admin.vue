@@ -51,12 +51,21 @@ export default {
   
   .admin-view-container {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr, 1fr;
     grid-template-areas:
-      "notifications"
-      "office-info" 
-      "register-doctor"
-      "reset-password";
+      "notifications notifications"
+      "office-info register-doctor" 
+      "patient-search reset-password";
+      
+  background-color: var(--main-color-dark3);
+  border-style: ridge;
+  border-color: #004a7c;
+  border-width: 4pt;
+
+  }
+
+  .notification-container {
+    grid-area: notifications;
   }
 
   .office-info-container {
@@ -71,7 +80,9 @@ export default {
     grid-area: reset-password;
   }
 
-  .notification-container {
-    grid-area: notifications;
+  .patient-search-container {
+    grid-area: patient-search;
   }
+
+  
 </style>

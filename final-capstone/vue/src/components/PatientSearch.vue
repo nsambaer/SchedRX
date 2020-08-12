@@ -7,11 +7,14 @@
             id="username-search" 
             type="text"
             v-model="username"
+            required
+            placeholder="Enter username to search"
           >
           <button type="submit">Find Patient</button>
       </form>
-      <div class="results-container" v-show="showResults">
-          <table class="results-table">
+      <h3>Search Results: </h3>
+      <div class="results-container" >
+          <table class="results-table" v-show="!searchError">
               <thead>
                   <th>Username: </th>
                   <th>Patient Name: </th>
@@ -28,6 +31,9 @@
                   </tr>
               </tbody>
           </table>
+          <div class="search-error" v-show="searchError">
+            <h3>{{searchErrorMsg}}</h3>
+          </div>
           <button v-on:click.prevent="clearSearch()">Clear Search</button>
       </div>
       <div class="search-error" v-show="searchError">
@@ -97,7 +103,7 @@ export default {
 </script>
 
 <style>
-:root{
+/* :root{
     --main-color-dark1: #004a7c;
     --main-color-dark2: #005691;
     --main-color-dark3: #e8f1f5;
@@ -123,5 +129,5 @@ export default {
     border-style: solid;
     border-width: 1px;
     border-radius: 5px;
-}
+} */
 </style>

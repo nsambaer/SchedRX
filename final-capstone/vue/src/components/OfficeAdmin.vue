@@ -10,7 +10,19 @@
             </tr>
             <tr>
               <td class="attribute">Address: </td>
-              <td class="value">{{office.address}}, {{office.city}}, {{office.state}}, {{office.zipCode}}</td>
+              <td class="value">{{office.address}}, , {{office.state}}, {{office.zipCode}}</td>
+            </tr>
+            <tr>
+              <td class="attribute">City: </td>
+              <td>{{office.city}}</td>
+            </tr>
+            <tr>
+              <td class="attribute">State: </td>
+              <td>{{office.state}}</td>
+            </tr>
+            <tr>
+              <td class="attribute">Zip Code:  </td>
+              <td>{{office.zipCode}}</td>
             </tr>
             <tr>
               <td class="attribute">Phone: </td>
@@ -26,10 +38,10 @@
       </div>
         
       <div class="edit-office" v-show="showEditForm">
-          <h2 class="edit-office-title">Edit Office Information</h2>
+          <h2 class="edit-office-title">Office Information</h2>
           <form class="edit-office-form" v-on:submit.prevent="updateOffice()" v-on:reset.prevent="cancelChanges()">
               <div>
-              <label for="office-name">Office name: </label>
+              <label class="office-info-label" for="office-name">Office name: </label>
               <input
                 id="office-name" 
                 v-model="updatedOffice.officeName" 
@@ -37,7 +49,7 @@
               />
               </div>
               <div>
-              <label for="street-address">Street Address: </label>
+              <label class="office-info-label" for="street-address">Street Address: </label>
               <input 
                 id="street-address"
                 type="text"
@@ -45,7 +57,7 @@
               />
               </div>
               <div>
-              <label for="city">City: </label>
+              <label class="office-info-label" for="city">City: </label>
               <input
                 id="city" 
                 type="text"
@@ -53,7 +65,7 @@
               />
               </div>
               <div>
-              <label for="state">State: </label>
+              <label class="office-info-label" for="state">State: </label>
               <input 
                 id="state"
                 type="text"
@@ -61,7 +73,7 @@
               />
               </div>
               <div>
-              <label for="zip-code">Zip Code: </label>
+              <label class="office-info-label" for="zip-code">Zip Code: </label>
               <input
                 id="zip-code" 
                 type="text"
@@ -69,7 +81,7 @@
               />
               </div>
               <div>
-              <label for="phone">Phone: </label>
+              <label class="office-info-label" for="phone">Phone: </label>
               <input
                 id="phone" 
                 type="text"
@@ -77,7 +89,7 @@
               />
               </div>
               <div>
-              <label for="cost">Cost: </label>
+              <label class="office-info-label" for="cost">Cost: </label>
               <input
                 id="cost" 
                 type="text"
@@ -154,12 +166,24 @@ export default {
 </script>
 
 <style>
-    :root{
+:root{
       --main-color-dark1: #004a7c;
       --main-color-dark2: #005691;
       --main-color-dark3: #e8f1f5;
       --main-color-dark4: #fafafa;
     }
+
+
+
+.office-info-table td {
+  text-align: left;
+}
+
+.office-info-label {
+  min-width: 120px;
+  display: inline-block;
+}
+    /* 
 
     
 
@@ -188,7 +212,7 @@ export default {
       width: 50%;
     }
 
-    label {
+    .office-info-label {
       background-color: var(--main-color-dark3);
       margin-left:auto;
       border-radius: 5px;
@@ -228,5 +252,5 @@ export default {
     .office-info-table {
       margin-left: auto;
       margin-right: auto;
-    }
+    } */
 </style>
