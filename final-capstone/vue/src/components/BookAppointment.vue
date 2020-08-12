@@ -69,9 +69,9 @@ export default {
       availability: {},
       currentDate: '',
       newAppointment: {
-        patientId: "",
-        doctorId: "",
-        officeId: "",
+        patient: {},
+        doctor: {},
+        office: {},
         appointmentDate: "",
         appointmentTime: "",
         virtual: '',
@@ -143,9 +143,9 @@ export default {
 
     submitAppointment() {
       const today = new Date();
-      this.newAppointment.patientId = this.patientId;
-      this.newAppointment.doctorId = this.primaryDoctorId;
-      this.newAppointment.officeId = this.$store.state.patient.primaryDoctor.officeId;
+      this.newAppointment.patient.patientId = this.patientId;
+      this.newAppointment.doctor.doctorId = this.primaryDoctorId;
+      this.newAppointment.office.officeId = this.$store.state.patient.primaryDoctor.officeId;
       this.newAppointment.lastUpdatedDate = this.currentDate;
       this.newAppointment.lastUpdatedTime = today.toTimeString;
 
