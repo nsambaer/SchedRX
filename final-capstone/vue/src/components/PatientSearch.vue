@@ -28,6 +28,11 @@
                   </tr>
               </tbody>
           </table>
+          <button v-on:click.prevent="clearSearch()">Clear Search</button>
+      </div>
+      <div class="search-error" v-show="searchError">
+          <h3>{{searchErrorMsg}}</h3>
+          <button v-on:click.prevent="clearSearch()">Clear Search</button>
       </div>
   </div>
 </template>
@@ -55,7 +60,9 @@ export default {
                 birthdate: ''
             },
             showResults: false,
-            userNameFound: ''
+            userNameFound: '',
+            searchErrorMsg: '',
+            searchError: false,
         }
     },
 
@@ -67,8 +74,23 @@ export default {
                     this.patient = response.data;
                     this.userNameFound = this.username;
                     this.showResults = true;
+                })
+                .catch(error => {
+                    const response = error.response;
+                    this.searchError = true;
+                    if (response.status === 500) {
+                        this.searchErrorMsg = "User not found."
+                    }
                 });
                 
+        },
+
+        clearSearch() {
+            this.patient = {};
+            this.showResults = false;
+            this.searchError = false;
+            this.userNameFound = '';
+            this.username = '';
         }
     }
 }
