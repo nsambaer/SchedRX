@@ -77,6 +77,10 @@ export default {
                 visitReason: "",
                 appointmentType: "",
                 isVirtual:""
+             },
+             newNotification:{
+               userId: 0,
+               message: ""
              }
         }
     },
@@ -129,12 +133,20 @@ export default {
       
       },
       submitNewAppointment(appointment){
+        let oldAppointmentDate = appointment.appointmentDate;
+        let oldAppointmentTime = appointment.appointmentTime;
         appointment.appointmentDate = this.newAppointment.appointmentDate;
         appointment.appointmentTime = this.newAppointment.appointmentTime;
-        doctorService.updateAppointment(appointment.appointmentId, appointment).then( response => {
 
-          if(response.status == 200){
+        this.newNotification.userId = appointment.patient.patientId;
+          this.newNotification.message = `Doctor ${appointment.doctor.lastName} changed your appointment from ${oldAppointmentDate} at ${oldAppointmentTime} to ${appointment.appointmentDate} at ${appointment.appointmentTime}`;
+
+        doctorService.updateAppointment(appointment.appointmentId, appointment).then( response => {
+            window.alert(response.status);
+          if(response.status == 202){
             window.alert("Appointment Updated!")
+            
+            this.sendNotification(this.newNotification);
           }
         }).catch((error) => {
           const response = error.response;
@@ -144,6 +156,14 @@ export default {
           }
         });
 
+      },
+
+      sendNotification(notification){
+        doctorService.sendNotification(notification).then(response => {
+          if(response.status == 201){
+            window.alert("Notification created");
+          }
+        })
       }
     }
 

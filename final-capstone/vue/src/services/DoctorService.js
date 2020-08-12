@@ -26,6 +26,11 @@ const http = axios.create({
 
     updateAppointment(appointmentId, appointment){
       return http.put(`/appointments/${appointmentId}`, appointment);
+    },
+
+    sendNotification(notification){
+
+      return http.post(`/notifications`, notification)
     }
 
 
