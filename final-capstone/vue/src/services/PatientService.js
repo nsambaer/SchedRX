@@ -35,4 +35,8 @@ const http = axios.create({
       return http.post(`/patients/${appointment.patientId}/appointments`, appointment);
     },
 
+    createReview(review) {
+      return http.post(`patients/${review.patient.patientId}/reviews`, review);
+    }
+
   }

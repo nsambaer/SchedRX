@@ -13,7 +13,9 @@
       <h1>Notifications</h1>
       <notification-list></notification-list>
     </div>
-    <div class="patient-reviews"></div>
+    <div class="patient-reviews">
+      <patient-reviews />
+    </div>
     <router-link :to=" {name: 'update-password'}" class="nav-button-password">Update Password</router-link>
   </div>
   </table>
@@ -24,12 +26,15 @@
 import PatientAppointments from "../components/PatientAppointments.vue";
 import BookAppointment from "../components/BookAppointment.vue";
 import NotificationList from "../components/NotificationList.vue";
+import PatientReviews from '@/components/PatientReviews';
+
 export default {
   name: "patient",
   components: {
     PatientAppointments,
     BookAppointment,
     NotificationList,
+    PatientReviews
   },
   data() {
     return {

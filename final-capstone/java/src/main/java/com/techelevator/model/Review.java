@@ -3,38 +3,49 @@ package com.techelevator.model;
 public class Review {
 	
 	private Long reviewId;
-	private Long doctorId;
-	private Long patientId;
 	private Doctor doctor;
 	private Patient patient;
+	private Office office;
 	private String reviewTitle;
 	private int rating;
 	private String reviewDescription;
 	private String comments;
 	
-	public Review() {};
-	
-	public Review(Long reviewId, Long doctorId, Long patientId, String reviewTitle, int rating,
+	public Review() {}
+
+	public Review(Doctor doctor, Patient patient, Office office, String reviewTitle, int rating,
+			String reviewDescription) {
+		super();
+		this.doctor = doctor;
+		this.patient = patient;
+		this.office = office;
+		this.reviewTitle = reviewTitle;
+		this.rating = rating;
+		this.reviewDescription = reviewDescription;
+	}
+
+
+
+
+	public Review(Long reviewId, Doctor doctor, Patient patient, Office office, String reviewTitle, int rating,
 			String reviewDescription, String comments) {
 		super();
 		this.reviewId = reviewId;
-		this.doctorId = doctorId;
-		this.patientId = patientId;
+		this.doctor = doctor;
+		this.patient = patient;
+		this.office = office;
 		this.reviewTitle = reviewTitle;
 		this.rating = rating;
 		this.reviewDescription = reviewDescription;
 		this.comments = comments;
 	}
 
-	public Review(Long doctorId, Long patientId, String reviewTitle, int rating, String reviewDescription, String comments) {
-		super();
-		this.doctorId = doctorId;
-		this.patientId = patientId;
-		this.reviewTitle = reviewTitle;
-		this.rating = rating;
-		this.reviewDescription = reviewDescription;
-		this.comments = comments;
-	}
+
+
+
+
+
+
 
 	public Long getReviewId() {
 		return reviewId;
@@ -44,20 +55,28 @@ public class Review {
 		this.reviewId = reviewId;
 	}
 
-	public Long getDoctorId() {
-		return doctorId;
+	public Doctor getDoctor() {
+		return doctor;
 	}
 
-	public void setDoctorId(Long doctorId) {
-		this.doctorId = doctorId;
+	public void setDoctor(Doctor doctor) {
+		this.doctor = doctor;
 	}
 
-	public Long getPatientId() {
-		return patientId;
+	public Patient getPatient() {
+		return patient;
 	}
 
-	public void setPatientId(Long patientId) {
-		this.patientId = patientId;
+	public void setPatient(Patient patient) {
+		this.patient = patient;
+	}
+
+	public Office getOffice() {
+		return office;
+	}
+
+	public void setOffice(Office office) {
+		this.office = office;
 	}
 
 	public String getReviewTitle() {
@@ -90,23 +109,8 @@ public class Review {
 
 	public void setComments(String comments) {
 		this.comments = comments;
-	}
-
-	public Doctor getDoctor() {
-		return doctor;
-	}
-
-	public void setDoctor(Doctor doctor) {
-		this.doctor = doctor;
-	}
-
-	public Patient getPatient() {
-		return patient;
-	}
-
-	public void setPatient(Patient patient) {
-		this.patient = patient;
-	}
+	};
+	
 	
 	
 	

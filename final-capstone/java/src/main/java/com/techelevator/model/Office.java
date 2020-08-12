@@ -10,15 +10,15 @@ import javax.validation.constraints.NotBlank;
 public class Office {
 	
 	private Long officeId;
-	@NotBlank(message = "The office name cannot be blank")
+	
 	private String officeName;
-	@NotBlank(message = "The address cannot be blank")
+	
 	private String address;
-	@NotBlank(message = "The city cannot be blank")
+	
 	private String city;
-	@NotBlank(message = "The state cannot be blank")
+	
 	private String state;
-	@NotBlank(message = "The phone number cannot be blank")
+	
 	private String zipCode;
 	private String phoneNumber;
 	private BigDecimal cost;
@@ -29,13 +29,20 @@ public class Office {
 	
 	public Office() {}	
 	
-		
-	public Office(@NotBlank(message = "The office name cannot be blank") String officeName,
-			@NotBlank(message = "The address cannot be blank") String address,
-			@NotBlank(message = "The city cannot be blank") String city,
-			@NotBlank(message = "The state cannot be blank") String state,
-			@NotBlank(message = "The phone number cannot be blank") String zipCode, String phoneNumber, BigDecimal cost,
-			Map<String, LocalTime> openHours, Map<String, LocalTime> closeHours, List<Doctor> doctorList) {
+	
+	
+
+	public Office(Long officeId) {
+		super();
+		this.officeId = officeId;
+	}
+
+
+
+
+	public Office(String officeName, String address, String city, String state, String zipCode, String phoneNumber,
+			BigDecimal cost, Map<String, LocalTime> openHours, Map<String, LocalTime> closeHours,
+			List<Doctor> doctorList) {
 		super();
 		this.officeName = officeName;
 		this.address = address;
@@ -49,12 +56,12 @@ public class Office {
 		this.doctorList = doctorList;
 	}
 
-	public Office(Long officeId, @NotBlank(message = "The office name cannot be blank") String officeName,
-			@NotBlank(message = "The address cannot be blank") String address,
-			@NotBlank(message = "The city cannot be blank") String city,
-			@NotBlank(message = "The state cannot be blank") String state,
-			@NotBlank(message = "The phone number cannot be blank") String zipCode, String phoneNumber, BigDecimal cost,
-			Map<String, LocalTime> openHours, Map<String, LocalTime> closeHours, List<Doctor> doctorList) {
+
+
+
+	public Office(Long officeId, String officeName, String address, String city, String state, String zipCode,
+			String phoneNumber, BigDecimal cost, Map<String, LocalTime> openHours, Map<String, LocalTime> closeHours,
+			List<Doctor> doctorList) {
 		super();
 		this.officeId = officeId;
 		this.officeName = officeName;
@@ -68,6 +75,8 @@ public class Office {
 		this.closeHours = closeHours;
 		this.doctorList = doctorList;
 	}
+
+
 
 
 	public Long getOfficeId() {

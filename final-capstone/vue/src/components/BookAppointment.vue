@@ -164,19 +164,15 @@ export default {
           this.errorMsg = "Bad Request: Validation Errors";
         }
       });
-        this.newAppointment.patientId = "";
-        this.newAppointment.doctorId = "";
-        this.newAppointment.officeId = "";
-        this.newAppointment.appointmentTime = "";
-        this.newAppointment.virtual = "";
-        this.newAppointment.visitReason = "";
-        this.newAppointment.appointmentType = "";
+      this.newAppointment.patientId = "";
+      this.newAppointment.doctorId = "";
+      this.newAppointment.officeId = "";
+      this.newAppointment.appointmentTime = "";
+      this.newAppointment.virtual = "";
+      this.newAppointment.visitReason = "";
+      this.newAppointment.appointmentType = "";
 
-
-
-
-
-        this.updateAvailability(this.availabilityMonth, this.availabilityYear);
+      this.updateAvailability(this.availabilityMonth, this.availabilityYear);
 
       }).catch((error) => {
         const response = error.response;

@@ -1,8 +1,9 @@
 <template>
   <div class="home">
+    
     <h1>Home</h1>
     <div class="login-register" v-show="!loggedIn">
-      <router-link :to="{name:'register'}">register</router-link>
+      
       <login></login>
       <button v-on:click="showForgotPass = !showForgotPass">Forgot Password?</button>
       <forgot-password v-if="showForgotPass"></forgot-password>
@@ -45,3 +46,8 @@ export default {
 
 };
 </script>
+<style >
+h1 {
+  color: var(--main-color-dark1);
+}
+</style>

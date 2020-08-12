@@ -11,7 +11,12 @@
             v-model="username"
         />
         <label for="fp-office">Choose your office: </label>
-        <select name="" id=""></select>
+        <select id="fp-office" class="choose-office" v-model="chosenOffice">
+            <option 
+                v-for="office in officeList" 
+                v-bind:key="office.officeId"
+            >{{office.officeId}} {{office.officeName}}</option>
+        </select>
         <button type="submit">Request Password Reset</button>
       </form>
       <div 
@@ -42,8 +47,21 @@ export default {
             notification: {
                 userId: 2,
                 message: ""
+            },
+            officeList: [],
+            chosenOffice: {
+                officeId: '',
+                officeName:''
             }
         }
+    },
+    created() {
+        authService
+            .getAllOffices()
+            .then( response => {
+                this.officeList = response.data;
+            })
+
     },
     methods: {
         findUser(){
@@ -56,21 +74,34 @@ export default {
                 .getUserIdByUsername(this.username)
                 .then((response) => {
                     if (response.status === 200) {
-                       // this.notification.userId = response.data;
-                        notificationService
-                        .createNotification(this.notification)
-                        .then((response) => {
-                            if (response.status === 201) {
-                                this.requestSuccess = true;
-                                this.username = "";
-                            }
-                        })
-                        .catch((error) => {
-                            const response = error.response;
-                            if (response.status === 401) {
-                                this.requestError = true;
-                            }
-                        })
+                       authService
+                       .getAdminByOffice(this.chosenOffice.slice(0,1))
+                       .then(response => {
+                           this.notification.userId = response.data;
+                           if (response.status === 200)
+                                notificationService
+                                .createNotification(this.notification)
+                                .then((response) => {
+                                    if (response.status === 201) {
+                                        this.requestSuccess = true;
+                                        this.username = "";
+                                }
+                            
+                                })
+                                .catch((error) => {
+                                    const response = error.response;
+                                    if (response.status === 401) {
+                                        this.requestError = true;
+                                    }
+                                })
+                       })
+                       .catch((error => {
+                           const response = error.response;
+                           if(response.status === 400) {
+                               this.requestError = true;
+                           }
+                       }))
+                        
                     }
                 })
                 .catch((error) => {

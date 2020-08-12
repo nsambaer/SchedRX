@@ -28,6 +28,15 @@ public class PatientSqlDAO implements PatientDAO {
 		results.next();
 		return mapRowToPatient(results);
 	}
+	
+	@Override
+	public Patient getPatientByUsername(String username) {
+		String sqlGetPatient = "SELECT *, p.first_name AS patient_first, p.last_name AS patient_last, d.first_name AS doctor_first, d.last_name AS doctor_last "
+							+ "FROM patients p INNER JOIN doctors d ON p.primary_doctor_id = d.doctor_id INNER JOIN users u ON p.patient_id = u.user_id WHERE u.username = ?";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetPatient, username);
+		results.next();
+		return mapRowToPatient(results);
+	}
 
 	@Override
 	public List<Patient> getPatientsByDoctor(Long doctorId) {

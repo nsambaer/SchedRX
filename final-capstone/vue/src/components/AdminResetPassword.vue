@@ -78,7 +78,8 @@ export default {
 }
 
 .reset-password-container {
-    background-color: var(--main-color-turqoise)
+    background-color: var(--main-color-turqoise);
+    display: grid;
 
 }
 

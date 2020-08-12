@@ -20,6 +20,14 @@ export default {
 
   getUserIdByUsername(username) {
     return http.get(`/user-by-id/${username}`);
+  },
+
+  getAllOffices() {
+    return http.get('/offices');
+  },
+
+  getAdminByOffice(officeId) {
+    return http.get(`/offices/${officeId}/admin`);
   }
 
 }

@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div id="title-banner">
-      <h1>SchedRx Medical Scheduling Service </h1>
+    <img id="header-image" src="./assets/images/header-banner-transperant.png" />
     </div>
     <div id="nav">
       <router-link  v-bind:to="{ name: 'home' }" class="nav-button">
@@ -40,16 +40,21 @@ export default {
   "nav content  .";
  
 }
-  @import url('https://fonts.googleapis.com/css?family=Mulish');
+ 
 
-body{
-  background-color: var(--main-color-dark3);
-  font-family: 'Lemonada', Arial, Helvetica, sans-serif;
-}
 
 #title-banner{
+  display:flex;
+  justify-content: flex-start;
   grid-area: header;
   text-align: center;
+  
+}
+#header-image{
+ 
+  height: 354px;
+  width:1000px;
+  margin: 20px;
 }
 
 #nav{
