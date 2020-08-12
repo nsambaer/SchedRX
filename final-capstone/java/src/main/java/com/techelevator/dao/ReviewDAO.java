@@ -8,6 +8,8 @@ import com.techelevator.model.Review;
 public interface ReviewDAO {
 	public Review getAllReviews();
 	
+	public List<Review> getReviewsByPatient(Long patientId);
+	
 	public List<Review> getReviewsByOffice(Long officeId);
 	
 	public List<Review> getReviewsByDoctor(Long doctorId);

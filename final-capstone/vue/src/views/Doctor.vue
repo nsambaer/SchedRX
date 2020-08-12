@@ -10,7 +10,8 @@
       <notification-list />
     </div>
     <div class="doctor-reviews">
-   
+      <h2>Reviews</h2>
+      <doctor-reviews />
     </div>
     <div class="doctor-update-availability">
      
@@ -24,10 +25,11 @@
 </template>
 
 <script>
-import DoctorAppointments from "../components/DoctorAppointments.vue"
-import DoctorAvailability  from "../components/DoctorAvailability.vue"
-import NotificationList from '@/components/NotificationList'
-import doctorService from "../services/DoctorService"
+import DoctorAppointments from "../components/DoctorAppointments.vue";
+import DoctorAvailability  from "../components/DoctorAvailability.vue";
+import NotificationList from '@/components/NotificationList';
+import doctorService from "../services/DoctorService";
+import DoctorReviews from '@/components/DoctorReviews';
 
 export default {
 
@@ -35,7 +37,8 @@ export default {
   components:{
     DoctorAppointments,
     DoctorAvailability,
-    NotificationList
+    NotificationList,
+    DoctorReviews
   },
   data(){
     return{
