@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div id="title-banner">
-      <h1>Ye olde Medical Scheduling App </h1>
+      <h1>SchedRx Medical Scheduling Service </h1>
     </div>
     <div id="nav">
       <router-link  v-bind:to="{ name: 'home' }" class="nav-button">
@@ -25,10 +25,10 @@ export default {
 </script>
 <style >
 :root{
---main-color-turqoise: #086972;
---main-color-blue-green: #01a9b4;
---main-color-light-blue: #87dfd6;
---accent-color-yellow: #fbfd8a;
+--main-color-dark1: #004a7c;
+--main-color-dark2: #005691;
+--main-color-dark3: #e8f1f5;
+--main-color-dark4: #fafafa;
 }
 
 
@@ -40,10 +40,10 @@ export default {
   "nav content  .";
  
 }
-  @import url('https://fonts.googleapis.com/css?family=Lemonada');
+  @import url('https://fonts.googleapis.com/css?family=Mulish');
 
 body{
-  background-color: var(--main-color-light-blue);
+  background-color: var(--main-color-dark3);
   font-family: 'Lemonada', Arial, Helvetica, sans-serif;
 }
 
@@ -76,7 +76,7 @@ body{
   height: 50px;
   width:100%;
   margin:10px;
-  background-color: var(--main-color-blue-green);
+  background-color: var(--main-color-dark2);
 }
 .nav-button-text{
   display: flex;
@@ -87,7 +87,7 @@ body{
 }
 
 .nav-button:hover{
-  background-color: var(--accent-color-yellow);
+  background-color: var(--main-color-dark4);
   color:black;
 }
 .nav-button .nav-button-text:hover{
