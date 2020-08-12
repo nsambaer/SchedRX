@@ -46,10 +46,12 @@ export default {
   
   .admin-view-container {
     display: grid;
-    grid-template-columns: 1fr,1fr, 2fr, 1fr;
-    grid-template-areas: 
-      "office-info office-info register-doctor notifications"
-      "reset-password reset-password reset-password reset-password";
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "notifications"
+      "office-info" 
+      "register-doctor"
+      "reset-password";
   }
 
   .office-info-container {
