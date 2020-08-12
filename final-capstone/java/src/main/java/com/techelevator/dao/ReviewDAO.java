@@ -11,4 +11,6 @@ public interface ReviewDAO {
 	public List<Review> getReviewsByOffice(Long officeId);
 	
 	public List<Review> getReviewsByDoctor(Long doctorId);
+	
+	public Review createReview(Review review);
 }

@@ -228,6 +228,12 @@ public class MedicalSchedulingController {
 		 appointmentDao.deleteAppointment(appointmentId);
 	}
 	
+	@PreAuthorize("permitAll()")
+	@RequestMapping(path = "/doctors/{doctorId}/patients", method = RequestMethod.GET)
+	public List<Patient> getPatientsByDoctor(@PathVariable Long doctorId) {
+		return patientDao.getPatientsByDoctor(doctorId);
+	}
+	
 	
 	//NOTIFICATION
 	@PreAuthorize("permitAll()")
@@ -277,11 +283,10 @@ public class MedicalSchedulingController {
 	}
 	
 	@PreAuthorize("permitAll()")
-	@RequestMapping(path = "/doctors/{doctorId}/patients", method = RequestMethod.GET)
-	public List<Patient> getPatientsByDoctor(@PathVariable Long doctorId) {
-		return patientDao.getPatientsByDoctor(doctorId);
+	@RequestMapping(path = "/patients/{patientId}/reviews", method = RequestMethod.POST)
+	public Review createReview(@RequestBody Review review) {
+		return reviewDao.createReview(review);
 	}
-	
 	
 	
 	
