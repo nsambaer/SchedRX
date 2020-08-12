@@ -18,5 +18,7 @@ public interface OfficeDAO {
 	
 	public Office getOfficeByAdmin(Long adminId);
 	
+	public Long getAdminIdbyOfficeId(Long officeId);
+	
 	
 }

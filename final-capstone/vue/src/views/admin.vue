@@ -12,6 +12,9 @@
     <div class="notification-container">
       <notification-list/>
     </div>
+    <div class="patient-search-container">
+      <patient-search/>
+    </div>
     
 
     
@@ -24,6 +27,7 @@ import OfficeAdmin from "../components/OfficeAdmin.vue";
 import RegisterDoctor from "../components/RegisterDoctor.vue";
 import ResetPassword from "../components/AdminResetPassword.vue";
 import NotificationList from "../components/NotificationList.vue";
+import PatientSearch from "../components/PatientSearch.vue";
 
 export default {
   name: 'admin',
@@ -31,7 +35,8 @@ export default {
     OfficeAdmin,
     RegisterDoctor,
     ResetPassword,
-    NotificationList
+    NotificationList,
+    PatientSearch
   },
   data() {
     return {

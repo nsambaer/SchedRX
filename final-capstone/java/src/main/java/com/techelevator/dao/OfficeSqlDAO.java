@@ -153,6 +153,17 @@ public class OfficeSqlDAO implements OfficeDAO {
 
 		return office;
 	}
+	
+	@Override
+	public Long getAdminIdbyOfficeId(Long officeId) {
+		String sqlGetAdminId = "SELECT u.user_id FROM users u "
+							+ "INNER JOIN admin_office a ON u.user_id = a.admin_id "
+							+ "INNER JOIN offices o ON a.office_id = o.office_id "
+							+ "WHERE o.office_id = ?";
+		SqlRowSet results = jdbc.queryForRowSet(sqlGetAdminId, officeId);
+		results.next();
+		return results.getLong("user_id");
+	}
 
 	private Office mapRowToOffice(SqlRowSet results) {
 		Office office = new Office();
