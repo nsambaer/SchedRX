@@ -3,7 +3,7 @@
     <div class="primary-care">
       <p
         v-show="primaryDoctorId === 0"
-      >You have not chose a primary care physician. To book an appointment, please choose a primary physician</p>
+      >You have not chosen a primary care physician. To book an appointment, please choose a primary physician</p>
       <form v-on:submit.prevent="newPrimaryDoctor">
         <label
           for="primary_doctor-selector"
