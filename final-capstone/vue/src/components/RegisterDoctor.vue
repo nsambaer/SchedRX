@@ -185,7 +185,7 @@ export default {
     "confirm"
     "first-name"
     "last-name";
-  text-align: center;
+  text-align: left;
 }
 
 .form-register {
@@ -195,9 +195,7 @@ export default {
   
   
 }
-label {
-  width:100%;
-}
+
 
 input {
   width: 50%;
@@ -230,8 +228,9 @@ input {
   border-style: solid;
   border-width: 1px;
   border-radius: 5px;
-  width: 50%;
+  width: 100%;
   text-align: left;
+  min-width: 200px;
   
 
 
