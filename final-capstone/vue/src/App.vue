@@ -69,6 +69,7 @@ body{
   align-items: center;
   color:white;
   font-size: 1.5em;
+  border: ridge;
  
   justify-content: center;
   text-align: center;
