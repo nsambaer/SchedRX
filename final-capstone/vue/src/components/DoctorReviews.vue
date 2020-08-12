@@ -1,7 +1,9 @@
 <template>
   <div class="reviews-container">
       <div class="review-div" v-for="review in reviews" v-bind:key="review.id">
-          <h4>{{review.reviewTitle}}</h4>
+          <h2>{{review.reviewTitle}}</h2>
+          <h3>{{ review.rating }}</h3>
+          <p>{{ review.reviewDescription }}</p>
           
 
       </div>
@@ -24,7 +26,7 @@ export default {
         }
     },
 
-    created(){
+    methods: {
         getReviews() {
             doctorService.getReviews(this.$store.state.user.id).then(
             response => {
@@ -35,16 +37,29 @@ export default {
                 if (response.status === 400) {
                     this.errorMsg = "Bad Request: Validation Errors";
                 }
-            })
+            });
                 
          }
     },
+
     computed:{
         currentDoctorId(){
             return this.$store.state.user.id;
         }
+    },
+    created() {
+        this.getReviews();
+        // doctorService.getReviews(this.$store.state.user.id).then(
+        //     response => {
+        //         this.reviews = response.data;
+        //     }).catch((error) => {
+        //         const response = error.response;
+        //         this.errors = true;
+        //         if (response.status === 400) {
+        //             this.errorMsg = "Bad Request: Validation Errors";
+        //         }
+        //     });
     }
-    
 
 }
 </script>
