@@ -1,63 +1,64 @@
 <template>
-  <div id="register" class="text-center">
-    <h2 class="reg-title">Register Doctor</h2>
-    <form class="form-register" @submit.prevent="register">
+  <div id="register-doctor" class="text-center">
+
+    <h2 class="reg-doctor-title">Register Doctor</h2>
+    <form class="form-register-doctor" @submit.prevent="register">
       <div
         class="alert alert-danger"
         role="alert"
         v-if="registrationErrors"
       >{{ registrationErrorMsg }}</div>
-      <div class="username-container">
-        <label for="username" class="sr-only">Username:</label>
+      <div class="doctor-username-container">
+        <label for="doctor-username" class="register-doctor-label">Username:</label>
         <input
           type="text"
-          id="username"
-          class="form-control"
+          id="doctor-username"
+          class="doctor-form-control"
           placeholder="Username"
           v-model="user.username"
           required
           autofocus
         />
       </div>
-      <div class="password-container">
-      <label for="password" class="sr-only">Password:</label>
+      <div class="doctor-password-container">
+      <label for="doctor-password" class="register-doctor-label">Password:</label>
         <input
           type="password"
-          id="password"
-          class="form-control"
+          id="doctor-password"
+          class="doctor-form-control"
           placeholder="Password"
           v-model="user.password"
           required
         />
       </div>
-      <div class="confirm-container">
-        <label for="confirmPassword" class="sr-only">Confirm Password:</label>
+      <div class="doctor-confirm-container">
+        <label for="doctor-confirmPassword" class="register-doctor-label">Confirm Password:</label>
         <input
           type="password"
-          id="confirmPassword"
-          class="form-control"
+          id="doctor-confirmPassword"
+          class="doctor-form-control"
           placeholder="Confirm Password"
           v-model="user.confirmPassword"
           required
         />
       </div>
-      <div class="first-name-container">
-        <label for="firstName" class="sr-only">First Name:</label>
+      <div class="doctor-first-name-container">
+        <label for="doctor-firstName" class="register-doctor-label">First Name:</label>
         <input
           type="text"
-          id="firstName"
-          class="form-control"
+          id="doctor-firstName"
+          class="doctor-form-control"
           placeholder="First Name"
           v-model="doctor.firstName"
           required
         />
       </div>
       <div class="last-name-container">
-        <label for="lastName" class="sr-only">Last Name:</label>
+        <label for="doctor-lastName" class="register-doctor-label">Last Name:</label>
         <input
           type="text"
-          id="lastName"
-          class="form-control"
+          id="doctor-lastName"
+          class="doctor-form-control"
           placeholder="Last Name"
           v-model="doctor.lastName"
           required
@@ -65,6 +66,7 @@
       </div>
 
       <button class="btn btn-lg btn-primary btn-block" type="submit">Register Doctor</button>
+      <button v-on:click.prevent="registrationErrors = false" v-show="registrationErrors">Clear Errors</button>
     </form>
   </div>
 </template>
@@ -165,14 +167,22 @@ export default {
 
 <style>
 
-:root{
+.register-doctor-label {
+  display: inline-block;
+  min-width: 150px;
+}
+
+
+
+/* :root{
       --main-color-dark1: #004a7c;
       --main-color-dark2: #005691;
       --main-color-dark3: #e8f1f5;
       --main-color-dark4: #fafafa;
   }
 
-#register {
+
+#register-doctor {
   background-color:var(--main-color-dark2);
   border-radius: 5px;
   border-style:solid;
@@ -185,57 +195,53 @@ export default {
     "confirm"
     "first-name"
     "last-name";
-  text-align: center;
+  text-align: left;
 }
 
-.form-register {
+.doctor-form-register {
   
     width: 100%;
   
   
   
 }
-label {
-  width:100%;
-}
 
-input {
-  width: 50%;
-}
 
-.username-container {
+
+.doctor-username-container {
   grid-area: username;
 }
-.password-container {
+.doctor-password-container {
   grid-area: password;
 }
-.confirm-container {
+.doctor-confirm-container {
   grid-area: confirm;
 }
-.first-name-container {
+.doctor-first-name-container {
   grid-area: first-name;
 }
-.last-name-container {
+.doctor-last-name-container {
   grid-area: last-name;
 }
-.reg-title {
+.reg-doctor-title {
   background-color:var(--main-color-dark3);
   border-radius: 5px;
   border-style: solid;
   border-width: 1px;
 }
 
-.sr-only {
+.register-doctor-label {
   background-color: var(--main-color-dark3);
   border-style: solid;
   border-width: 1px;
   border-radius: 5px;
-  width: 50%;
+  width: 100%;
   text-align: left;
+  min-width: 200px;
   
 
 
-}
+} */
 
 
 </style>

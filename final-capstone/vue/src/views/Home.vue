@@ -15,13 +15,13 @@
       <router-link :to="{name: 'redirect'}" tag="button">User page</router-link>
     </div>
     <p></p>
-    <office-list></office-list>
+    <office-details />
   </div>
 </template> 
 
 <script>
 import login from '@/components/Login';
-import officeList from '@/components/OfficeList';
+import OfficeDetails from '@/components/OfficeDetails';
 import forgotPassword from '@/components/ForgotPassword';
 export default {
   name: "home",
@@ -33,7 +33,7 @@ export default {
 
   components: {
     login, 
-    officeList,
+    OfficeDetails,
     forgotPassword
   },
 
