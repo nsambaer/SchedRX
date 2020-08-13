@@ -177,11 +177,13 @@ export default {
 
 .office-info-table td {
   text-align: left;
+  font-weight: bold;
 }
 
 .office-info-label {
   min-width: 120px;
   display: inline-block;
+  font-weight: bold;
 }
     /* 
 

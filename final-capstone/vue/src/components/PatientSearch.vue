@@ -2,7 +2,7 @@
   <div class="search-container">
       <h2 class="search-title">Search Patient Usernames</h2>
       <form v-on:submit.prevent="getPatient()">
-          <label for="username-search">Username: </label>
+          <label class="username-search-label" for="username-search">Username: </label>
           <input 
             id="username-search" 
             type="text"
@@ -103,6 +103,10 @@ export default {
 </script>
 
 <style>
+
+.username-search-label {
+    font-weight: bold;
+}
 /* :root{
     --main-color-dark1: #004a7c;
     --main-color-dark2: #005691;

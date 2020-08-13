@@ -8,8 +8,7 @@
     <div class="login-register" v-show="!loggedIn">
       
       <login></login>
-      <button v-on:click="showForgotPass = !showForgotPass">Forgot Password?</button>
-      <forgot-password v-if="showForgotPass"></forgot-password>
+      
     </div>
     <div v-show="loggedIn">
       <router-link :to="{name: 'redirect'}" tag="button">User page</router-link>
@@ -22,7 +21,7 @@
 <script>
 import login from '@/components/Login';
 import OfficeDetails from '@/components/OfficeDetails';
-import forgotPassword from '@/components/ForgotPassword';
+
 export default {
   name: "home",
   data() {
@@ -34,7 +33,7 @@ export default {
   components: {
     login, 
     OfficeDetails,
-    forgotPassword
+    
   },
 
   computed: {

@@ -87,6 +87,7 @@ export default {
 .reset-password-label {
     display: inline-block;
     min-width: 150px;
+    font-weight: bold;
 }
 /*:root{
     --main-color-dark1: #004a7c;

@@ -170,6 +170,7 @@ export default {
 .register-doctor-label {
   display: inline-block;
   min-width: 150px;
+  font-weight: bold;
 }
 
 

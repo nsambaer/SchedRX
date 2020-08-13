@@ -38,7 +38,10 @@
       />
       <router-link :to="{ name: 'register' }">Need an account?</router-link>
       <button type="submit">Sign in</button>
+      <button class="forgot-pass-button" v-on:click.prevent="showForgotPass = !showForgotPass">Forgot Password?</button>
     </form>
+    
+    <forgot-password v-if="showForgotPass"></forgot-password>
   </div>
 </template>
 
@@ -46,10 +49,13 @@
 import authService from "../services/AuthService";
 import patientService from '@/services/PatientService';
 import adminService from '../services/AdminService';
+import forgotPassword from '@/components/ForgotPassword';
 
 export default {
   name: "login",
-  components: {},
+  components: {
+    forgotPassword
+  },
   data() {
     return {
       user: {
@@ -59,6 +65,7 @@ export default {
       invalidCredentials: false,
       roleError: false,
       role: "Role not found",
+      showForgotPass: false
     };
   },
   methods: {
@@ -130,3 +137,6 @@ export default {
   },
 };
 </script>
+<style>
+
+</style>

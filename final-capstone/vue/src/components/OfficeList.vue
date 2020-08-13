@@ -1,15 +1,7 @@
 <template>
   <div>
-<<<<<<< HEAD
-    <div class="office-listing" v-for="office in offices" v-bind:key="office.officeId"  >
-
-      
-        <office-details  v-bind:office="office"  />
-      
-=======
     <div class="office-listing" v-for="office in offices" v-bind:key="office.officeId">
       <office-details v-bind:office="office" />
->>>>>>> e436b913d50292d8fd6e8dfc863f8c9d39a4e990
     </div>
   </div>
 </template>

@@ -57,10 +57,11 @@ export default {
       "office-info register-doctor" 
       "patient-search reset-password";
       
-  background-color: var(--main-color-dark3);
-  border-style: ridge;
-  border-color: #004a7c;
-  border-width: 4pt;
+    background-color: var(--main-color-dark3);
+    border-style: ridge;
+    border-color: #004a7c;
+    border-width: 4pt;
+    font-size: 12pt;
 
   }
 
@@ -83,6 +84,20 @@ export default {
   .patient-search-container {
     grid-area: patient-search;
   }
+  @media screen and (max-width: 1024px) {
+  .admin-view-container {
+    grid-template-columns: 1fr;
+    grid-template-areas: 
+      "notifications"
+      "office-info"
+      "register-doctor"
+      "patient-search"
+      "reset-password";
+    width: 100%;
+  }
+
+  
+}
 
   
 </style>
