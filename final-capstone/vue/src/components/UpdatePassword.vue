@@ -1,20 +1,27 @@
 <template>
   <div>
+      <h2>Update Password</h2>
       <form v-on:submit.prevent="resetPassword()">
-          <label for="old-password">Old Password: </label>
-          <input 
-            type="text"
-            id="old-password"
-            class="form-control"
-            v-model="loginUser.password"
-          >
-          <label for="new-password">New Password: </label>
-          <input 
-            type="text"
-            id="new-password"
-            class="form-control"
-            v-model="updatedUser.newPassword"
-          >
+          <div class="old-password">
+            <label class="pass-label" for="old-password">Old Password: </label>
+            <input 
+              type="text"
+              id="old-password"
+              class="form-control"
+              v-model="loginUser.password"
+            >
+          </div>
+          <div class="oldPassword">
+            <label class="pass-label" for="new-password">New Password: </label>
+            <input 
+              type="text"
+              id="new-password"
+              class="form-control"
+              v-model="updatedUser.newPassword"
+            >
+          
+          </div>  
+          
           <button type="submit">Change Password</button>
       </form>
       <div
@@ -100,5 +107,11 @@ export default {
 </script>
 
 <style>
+
+.pass-label {
+  display: inline-block;
+  min-width: 125px;
+}
+
 
 </style>
