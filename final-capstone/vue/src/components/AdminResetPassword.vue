@@ -90,10 +90,10 @@ export default {
     font-weight: bold;
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 828px) {
     .reset-password-label {
         display: block;
-        
+
     }
 }
 /*:root{

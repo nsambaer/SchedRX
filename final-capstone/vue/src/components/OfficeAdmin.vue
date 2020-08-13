@@ -174,7 +174,7 @@ export default {
     }
 
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 828px) {
   .office-info-label {
     display: block;
   }

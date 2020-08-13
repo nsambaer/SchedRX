@@ -82,6 +82,17 @@ export default {
   gap: 10px;
 }
 
+@media screen and (max-width: 828px) {
+  .doctor-view-container{
+    grid-template-columns: 1fr;
+    grid-template-areas: 
+      "notifications"
+      "schedule"
+      "update-availability"
+      "reviews";
+  }
+
+}
 .doctor-upcoming-appointments{
 grid-area:schedule;
 /* background-color: khaki; */
