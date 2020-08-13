@@ -12,8 +12,8 @@
         </tr>
         <tr class="appointment-second-row">
           <td>  Patient: {{appointment.patient.firstName}} {{appointment.patient.lastName}}</td>
-          <td><button v-on:click="showAppointmentDetails(appointment.appointmentId)">Show Details </button></td>
-          <td><button v-on:click="editAppointmentDetails(appointment.appointmentId)">Edit Appointment </button></td>
+          <td><button class="standard-button" v-on:click="showAppointmentDetails(appointment.appointmentId)">Show Details </button></td>
+          <td><button class="standard-button" v-on:click="editAppointmentDetails(appointment.appointmentId)">Edit Appointment </button></td>
         </tr>
         <tr  class="details" :class="appointment.appointmentId == activeDetails ? activeClass : 'hidden'">
           <p>Type: {{appointment.appointmentType}}</p>
@@ -187,15 +187,10 @@ export default {
 
 <style>
 
-:root{
---main-color-turqoise: #086972;
---main-color-blue-green: #01a9b4;
---main-color-light-blue: #87dfd6;
---accent-color-yellow: #fbfd8a;
-}
+
 
 .appointment-slot{
-  background-color:whitesmoke;
+  background-color:var(--main-color-dark4);
   border-color: black;
   color: black;
   border: 4px;
@@ -211,7 +206,7 @@ export default {
 .appointment-container{
   display:flex;
   flex-direction: column;
- background-color: var(--main-color-turqoise);
+ background-color: var(--main-color-dark1);
  align-items: center;
  color: white;
  padding:5px;

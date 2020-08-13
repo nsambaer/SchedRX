@@ -63,7 +63,7 @@
           <option value="23:00:00">23:00</option>
           <option value="24:00:00">24:00</option>
         </select>
-        <button type="submit">Request Availability</button>
+        <button class="standard-button" type="submit">Request Availability</button>
         <div class="submit-availability-div" v-show="showSubmitAvailability">
           <p>Availability request allowed! Would you like to submit your availability request? </p>
         <button v-on:click.prevent="submitAvailability" >Submit Availability Request </button>

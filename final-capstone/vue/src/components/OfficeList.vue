@@ -48,12 +48,7 @@ export default {
 </script>
 
 <style>
-<<<<<<< HEAD
 .office-listing{
   justify-content: center;
-=======
-.office-listing {
-  background-color: white;
->>>>>>> e436b913d50292d8fd6e8dfc863f8c9d39a4e990
 }
 </style>
