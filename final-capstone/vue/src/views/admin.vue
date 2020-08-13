@@ -62,29 +62,35 @@ export default {
     border-color: #004a7c;
     border-width: 4pt;
     font-size: 12pt;
+    padding: 2em, 2em, 2em, 2em;
 
   }
 
   .notification-container {
     grid-area: notifications;
+    padding: 1em 1em 1em 1em;
   }
 
   .office-info-container {
-    grid-area: office-info
+    grid-area: office-info;
+    padding: 1em 1em 1em 1em;
   }
 
   .register-doctor-container {
     grid-area: register-doctor;
+    padding: 1em 1em 1em 1em;
   }
 
   .reset-password-container {
     grid-area: reset-password;
+    padding: 1em 1em 1em 1em;
   }
 
   .patient-search-container {
     grid-area: patient-search;
+    padding: 1em 1em 1em 1em;
   }
-  @media screen and (max-width: 1024px) {
+  @media screen and (max-width: 828px) {
   .admin-view-container {
     grid-template-columns: 1fr;
     grid-template-areas: 

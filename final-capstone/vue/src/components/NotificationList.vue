@@ -1,17 +1,18 @@
 <template>
   <div class = "standard-component-container">
+    <h3 class="standard-component-header">Notifications</h3>
     <label for="notification-view">View:</label>
     <select id="notification-view" v-model="notifView">
       <option value="unread">View Unread Notifications</option>
       <option value="all">View All Notifications</option>
     </select>
     <br />
-    <button v-on:click="markAllRead">Mark All Read</button>
+    <button class="standard-button" v-on:click="markAllRead">Mark All Read</button>
     <ul>
       <div v-for="notification in filteredNotifications" v-bind:key="notification.notificationId" class="standard-display-slot" >
         <div v-bind:class="{'read' : !notification.read}">{{notification.message}}</div>
         <div>
-          <button v-show="!notification.read" v-on:click="markRead(notification.notificationId)">Mark Read</button>
+          <button class="standard-button" v-show="!notification.read" v-on:click="markRead(notification.notificationId)">Mark Read</button>
         </div>
       </div>
       <li v-show="filteredNotifications.length === 0">No Notifications</li>

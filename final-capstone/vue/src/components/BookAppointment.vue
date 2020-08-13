@@ -1,25 +1,27 @@
 <template>
-  <div>
-    <div class="primary-care">
+  <div class = "standard-component-container book-appointment-container">
+    <div >
+      <h3 class="standard-component-header">Book a New Appointment</h3>
       <p
         v-show="primaryDoctorId === 0"
       >You have not chosen a primary care physician. To book an appointment, please choose a primary physician</p>
       <form v-on:submit.prevent="newPrimaryDoctor">
         <label
           for="primary_doctor-selector"
-        >To set or change your primary doctor, please select a doctor:</label>
+        >Please select your preferred doctor:</label>
         <select id="primary-doctor-selector" v-model="selectedDoctor">
+          <option value="" selected disabled hidden>Select Doctor</option>
           <option
             v-for="doctor in doctors"
             v-bind:key="doctor.doctorId"
             v-bind:value="doctor"
           >{{ doctor.firstName }} {{ doctor.lastName }}</option>
         </select>
-        <input type="submit" />
+        <input class="standard-button" type="submit" value = "Update Primary Doctor"/>
       </form>
     </div>
-    <p></p>
-    <p></p>
+   <br />
+  
     <div v-show="primaryDoctorId > 0">
       <form v-on:submit.prevent="submitAppointment">
         <label for="date-selector">Choose a date:</label>
@@ -48,7 +50,7 @@
         </select> <br>
         <label for="visit-reason">Please list your reasons for the appointment: </label>
         <textarea id="visit-reason" v-model="newAppointment.visitReason" required/>
-        <input type="submit" />
+        <input class="standard-button" type="submit" />
       </form>
     </div>
   </div>
@@ -65,7 +67,7 @@ export default {
     return {
       patientId: this.$store.state.user.id,
       doctors: [],
-      selectedDoctor: {},
+      selectedDoctor: this.$store.state.patient.primaryDoctor,
       availability: {},
       currentDate: '',
       newAppointment: {
@@ -114,7 +116,8 @@ export default {
     newPrimaryDoctor() {
       this.$store.commit("NEW_PRIMARY_DOCTOR", this.selectedDoctor.doctorId);
       patientService.updatePrimaryDoctor(this.$store.state.patient);
-      this.updateAvailability(this.availabilityMonth, this.availabilityYear)
+      this.updateAvailability(this.availabilityMonth, this.availabilityYear);
+      window.alert(`Primary doctor updated to ${this.selectedDoctor.firstName} ${this.selectedDoctor.lastName}` );
       this.$forceUpdate();
     },
 
@@ -228,4 +231,10 @@ export default {
 </script>
 
 <style>
+
+.book-appointment-container{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
 </style>

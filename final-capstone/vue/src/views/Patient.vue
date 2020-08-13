@@ -2,15 +2,15 @@
   <!-- <table class="patient-table"> -->
   <div class="patient-view-container">
     <div class="patient-upcoming-appointments">
-      <h1>Upcoming Appointments</h1>
+      
       <patient-appointments />
     </div>
     <div class="book-appointments">
-      <h1>Book New Appointment</h1>
+      
       <book-appointment />
     </div>
     <div class="patient-notifications">
-      <h1>Notifications</h1>
+      
       <notification-list></notification-list>
     </div>
     <div class="patient-reviews">
@@ -72,16 +72,17 @@ export default {
 --main-color-dark4: #fafafa;
 }
 .patient-view-container {
-  border-style: ridge;
+  /* border-style: ridge;
   border-color: #004a7c;
   border-width: 4pt;
-  background-color: #e8f1f5;
+  background-color: #e8f1f5; */
   display: grid;
   grid-template: 1fr 1fr;
   grid-template-areas: 
     "notifications notifications"
     "book appt-list"
     "reviews password";
+  gap:10px;
 }
 
 @media screen and (max-width: 1024px) {

@@ -43,16 +43,8 @@ export default {
     doctorService
       .getAvailability(this.$store.state.user.id, currentMonth, currentYear)
       .then((response) => {
-        let tempAvailability = response.data;
-        console.log(tempAvailability);
-
-        // let formattedAvailability = Object.fromEntries(
-        //   Object.entries(tempAvailability.availability).map(([key, val]) => 
-        //   [key, val == null ? null : (val % 12)])
-        // );
-  
-        // console.log(formattedAvailability);
-        this.$store.state.availability = tempAvailability;
+        
+        this.$store.state.availability = response.data.availability;
       })
       .catch((error) => {
         const response = error.response;
@@ -66,19 +58,32 @@ export default {
 </script>
 
 <style>
-.doctor-view-container {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  grid-template-areas:
-    "schedule notifications"
-    " update-availability notifications"
-    "reviews notifications";
+
+.doctor-view-container{
+  display:grid;
+  grid-template-columns: 2fr 1fr ;
+  grid-template-areas: 
+  "schedule notifications"
+  "update-availability notifications"
+  "reviews notifications";
   gap: 10px;
 }
 
-.doctor-upcoming-appointments {
-  grid-area: schedule;
-  /* background-color: khaki; */
+@media screen and (max-width: 828px) {
+  .doctor-view-container{
+    grid-template-columns: 1fr;
+    grid-template-areas: 
+      "notifications"
+      "schedule"
+      "update-availability"
+      "reviews";
+  }
+
+}
+.doctor-upcoming-appointments{
+grid-area:schedule;
+/* background-color: khaki; */
+
 }
 
 .doctor-notifications {

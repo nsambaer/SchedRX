@@ -1,7 +1,7 @@
 <template>
   <div class = "doctor-availability-container standard-component-container">
 
-    <h3 class="availability-header">Add or Adjust Your Availability </h3>
+    <h3 class="standard-component-header">Add or Adjust Your Availability </h3>
 
      <div class="set-availability">
         <form v-on:submit.prevent="createAvailability()">
@@ -72,7 +72,7 @@
 
     <div class="doctor-availability" :key="componentKey">
       <button class="standard-button" v-on:click="showCurrentAvailabilities = !showCurrentAvailabilities">Show Current Availabilities for Selected Month</button>
-      <div v-for="(times, date) in this.$store.state.availability.availability" v-bind:key="date" v-show="showCurrentAvailabilities" class="availability-date-container">
+      <div v-for="(times, date) in this.$store.state.availability" v-bind:key="date" v-show="showCurrentAvailabilities" class="availability-date-container">
         <div class = "availability-date" v-if="times != null" v-on:click="showDetails(date)">
           <div class="standard-display-slot date-time-container"><p>{{moment(date).format("MMM Do YYYY")}}</p> 
        
@@ -95,6 +95,7 @@
 </template>
 
 <script>
+import moment from 'moment';
 import doctorService from "../services/DoctorService.js";
 
 export default {
@@ -147,22 +148,16 @@ export default {
     },
 
     blockTime(time,date){
-      window.alert(`you booked an appt at ${time} on ${date}`)
+      window.alert(`you booked an appt at ${moment({hour: time.substr(0,2), minute: time.substr(4,2)}).format('hh:mm A')} on ${moment(date).format("MMM Do YYYY")}`)
     },
     blockDate(date){
-      window.alert(`you have blocked the ${date}`)
+      window.alert(`you have blocked the ${moment(date).format("MMM Do YYYY")}`)
     },
 
     updateAvailability(month, year){
       doctorService.getAvailability(this.$store.state.user.id, month, year).then(
       response => {
-        let tempAvailability = response.data;
-        console.log(tempAvailability);
-
-
-
-
-        this.$store.state.availability = tempAvailability;
+        this.$store.state.availability = response.data.availability;
         
       }
     ).catch((error) => {

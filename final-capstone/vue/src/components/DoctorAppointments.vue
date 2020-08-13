@@ -1,6 +1,6 @@
 <template>
   <div class = "appointment-container">
-    <h3 class="appointment-header">Your Upcoming Appointments</h3>
+    <h3 class="standard-component-header">Your Upcoming Appointments</h3>
 
     <div v-for="appointment in appointments" v-bind:key = "appointment.appointmentId" class="standard-display-slot">
 
