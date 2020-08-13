@@ -205,4 +205,10 @@ td {
   min-width: 100px;
   text-align: center;
 }
+
+.office-details{
+  background-color: white;
+  width:75%;
+}
+
 </style>
