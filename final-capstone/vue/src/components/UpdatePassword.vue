@@ -1,6 +1,6 @@
 <template>
-  <div>
-      <h2>Update Password</h2>
+  <div class="standard-component-container">
+      <h3 class="standard-component-header">Update Password</h3>
       <form v-on:submit.prevent="resetPassword()">
           <div class="old-password">
             <label class="pass-label" for="old-password">Old Password: </label>
@@ -22,7 +22,7 @@
           
           </div>  
           
-          <button type="submit">Change Password</button>
+          <button class="standard-button" type="submit">Change Password</button>
       </form>
       <div
         class="update-success"
