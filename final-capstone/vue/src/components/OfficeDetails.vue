@@ -36,16 +36,8 @@
       </li>
     </ul>
 
-<<<<<<< HEAD
-<div class="office-details-container" >
-
-  <div  >
-    
-      <table class="office-details">
-=======
     <!--
       <table>
->>>>>>> e436b913d50292d8fd6e8dfc863f8c9d39a4e990
         <thead>
           <th>Name</th>
           <th>Address</th>
@@ -213,13 +205,10 @@ td {
   min-width: 100px;
   text-align: center;
 }
-<<<<<<< HEAD
 
 .office-details{
   background-color: white;
   width:75%;
 }
 
-=======
->>>>>>> e436b913d50292d8fd6e8dfc863f8c9d39a4e990
 </style>
