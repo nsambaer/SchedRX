@@ -211,7 +211,7 @@ td {
 }
 
 .office-details{
-  background-color: white;
+ 
   width:75%;
 }
 

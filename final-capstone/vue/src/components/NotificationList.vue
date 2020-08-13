@@ -15,7 +15,7 @@
           <button class="standard-button" v-show="!notification.read" v-on:click="markRead(notification.notificationId)">Mark Read</button>
         </div>
       </div>
-      <li v-show="filteredNotifications.length === 0">No Notifications</li>
+      <p v-show="filteredNotifications.length === 0">No Notifications</p>
     </ul>
   </div>
 </template>
