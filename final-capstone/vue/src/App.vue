@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div id="title-banner">
-    <img id="header-image" src="./assets/images/header-banner-transperant.png" />
+      <img id="header-image" src="./assets/images/header-banner-transperant.png" />
     </div>
     <div id="nav">
       <router-link  v-bind:to="{ name: 'home' }" class="nav-button">
@@ -13,7 +13,7 @@
         
     </div>
     <div id="content">
-    <router-view></router-view>
+      <router-view></router-view>
     </div>
     
     
