@@ -83,12 +83,14 @@ export default {
   border-width: 4pt;
   background-color: #e8f1f5; */
   display: grid;
-  grid-template: 1fr 1fr;
+  grid-template: 1fr;
   grid-template-areas:
-    "nav nav" 
-    "notifications notifications"
-    "book appt-list"
-    "reviews password";
+    "nav" 
+    "notifications"
+    "appt-list"
+    "book"
+    "reviews"
+    "password";
   gap:10px;
 }
 
@@ -118,7 +120,6 @@ export default {
 
 .patient-upcoming-appointments {
   grid-area: appt-list;
-  height: auto;
 }
 
 .patient-notifications {
