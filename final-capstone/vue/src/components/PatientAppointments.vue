@@ -1,5 +1,6 @@
 <template>
-  <div class = "appointment-container">
+  <div class = "appointment-container standard-component-container">
+    <h3 class="standard-component-header">Upcoming Appointments </h3>
     <div v-for="appointment in appointments" v-bind:key = "appointment.appointmentId" class="appointment-slot">
         <table class="appointment-slot-table">
           <tr class="appointment-first-row">
@@ -69,7 +70,6 @@ appointments: []
 .appointment-container{
   display:flex;
   flex-direction: column;
- background-color: var(--main-color-turqoise);
  align-items: center;
  color: white;
  padding:5px;
