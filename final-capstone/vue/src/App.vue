@@ -50,11 +50,10 @@ export default {
       ". nav"
       "content content";
   }
-
   #header-image {
-    height:auto;
-    width: 40%;
+    width: 100%
   }
+  
 }
  
 
@@ -63,13 +62,14 @@ export default {
   display:flex;
   justify-content: flex-start;
   grid-area: header;
-  text-align: center;
-  border-bottom: 10px solid var(--main-color-dark2)
+  text-align: left;
+  border-bottom: 10px solid var(--main-color-dark2);
+  
 }
 #header-image{
  
-  height: 354px;
-  width:1000px;
+  height: auto;
+  width:50%;
   margin: 20px 20px 20px 100px;
 }
 
