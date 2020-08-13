@@ -86,4 +86,20 @@ appointments: []
 .hidden{
   display: none;
 }
+
+@media screen and (max-width: 1024px) {
+  .appointment-container {
+    display: grid;
+    grid-template-areas: 
+      "first-row"
+      "second-row";
+  }
+
+  .appointment-first-row {
+    grid-area: first-row;
+  }
+  .appointment-second-row {
+    grid-area: second-row
+  }
+}
 </style>
