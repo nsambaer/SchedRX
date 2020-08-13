@@ -34,7 +34,7 @@ export default {
 
 #app{
   display:grid;
-  grid-template-columns: 1fr 2fr 2fr 1fr;
+  grid-template-columns: 1fr 5fr 5fr 1fr;
   grid-template-areas:
   "header header header header"
   ".  . nav ."
@@ -42,7 +42,7 @@ export default {
  gap:10px;
 }
 
-@media screen and (max-width: 1024 px) {
+/* @media screen and (max-width: 1024 px) {
   #app {
     grid-template-columns: 1fr 1fr;
     grid-template-areas:
@@ -54,7 +54,7 @@ export default {
     width: 100%
   }
   
-}
+} */
  
 
 

@@ -12,9 +12,9 @@
           >
           <button type="submit">Find Patient</button>
       </form>
-      <h3>Search Results: </h3>
+      <h3 v-show="showResults">Search Results: </h3>
       <div class="results-container" >
-          <table class="results-table" v-show="!searchError">
+          <table class="results-table" v-show="!searchError && showResults">
               <thead class="results-header">
                   <th class="results-head">Username: </th>
                   <th class="results-head">Patient Name: </th>
@@ -37,10 +37,7 @@
           <br>
           <button v-on:click.prevent="clearSearch()">Clear Search</button>
       </div>
-      <div class="search-error" v-show="searchError">
-          <h3>{{searchErrorMsg}}</h3>
-          <button v-on:click.prevent="clearSearch()">Clear Search</button>
-      </div>
+      
   </div>
 </template>
 
@@ -111,7 +108,7 @@ export default {
     font-weight: bold;
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 828px) {
     .username-search-label {
         display: block;
     }
