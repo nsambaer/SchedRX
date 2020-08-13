@@ -72,14 +72,14 @@
 
     <div class="doctor-availability" :key="componentKey">
       <button class="standard-button" v-on:click="showCurrentAvailabilities = !showCurrentAvailabilities">Show Current Availabilities for Selected Month</button>
-      <div v-for="(times, date) in this.$store.state.availability.availability" v-bind:key = "date" v-show="showCurrentAvailabilities" class="availability-date-container">
+      <div v-for="(times, date) in this.$store.state.availability.availability" v-bind:key="date" v-show="showCurrentAvailabilities" class="availability-date-container">
         <div class = "availability-date" v-if="times != null" v-on:click="showDetails(date)">
-          <div class="standard-display-slot date-time-container"><p>{{date}}</p> 
+          <div class="standard-display-slot date-time-container"><p>{{moment(date).format("MMM Do YYYY")}}</p> 
        
           <div class="availability-times" :class="date == active ? activeClass : 'hidden'" >
           
            <div v-for="time in times" v-bind:key="time" class="availability-individual-time" >
-            {{time}}
+            {{moment({hour: time.substr(0,2), minute: time.substr(4,2)}).format('hh:mm A')}}
           </div>
           </div>
           
@@ -95,7 +95,7 @@
 </template>
 
 <script>
- import doctorService from "../services/DoctorService.js";
+import doctorService from "../services/DoctorService.js";
 
 export default {
 
@@ -131,7 +131,6 @@ export default {
   
   },
   created(){
-   
     
     
   }
@@ -157,8 +156,13 @@ export default {
     updateAvailability(month, year){
       doctorService.getAvailability(this.$store.state.user.id, month, year).then(
       response => {
-       
-          this.$store.state.availability = response.data;
+        let tempAvailability = response.data;
+        console.log(tempAvailability);
+
+
+
+
+        this.$store.state.availability = tempAvailability;
         
       }
     ).catch((error) => {

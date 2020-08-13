@@ -7,7 +7,7 @@
       <table class="appointment-slot-table">
         <tr class="appointment-first-row">
           <div class="appointment-first-div">
-            <b>Appointment Date:</b> {{appointment.appointmentDate}}, {{appointment.appointmentTime}} at {{appointment.office.officeName}}
+            <b>Appointment Date:</b> {{moment(appointment.appointmentDate).format("MMM Do YYYY")}} at {{moment({hour: appointment.appointmentTime.substr(0,2), minute: appointment.appointmentTime.substr(4,2)}).format('hh:mm A')}}
           </div>
 
          
@@ -75,7 +75,7 @@
 </template>
 
 <script>
-
+import moment from 'moment';
 import doctorService from "../services/DoctorService.js";
 export default {
     name: "doctor-appointments",
@@ -155,7 +155,7 @@ export default {
         doctorService.deleteAppointment(appointment.appointmentId).then(() => {
           window.alert('Appointment Deleted!')
           this.newNotification.userId = appointment.patient.patientId;
-          this.newNotification.message = `Doctor ${appointment.doctor.lastName} has canceled your appointment on ${appointment.appointmentDate} at ${appointment.appointmentTime}`;
+          this.newNotification.message = `Doctor ${appointment.doctor.lastName} has canceled your appointment on ${moment(appointment.appointmentDate).format("MMM Do YYYY")} at ${moment({hour: appointment.appointmentTime.substr(0,2), minute: appointment.appointmentTime.substr(4,2)}).format('hh:mm A')}`;
           this.sendNotification(this.newNotification);
           this.getAppointments();
         }).catch((error) => {
@@ -173,7 +173,7 @@ export default {
         appointment.appointmentTime = this.newAppointment.appointmentTime;
 
         this.newNotification.userId = appointment.patient.patientId;
-          this.newNotification.message = `Doctor ${appointment.doctor.lastName} changed your appointment from ${oldAppointmentDate} at ${oldAppointmentTime} to ${appointment.appointmentDate} at ${appointment.appointmentTime}`;
+          this.newNotification.message = `Doctor ${appointment.doctor.lastName} changed your appointment from ${moment(oldAppointmentDate).format("MMM Do YYYY")} at ${moment({hour: oldAppointmentTime.substr(0,2), minute: oldAppointmentTime.substr(4,2)}).format('hh:mm A')} to ${moment(appointment.appointmentDate).format("MMM Do YYYY")} at ${moment({hour: appointment.appointmentTime.substr(0,2), minute: appointment.appointmentTime.substr(4,2)}).format('hh:mm A')}`;
 
         doctorService.updateAppointment(appointment.appointmentId, appointment).then( (response) => {
           if(response.status == 202){
