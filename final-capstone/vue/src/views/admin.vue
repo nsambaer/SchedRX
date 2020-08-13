@@ -1,5 +1,6 @@
 <template>
   <div class="admin-view-container">
+    <h1 class="admin-dash-title">Admin Dashboard</h1>
     <div class="office-info-container">
       <office-admin/>
     </div>
@@ -53,6 +54,7 @@ export default {
     display: grid;
     grid-template-columns: 1fr, 1fr;
     grid-template-areas:
+      "title title"
       "notifications notifications"
       "office-info register-doctor" 
       "patient-search reset-password";
@@ -64,6 +66,11 @@ export default {
     font-size: 12pt;
     padding: 2em, 2em, 2em, 2em;
 
+  }
+
+  .admin-dash-title {
+    grid-area: title;
+    text-align: center;
   }
 
   .notification-container {

@@ -10,7 +10,7 @@
             required
             placeholder="Enter username to search"
           >
-          <button type="submit">Find Patient</button>
+          <button class="standard-button" type="submit">Find Patient</button>
       </form>
       <h3 v-show="showResults">Search Results: </h3>
       <div class="results-container" >
@@ -35,7 +35,7 @@
             <h3>{{searchErrorMsg}}</h3>
           </div>
           <br>
-          <button v-on:click.prevent="clearSearch()">Clear Search</button>
+          <button v-show="searchError || showResults" class="standard-button" v-on:click.prevent="clearSearch()">Clear Search</button>
       </div>
       
   </div>

@@ -34,7 +34,7 @@
             </tr>
           </tbody>
         </table>
-        <button v-on:click="showEditForm = !showEditForm; populateDefaults()">Edit Office Information</button>
+        <button class="standard-button" v-on:click="showEditForm = !showEditForm; populateDefaults()">Edit Office Information</button>
       </div>
         
       <div class="edit-office" v-show="showEditForm">
@@ -96,8 +96,8 @@
                 v-model="updatedOffice.cost"
               />
               </div>
-              <button type="submit">Save Changes</button>
-              <button type="reset">Cancel Changes</button>
+              <button class="standard-button" type="submit">Save Changes</button>
+              <button class="standard-button" type="reset">Cancel Changes</button>
                 
           </form>
       </div>
