@@ -1,6 +1,12 @@
 <template>
   <!-- <table class="patient-table"> -->
   <div class="patient-view-container">
+    <div id="nav">
+      <router-link  v-bind:to="{ name: 'home' }" class="nav-button">Home</router-link>
+      <h1>Patient Dashboard</h1>
+      <router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''" class="nav-button">Logout</router-link>
+        
+    </div>
     <div class="patient-upcoming-appointments">
       
       <patient-appointments />
@@ -78,12 +84,20 @@ export default {
   background-color: #e8f1f5; */
   display: grid;
   grid-template: 1fr 1fr;
-  grid-template-areas: 
+  grid-template-areas:
+    "nav nav" 
     "notifications notifications"
     "book appt-list"
     "reviews password";
   gap:10px;
 }
+
+  #nav {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    grid-area: nav;
+  }
 
 @media screen and (max-width: 1024px) {
   .patient-view-container {

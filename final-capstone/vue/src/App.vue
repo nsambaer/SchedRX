@@ -3,15 +3,6 @@
     <div id="title-banner">
       <img id="header-image" src="./assets/images/header-banner-transperant.png" />
     </div>
-    <div id="nav">
-      <router-link  v-bind:to="{ name: 'home' }" class="nav-button">
-     
-        Home
-     
-      </router-link>
-      <router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''" class="nav-button">Logout</router-link>
-        
-    </div>
     <div id="content">
       <router-view></router-view>
     </div>
@@ -73,14 +64,6 @@ export default {
   margin: 20px 20px 20px 100px;
 }
 
-#nav{
-  grid-area: nav;
-  display: flex;
-  align-items: flex-end;
-  max-width: 500px;
-  margin: 5px;
-}
-
 #banner-background{
 /* The image used */
   background-image: url("./assets/images/doctor-front-banner.jpg");
@@ -114,8 +97,8 @@ export default {
   justify-content: center;
   text-align: center;
   height: 50px;
-  width:100%;
-  margin:10px;
+  width: 15%;
+  margin: 10px;
   background-color: var(--main-color-dark2);
 }
 .nav-button-text{

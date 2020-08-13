@@ -1,5 +1,11 @@
 <template>
   <div class="admin-view-container">
+    <div id="nav">
+      <router-link id="home-button"  v-bind:to="{ name: 'home' }" class="nav-button">Home</router-link>
+      <h1>Admin Dashboard</h1>
+      <router-link id="logout" v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''" class="nav-button">Logout</router-link>
+        
+    </div>
     <div class="office-info-container">
       <office-admin/>
     </div>
@@ -51,8 +57,9 @@ export default {
   
   .admin-view-container {
     display: grid;
-    grid-template-columns: 1fr, 1fr;
+    grid-template-columns: 1fr 1fr;
     grid-template-areas:
+      "nav nav"
       "notifications notifications"
       "office-info register-doctor" 
       "patient-search reset-password";
@@ -65,6 +72,15 @@ export default {
     padding: 2em, 2em, 2em, 2em;
 
   }
+
+  #nav {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    grid-area: nav;
+  }
+
+
 
   .notification-container {
     grid-area: notifications;

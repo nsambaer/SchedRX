@@ -1,5 +1,11 @@
 <template>
   <div class="doctor-view-container">
+    <div id="nav">
+      <router-link  v-bind:to="{ name: 'home' }" class="nav-button">Home</router-link>
+      <h1>Doctor Dashboard</h1>
+      <router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''" class="nav-button">Logout</router-link>
+        
+    </div>
     <div class="doctor-upcoming-appointments">
       <doctor-appointments />
     </div>
@@ -62,12 +68,20 @@ export default {
 .doctor-view-container{
   display:grid;
   grid-template-columns: 2fr 1fr ;
-  grid-template-areas: 
+  grid-template-areas:
+  "nav nav" 
   "schedule notifications"
   "update-availability notifications"
   "reviews notifications";
   gap: 10px;
 }
+
+  #nav {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    grid-area: nav;
+  }
 
 @media screen and (max-width: 828px) {
   .doctor-view-container{
