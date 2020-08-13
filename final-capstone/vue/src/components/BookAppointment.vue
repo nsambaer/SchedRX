@@ -1,7 +1,8 @@
 <template>
-  <div class = "standard-component-container book-appointment-container">
-    <div >
+  <div class = "standard-component-container">
+   
       <h3 class="standard-component-header">Book a New Appointment</h3>
+      <div class=" book-appointment-container">
       <p
         v-show="primaryDoctorId === 0"
       >You have not chosen a primary care physician. To book an appointment, please choose a primary physician</p>
@@ -19,7 +20,7 @@
         </select>
         <input class="standard-button" type="submit" value = "Update Primary Doctor"/>
       </form>
-    </div>
+    
    <br />
   
     <div v-show="primaryDoctorId > 0">
@@ -37,21 +38,28 @@
             <option value selected="true">--Please select a time--</option>
             <option v-for="time in times" v-bind:key="time.id" v-bind:value="time">{{ time }}</option>-->
           </select>
+          
         </div>
-        <p>Select a location for your appointment: </p>
+        <br>
+        Select a location for your appointment: <br />
         <input type="radio" id="office" value="false" v-model="newAppointment.virtual" />
         <label for="office">In-person</label>
         <input type="radio" id="virtual" value="true" v-model="newAppointment.virtual" />
         <label for="virtual">Virtual</label>
         <br>
+        <br>
         <label for="appointment-type">Select an appointment type: </label>
         <select id="appointment-type" v-model="newAppointment.appointmentType" required>
           <option v-for="type in appointmentTypes" v-bind:key="type.id" v-bind:value="type">{{ type }}</option>
-        </select> <br>
+        </select> 
+        <br>
+        <br>
         <label for="visit-reason">Please list your reasons for the appointment: </label>
         <textarea id="visit-reason" v-model="newAppointment.visitReason" required/>
-        <input class="standard-button" type="submit" />
+        <br />
+        <input class="standard-button" type="submit" value="Book Appointment" />
       </form>
+    </div>
     </div>
   </div>
 </template>
@@ -234,7 +242,8 @@ export default {
 
 .book-appointment-container{
   display: flex;
-  align-items: center;
+  align-items: left;
   flex-direction: column;
 }
+
 </style>
