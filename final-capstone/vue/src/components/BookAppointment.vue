@@ -36,7 +36,7 @@
             v-model="newAppointment.appointmentTime"
           >
             <option value selected="true">--Please select a time--</option>
-            <option v-for="time in times" v-bind:key="time.id" v-bind:value="time">{{ time }}</option>-->
+            <option v-for="time in times" v-bind:key="time.id" v-bind:value="time">{{ moment({hour: time.substr(0,2), minute: time.substr(4,2)}).format('hh:mm A') }}</option>-->
           </select>
           
         </div>
@@ -67,6 +67,7 @@
 <script>
 import patientService from "@/services/PatientService";
 import notifService from '@/services/NotificationService';
+import moment from 'moment';
 
 export default {
   name: "book-appointment",
@@ -164,7 +165,7 @@ export default {
         alert('You have booked an appointment!');
 
         this.notification.userId = this.primaryDoctorId;
-        this.notification.message = `A new appointment has been booked with ${this.$store.state.patient.firstName} ${this.$store.state.patient.lastName} at ${this.newAppointment.appointmentTime} on ${this.newAppointment.appointmentDate}`
+        this.notification.message = `A new appointment has been booked with ${this.$store.state.patient.firstName} ${this.$store.state.patient.lastName} at ${moment({hour: this.newAppointment.appointmentTime.substr(0,2), minute: this.newAppointment.appointmentTime.substr(4,2)}).format('hh:mm A')} on ${moment(this.newAppointment.appointmentDate).format("MMM Do YYYY")}`
 
         notifService.createNotification(this.notification).then( () => {
 
