@@ -7,61 +7,60 @@
         <form v-on:submit.prevent="createAvailability()">
         <input type="date" v-model="availabilityDate" />
        <select v-model="availabilityOpenTime">
-          <option value="00:00:00">0:00</option>
-          <option value="01:00:00">1:00</option>
-          <option value="02:00:00">2:00</option>
-          <option value="03:00:00">3:00</option>
-          <option value="04:00:00">4:00</option>
-          <option value="05:00:00">5:00</option>
-          <option value="06:00:00">6:00</option>
-          <option value="07:00:00">7:00</option>
-          <option value="08:00:00">8:00</option>
-          <option value="09:00:00">9:00</option>
-          <option value="10:00:00">10:00</option>
-          <option value="11:00:00">11:00</option>
-          <option value="12:00:00">12:00</option>
-          <option value="13:00:00">13:00</option>
-          <option value="14:00:00">14:00</option>
-          <option value="15:00:00">15:00</option>
-          <option value="16:00:00">16:00</option>
-          <option value="17:00:00">17:00</option>
-          <option value="18:00:00">18:00</option>
-          <option value="19:00:00">19:00</option>
-          <option value="20:00:00">20:00</option>
-          <option value="21:00:00">21:00</option>
-          <option value="22:00:00">22:00</option>
-          <option value="23:00:00">23:00</option>
-          <option value="24:00:00">24:00</option>
+          <option value="00:00:00">12:00 AM</option>
+          <option value="01:00:00">1:00 AM</option>
+          <option value="02:00:00">2:00 AM</option>
+          <option value="03:00:00">3:00 AM</option>
+          <option value="04:00:00">4:00 AM</option>
+          <option value="05:00:00">5:00 AM</option>
+          <option value="06:00:00">6:00 AM</option>
+          <option value="07:00:00">7:00 AM</option>
+          <option value="08:00:00">8:00 AM</option>
+          <option value="09:00:00">9:00 AM</option>
+          <option value="10:00:00">10:00 AM</option>
+          <option value="11:00:00">11:00 AM</option>
+          <option value="12:00:00">12:00 PM</option>
+          <option value="13:00:00">1:00 PM</option>
+          <option value="14:00:00">2:00 PM</option>
+          <option value="15:00:00">3:00 PM</option>
+          <option value="16:00:00">4:00 PM</option>
+          <option value="17:00:00">5:00 PM</option>
+          <option value="18:00:00">6:00 PM</option>
+          <option value="19:00:00">7:00 PM</option>
+          <option value="20:00:00">8:00 PM</option>
+          <option value="21:00:00">9:00 PM</option>
+          <option value="22:00:00">10:00 PM</option>
+          <option value="23:00:00">11:00 PM</option>
+
 
 
         </select>
 
         <select v-model="availabilityCloseTime">
-          <option value="00:00:00">0:00</option>
-          <option value="01:00:00">1:00</option>
-          <option value="02:00:00">2:00</option>
-          <option value="03:00:00">3:00</option>
-          <option value="04:00:00">4:00</option>
-          <option value="05:00:00">5:00</option>
-          <option value="06:00:00">6:00</option>
-          <option value="07:00:00">7:00</option>
-          <option value="08:00:00">8:00</option>
-          <option value="09:00:00">9:00</option>
-          <option value="10:00:00">10:00</option>
-          <option value="11:00:00">11:00</option>
-          <option value="12:00:00">12:00</option>
-          <option value="13:00:00">13:00</option>
-          <option value="14:00:00">14:00</option>
-          <option value="15:00:00">15:00</option>
-          <option value="16:00:00">16:00</option>
-          <option value="17:00:00">17:00</option>
-          <option value="18:00:00">18:00</option>
-          <option value="19:00:00">19:00</option>
-          <option value="20:00:00">20:00</option>
-          <option value="21:00:00">21:00</option>
-          <option value="22:00:00">22:00</option>
-          <option value="23:00:00">23:00</option>
-          <option value="24:00:00">24:00</option>
+          <option value="00:00:00">12:00 AM</option>
+          <option value="01:00:00">1:00 AM</option>
+          <option value="02:00:00">2:00 AM</option>
+          <option value="03:00:00">3:00 AM</option>
+          <option value="04:00:00">4:00 AM</option>
+          <option value="05:00:00">5:00 AM</option>
+          <option value="06:00:00">6:00 AM</option>
+          <option value="07:00:00">7:00 AM</option>
+          <option value="08:00:00">8:00 AM</option>
+          <option value="09:00:00">9:00 AM</option>
+          <option value="10:00:00">10:00 AM</option>
+          <option value="11:00:00">11:00 AM</option>
+          <option value="12:00:00">12:00 PM</option>
+          <option value="13:00:00">1:00 PM</option>
+          <option value="14:00:00">2:00 PM</option>
+          <option value="15:00:00">3:00 PM</option>
+          <option value="16:00:00">4:00 PM</option>
+          <option value="17:00:00">5:00 PM</option>
+          <option value="18:00:00">6:00 PM</option>
+          <option value="19:00:00">7:00 PM</option>
+          <option value="20:00:00">8:00 PM</option>
+          <option value="21:00:00">9:00 PM</option>
+          <option value="22:00:00">10:00 PM</option>
+          <option value="23:00:00">11:00 PM</option>
         </select>
         <button class="standard-button" type="submit">Request Availability</button>
         <div class="submit-availability-div" v-show="showSubmitAvailability">
@@ -75,7 +74,7 @@
       <button class="standard-button" v-on:click="showCurrentAvailabilities = !showCurrentAvailabilities">Show Current Availabilities for Selected Month</button>
       <div v-for="(times, date) in this.$store.state.availability.availability" v-bind:key = "date" v-show="showCurrentAvailabilities" class="availability-date-container">
         <div class = "availability-date" v-if="times != null" v-on:click="showDetails(date)">
-          <div class="standard-display-slot" ><p>{{date}}</p> 
+          <div class="standard-display-slot date-time-container"><p>{{date}}</p> 
        
           <div class="availability-times" :class="date == active ? activeClass : 'hidden'" >
           
@@ -264,13 +263,22 @@ export default {
   /* background-color: var(--main-color-dark2); */
   display: flex;
   margin:3px;
+  
 }
 
 .availability-date-container{
   display:flex;
   align-items: center;
   justify-content: center;
+  
 }
+
+.date-time-container {
+  width: 500px;
+  max-height: 100px;
+  justify-content: space-evenly;
+}
+
 .availability-individual-date p{
   margin:0px;
   background-color:var(--main-color-dark2)
@@ -294,9 +302,12 @@ export default {
 }
 .availability-times{
   
-
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
   border-radius: 3px;
-
+  padding-right: 100px;
+  
 }
 
 .availability-individual-time{

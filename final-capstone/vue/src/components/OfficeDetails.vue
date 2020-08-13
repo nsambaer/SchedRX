@@ -100,16 +100,20 @@ export default {
       let open = parseInt(office.openHours[day].substr(0, 2));
       let close = parseInt(office.closeHours[day].substr(0, 2));
       let openFiltered = "";
-      if (open < 13) {
+      if (open < 12) {
         openFiltered = open + " AM";
+      } else if (open == 12) {
+        openFiltered = '12 PM'
       } else {
         openFiltered = (open % 12) + " PM";
       }
 
       let closeFiltered = "";
 
-      if (close < 13) {
+      if (close < 12) {
         closeFiltered = close + " AM";
+      } else if (close == 12) {
+        closeFiltered = '12 PM'
       } else {
         closeFiltered = (close % 12) + " PM";
       }
