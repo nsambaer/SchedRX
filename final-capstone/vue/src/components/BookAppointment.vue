@@ -9,7 +9,7 @@
       <form v-on:submit.prevent="newPrimaryDoctor">
         <label
           for="primary_doctor-selector"
-        >Please select your preferred doctor:</label>
+        ><b>Please select your preferred doctor:</b></label>
         <select id="primary-doctor-selector" v-model="selectedDoctor">
           <option value="" selected disabled hidden>Select Doctor</option>
           <option
@@ -41,11 +41,12 @@
           
         </div>
         <br>
-        Select a location for your appointment: <br />
+        <b>Select a location for your appointment: </b>
+        <br />
         <input type="radio" id="office" value="false" v-model="newAppointment.virtual" />
-        <label for="office">In-person</label>
+        <label for="office" class="normal">In-person</label>
         <input type="radio" id="virtual" value="true" v-model="newAppointment.virtual" />
-        <label for="virtual">Virtual</label>
+        <label for="virtual" class="normal">Virtual</label>
         <br>
         <br>
         <label for="appointment-type">Select an appointment type: </label>
@@ -246,5 +247,17 @@ export default {
   align-items: left;
   flex-direction: column;
 }
+
+
+
+.book-appointment-container label{
+  font-weight: bold;
+}
+
+.book-appointment-container label.normal{
+  font-weight:normal;
+}
+
+
 
 </style>

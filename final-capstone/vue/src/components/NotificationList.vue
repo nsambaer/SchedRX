@@ -123,4 +123,8 @@ export default {
 .read {
   font-weight: bold;
 }
+
+ul{
+  padding-inline-start: 0px;
+}
 </style>
