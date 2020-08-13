@@ -59,7 +59,6 @@ export default {
 
   methods: {
     markRead(notificationId) {
-      console.log(notificationId);
       notifService
         .markNotificationRead(notificationId)
         .then(() => {
