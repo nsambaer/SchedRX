@@ -1,6 +1,6 @@
 <template>
   <div class="reviews-container">
-      <div class="review-div" v-for="review in reviews" v-bind:key="review.id">
+      <div class="review-div standard-display-slot" v-for="review in reviews" v-bind:key="review.id" >
           <h2>{{review.reviewTitle}}</h2>
           <h3>{{ review.rating }}</h3>
           <p>{{ review.reviewDescription }}</p>

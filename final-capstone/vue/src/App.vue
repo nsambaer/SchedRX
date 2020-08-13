@@ -107,7 +107,7 @@ export default {
 .nav-button{
   display:flex;
   align-items: center;
-  color:white;
+  color: var(--main-color-dark4);
   font-size: 1.5em;
   border: ridge;
  

@@ -22,3 +22,31 @@ html,body{
     background-size: cover;
 }
 
+.standard-button{
+    background-color: var(--main-color-dark2);
+    color: var(--main-color-dark4);
+    border-radius: 5px;
+    margin:3px;
+}
+
+.standard-button:hover{
+    background-color: var(--main-color-dark4);
+    color: black;
+}
+
+
+.standard-display-slot{
+    display: flex;
+    background-color:var(--main-color-dark4);
+   
+    color: black;
+    border: 1px solid var(--main-color-dark1);
+    width:90%;
+    margin:3px;
+    border-radius: 3px;
+    padding:5px;
+
+
+}
+
+
