@@ -1,7 +1,7 @@
 <template>
   <div class="office-details-container">
     <ul id="office-list">
-      <li v-for="office in offices" v-bind:key="office.officeId">
+      <div class="standard-display-slot" v-for="office in offices" v-bind:key="office.officeId">
         <div class="office-details">
           <h2 class="office-name">{{ office.officeName }}</h2>
           <p class="office-address">{{ office.address }} {{ office.city }}, {{ office.state }}</p>
@@ -33,7 +33,7 @@
             </li>
           </ul>
         </div>
-      </li>
+      </div>
     </ul>
 
     <!--

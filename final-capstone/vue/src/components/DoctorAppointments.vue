@@ -2,36 +2,53 @@
   <div class = "appointment-container">
     <h3 class="appointment-header">Your Upcoming Appointments</h3>
 
-    <div v-for="appointment in appointments" v-bind:key = "appointment.appointmentId" class="appointment-slot">
+    <div v-for="appointment in appointments" v-bind:key = "appointment.appointmentId" class="standard-display-slot">
 
       <table class="appointment-slot-table">
         <tr class="appointment-first-row">
-          <td>Appointment Date: {{appointment.appointmentDate}} </td>
-          <td>, {{appointment.appointmentTime}}</td>
-          <td> at {{appointment.office.officeName}}</td>
+          <div class="appointment-first-div">
+            <b>Appointment Date:</b> {{appointment.appointmentDate}}, {{appointment.appointmentTime}} at {{appointment.office.officeName}}
+          </div>
+
+         
         </tr>
         <tr class="appointment-second-row">
-          <td>  Patient: {{appointment.patient.firstName}} {{appointment.patient.lastName}}</td>
-          <td><button class="standard-button" v-on:click="showAppointmentDetails(appointment.appointmentId)">Show Details </button></td>
-          <td><button class="standard-button" v-on:click="editAppointmentDetails(appointment.appointmentId)">Edit Appointment </button></td>
+          <div class="appointment-second-div">
+            <b>Patient:</b> {{appointment.patient.firstName}} {{appointment.patient.lastName}}
+           </div> 
+        </tr>
+        <tr class="appointment-third-row">
+          <div class="appointment-third-div">
+            <button class="standard-button" v-on:click="showAppointmentDetails(appointment.appointmentId)">Show Details </button>
+            <button class="standard-button" v-on:click="editAppointmentDetails(appointment.appointmentId)">Edit Appointment </button>
+          </div>
         </tr>
         <tr  class="details" :class="appointment.appointmentId == activeDetails ? activeClass : 'hidden'">
-          <p>Type: {{appointment.appointmentType}}</p>
-        <p>Reason: {{appointment.visitReason}}</p>
+          <div class="appointment-details-div">
+              <b>Type:</b> {{appointment.appointmentType}} <br />
+              <b>Format:</b> {{appointment.isVirtual}} <br />
+              <b>Reason:</b> {{appointment.visitReason}}
+            </div>
+    
         </tr>
         <tr  class="edit-appointment" :class="appointment.appointmentId == activeEdit ? activeClass : 'hidden'" >
-         
-                 <label for="date-selector">Choose a new date:</label>
+          <div class="edit-appointment-div">
+            <label for="date-selector">Choose a new date: </label>
             <input id="date-selector" type="date" required v-model="newAppointment.appointmentDate" />
-              <button v-on:click="deleteAppointment(appointment.appointmentId)">Delete Appointment </button>
+              <button class="standard-button" v-on:click="deleteAppointment(appointment.appointmentId)">Delete Appointment </button>
             <div v-for="(times, date) in availability.availability" v-bind:key="date"  >
              
-         
-
-              <select id="time-selector" v-model="newAppointment.appointmentTime" v-show="date==newAppointment.appointmentDate" >
+              <div class="appointment-time-selector" v-show="date==newAppointment.appointmentDate">
+                <label for="time-selector">Please choose a time: </label>
+              <select id="time-selector" v-model="newAppointment.appointmentTime"  >
                 <option v-for="time in times" v-bind:key="time" v-bind:value="time">{{ time }}</option>
               </select>
-              <button v-on:click="submitNewAppointment(appointment)" v-show="(date==newAppointment.appointmentDate) && (newAppointment.appointmentTime != '')" >Change Appointment </button>
+              </div>
+              
+              <button class="standard-button" v-on:click="submitNewAppointment(appointment)" v-show="(date==newAppointment.appointmentDate) && (newAppointment.appointmentTime != '')" >Change Appointment </button>
+
+          </div>
+                 
             </div>
 
             <!-- <div v-for="(times, date) in availability" v-bind:key="date">
@@ -189,31 +206,22 @@ export default {
 
 
 
-.appointment-slot{
-  background-color:var(--main-color-dark4);
-  border-color: black;
-  color: black;
-  border: 4px;
-  width:90%;
-}
 
-.appointment-slot-table{
-  background-color:whitesmoke;
-  border-color: black;
-  color: black;
-  border: 4px;
-}
+
+
 .appointment-container{
   display:flex;
   flex-direction: column;
- background-color: var(--main-color-dark1);
+ background-color: var(--main-color-dark3);
  align-items: center;
  color: white;
  padding:5px;
+ border:2px solid var(--main-color-dark1);
 
 }
 .appointment-header{
   text-align: center;
+  color: var(--main-color-dark1)
 }
 
 .is-visible{
@@ -223,5 +231,22 @@ export default {
 .hidden{
   display: none;
 }
+
+.appointment-slot{
+    display: flex;
+    background-color:var(--main-color-dark4);
+    border-color: black;
+    color: black;
+    border: 1px solid black;
+    width:90%;
+    margin:3px;
+    border-radius: 3px;
+    padding:3px;
+
+  }
+
+  .appointment-container{
+     border-radius: 3px;
+  }
 
 </style>
