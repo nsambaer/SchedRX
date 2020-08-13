@@ -24,7 +24,7 @@
               <tbody>
                   <tr>
                       <td>{{userNameFound}}</td>
-                      <td>{{patient.lastName}}, {{patient.firstName}}</td>
+                      <td>{{patient.concat}}</td>
                       <td>{{patient.birthdate}}</td>
                       <td>{{patient.phone}}</td>
                       
@@ -34,6 +34,7 @@
           <div class="search-error" v-show="searchError">
             <h3>{{searchErrorMsg}}</h3>
           </div>
+          <br>
           <button v-on:click.prevent="clearSearch()">Clear Search</button>
       </div>
       <div class="search-error" v-show="searchError">
@@ -80,6 +81,8 @@ export default {
                     this.patient = response.data;
                     this.userNameFound = this.username;
                     this.showResults = true;
+                    this.patient.concat = this.patient.lastName + ', ' + this.patient.firstName;
+
                 })
                 .catch(error => {
                     const response = error.response;

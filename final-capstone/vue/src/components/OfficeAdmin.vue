@@ -10,7 +10,7 @@
             </tr>
             <tr>
               <td class="attribute">Address: </td>
-              <td class="value">{{office.address}}, , {{office.state}}, {{office.zipCode}}</td>
+              <td class="value">{{office.address}}</td>
             </tr>
             <tr>
               <td class="attribute">City: </td>
