@@ -1,8 +1,9 @@
 <template>
-  <div>
+  <div class="standard-component-container">
+    <h3 class="standard-component-header">Leave a Review</h3>
     <form v-on:submit.prevent="postReview">
-        <h2>Leave a Review</h2>
-      <span>Choose Office:</span>
+        
+      <span><b>Choose Office:</b></span>
       <div v-for="office in offices" v-bind:key="office.officeId">
         <input
           type="radio"
@@ -12,10 +13,12 @@
           required
         />
         <label>{{ office.officeName }}</label>
+        
         <div
           v-show="office.officeId == newReview.office.officeId"
           v-for="doctor in office.doctorList"
           v-bind:key="doctor.doctorId"
+          class="doctor-selector"
         >
           <input
             type="radio"
@@ -27,9 +30,9 @@
           <label>{{ doctor.firstName }} {{ doctor.lastName }}</label>
         </div>
       </div>
-      <label for="title">Review Title: </label>
+      <label for="title"><b>Review Title: </b></label>
       <input id="title" v-model="newReview.reviewTitle" type="text" required /> <br>
-      <label for="rating">Rating: </label>
+      <label for="rating"><b>Rating: </b> </label>
       <select v-model="newReview.rating" id="rating" required>
         <option value="1">1</option>
         <option value="2">2</option>
@@ -37,9 +40,9 @@
         <option value="4">4</option>
         <option value="5">5</option>
       </select> <br>
-      <label for="description">Your feedback: </label> <br>
+      <label for="description"><b>Your Feedback: </b> </label> <br>
       <textarea v-model="newReview.reviewDescription" id="description" cols="30" rows="10" required></textarea> <br>
-      <input type="submit" />
+      <input class = "standard-button" type="submit" value = "Submit Review" />
     </form>
   </div>
 </template>
@@ -115,4 +118,7 @@ export default {
 </script>
 
 <style>
+.doctor-selector{
+  padding-left: 15px;
+}
 </style>

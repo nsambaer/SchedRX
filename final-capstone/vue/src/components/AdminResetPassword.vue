@@ -30,7 +30,7 @@
                 >
                 
             </div>
-            <button type="submit">Update User Password</button>
+            <button class="standard-button" type="submit">Update User Password</button>
         </form>
     </div>
     <div class="password-update-error" v-if="updateError">

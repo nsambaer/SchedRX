@@ -8,14 +8,19 @@
     >
       <table class="appointment-slot-table">
         <tr class="appointment-first-row">
-          <td>Appt Date: {{moment(appointment.appointmentDate).format("MMM Do YYYY")}}</td>
-          <td>Time: {{moment({hour: appointment.appointmentTime.substr(0,2), minute: appointment.appointmentTime.substr(4,2)}).format('hh:mm A')}}</td>
-          <td>with Doctor {{appointment.doctor.lastName}}</td>
+          <div class="apppointment-first-div">
+          <b>Date:</b> {{moment(appointment.appointmentDate).format("MMM Do YYYY")}}
+          at {{moment({hour: appointment.appointmentTime.substr(0,2), minute: appointment.appointmentTime.substr(4,2)}).format('hh:mm A')}}
+          with Doctor {{appointment.doctor.lastName}}
+          </div>
         </tr>
         <tr class="appointment-second-row">
-          <td>Appt Type: {{appointment.appointmentType}}</td>
-          <td></td>
-          <td>Visit Reason: {{appointment.visitReason}}</td>
+          <div class="appointment-second-div">
+          <b>Appointment Type: </b>{{appointment.appointmentType}}
+          <br />
+          
+          <b>Visit Reason: </b>{{appointment.visitReason}}
+          </div>
         </tr>
       </table>
     </div>
@@ -55,38 +60,43 @@ export default {
 </script>
 
 <style>
-.appointment-slot {
-  background-color: whitesmoke;
-  border-color: black;
-  color: black;
-  border: 4px;
-  width: 90%;
-}
-
-.appointment-slot-table {
-  background-color: whitesmoke;
-  border-color: black;
-  color: black;
-  border: 4px;
-}
-.appointment-container {
-  display: flex;
+.appointment-container{
+  display:flex;
   flex-direction: column;
-  align-items: center;
-  color: white;
-  padding: 5px;
+ background-color: var(--main-color-dark3);
+ align-items: center;
+ color: white;
+ padding:5px;
+ border:2px solid var(--main-color-dark1);
+
 }
-.appointment-header {
+.appointment-header{
   text-align: center;
+  color: var(--main-color-dark1)
 }
 
-.is-visible {
-  display: show;
+.is-visible{
+  display:show;
 }
 
-.hidden {
+.hidden{
   display: none;
 }
+
+.appointment-slot{
+    display: flex;
+    background-color:var(--main-color-dark4);
+    border-color: black;
+    color: black;
+    border: 1px solid black;
+    width:90%;
+    margin:3px;
+    border-radius: 3px;
+    padding:3px;
+
+  }
+
+
 
 @media screen and (max-width: 1024px) {
   .appointment-container {

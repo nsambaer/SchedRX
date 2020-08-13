@@ -2,7 +2,7 @@
   <div class="admin-view-container">
     <div id="nav">
       <router-link id="home-button"  v-bind:to="{ name: 'home' }" class="nav-button">Home</router-link>
-      <h1>Admin Dashboard</h1>
+      <h1 class="admin-dash-title">Admin Dashboard</h1>
       <router-link id="logout" v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''" class="nav-button">Logout</router-link>
         
     </div>

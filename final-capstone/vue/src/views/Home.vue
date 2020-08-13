@@ -1,9 +1,15 @@
 <template>
   <div class="home">
+    <div class="nav">
+
+    <div v-show="loggedIn">
+      <router-link :to="{name: 'redirect'}" tag="button" class="logout-button">User page</router-link>
+    </div>
     <div class="logout">
       <router-link id="logout" v-bind:to="{ name: 'logout' }" v-show="loggedIn" class="logout-button">Logout</router-link>
     </div>
 
+    </div>
     <div class="welcome-box-parallax">
       <h1>Welcome!</h1>
       <p>Welcome to the SchedRX Medical Scheduling application! Please enjoy this <br /> interactive awesome medical scheduling expereince. Remember, whatever you do, <br /> don't refresh your browser!</p>
@@ -13,9 +19,6 @@
       
       <login></login>
       
-    </div>
-    <div v-show="loggedIn">
-      <router-link :to="{name: 'redirect'}" tag="button" class="logout-button">User page</router-link>
     </div>
     <p></p>
     <office-details />

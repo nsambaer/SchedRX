@@ -65,7 +65,7 @@
         />
       </div>
 
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Register Doctor</button>
+      <button class="standard-button" type="submit">Register Doctor</button>
       <button v-on:click.prevent="registrationErrors = false" v-show="registrationErrors">Clear Errors</button>
     </form>
   </div>
