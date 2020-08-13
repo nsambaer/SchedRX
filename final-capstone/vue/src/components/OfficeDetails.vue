@@ -1,14 +1,20 @@
 <template>
-  <div class="office-details-container">
-    <ul id="office-list">
-      <div class="standard-display-slot" v-for="office in offices" v-bind:key="office.officeId">
-        <div class="office-details">
+  <div class="all-office-container">
+   
+    
+      <div class="standard-display-slot office-details" v-for="office in offices" v-bind:key="office.officeId">
+        <div class="office-information" >
           <h2 class="office-name">{{ office.officeName }}</h2>
+          
           <p class="office-address">{{ office.address }} {{ office.city }}, {{ office.state }}</p>
           <p class="office-phone">{{ office.phoneNumber }}</p>
-          <p class="office-cost">Cost/Hour: ${{ office.cost }}</p>
+         
+
+          </div>
+          
+            <h4>Office Hours</h4>
           <table class="office-hours">
-            <td class="office-hours-days">
+            <td >
               <tr>Monday</tr>
               <tr>Tuesday</tr>
               <tr>Wednesday</tr>
@@ -27,14 +33,21 @@
               <tr>{{ hours(office, 'Sunday') }}</tr>
             </td>
           </table>
+          
+          <div class="doctor-list-div">
+            <h4>Doctors at this Office</h4>
           <ul class="doctor-list">
             <li v-for="doctor in office.doctorList" v-bind:key="doctor.doctorId">
               {{ doctor.firstName }} {{ doctor.lastName }}
             </li>
           </ul>
-        </div>
+            <br />
+           <p class="office-cost"><b>Cost/Hour:</b> ${{ office.cost }}</p>
+
+          </div>
+        
       </div>
-    </ul>
+    
 
     <!--
       <table>
@@ -145,7 +158,7 @@ export default {
   
 <style>
 
-.office-details {
+ /* .office-details {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-areas: 
@@ -156,6 +169,13 @@ export default {
   "doctor hours"
   ;
   max-width: 450px;
+}  */
+
+.office-details{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 300px;
 }
 
 .office-name {
@@ -163,10 +183,17 @@ export default {
   justify-content: center;
   grid-area: name;
 }
+.all-office-container{
+  display:flex;
+  flex-direction: row;
+}
 
 .office-address {
   margin: 5px 0px 5px 0px;
   grid-area: address;
+}
+.office-information{
+  align-items: left;
 }
 
 .office-phone {
@@ -178,8 +205,8 @@ export default {
   margin: 5px 0px 5px 0px;
   grid-area: cost;
 }
-.office-hours {
-  grid-area: hours;
+.office-hours tr {
+  border: 5px solid black;
 }
 
 .doctor-list {
@@ -194,16 +221,8 @@ export default {
   justify-content: center;
 }
 
-#office-list {
-  padding: 0px;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-}
 
-ul {
-  list-style: none;
-}
+
 
 td {
   min-width: 100px;
