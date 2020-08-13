@@ -79,6 +79,7 @@ export default {
   "schedule notifications"
   "schedule notifications"
   "update-availability reviews";
+  gap: 10px;
 }
 
 .doctor-upcoming-appointments{

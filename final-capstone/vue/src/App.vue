@@ -39,7 +39,7 @@ export default {
   "header header header header"
   ".  . nav ."
   ".  content content  .";
- 
+ gap:10px;
 }
 
 @media screen and (max-width: 1024 px) {

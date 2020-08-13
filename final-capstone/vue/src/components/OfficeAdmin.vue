@@ -174,6 +174,14 @@ export default {
     }
 
 
+@media screen and (max-width: 1024px) {
+  .office-info-label {
+    display: block;
+  }
+  .office-info-table td {
+    display: block;
+  }
+}
 
 .office-info-table td {
   text-align: left;

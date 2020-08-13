@@ -15,18 +15,18 @@
       <h3>Search Results: </h3>
       <div class="results-container" >
           <table class="results-table" v-show="!searchError">
-              <thead>
-                  <th>Username: </th>
-                  <th>Patient Name: </th>
-                  <th>Date of Birth: </th>
-                  <th>Phone: </th>
+              <thead class="results-header">
+                  <th class="results-head">Username: </th>
+                  <th class="results-head">Patient Name: </th>
+                  <th class="results-head">Date of Birth: </th>
+                  <th class="results-head">Phone: </th>
               </thead>
-              <tbody>
-                  <tr>
-                      <td>{{userNameFound}}</td>
-                      <td>{{patient.concat}}</td>
-                      <td>{{patient.birthdate}}</td>
-                      <td>{{patient.phone}}</td>
+              <tbody class="results-body">
+                  <tr class="results-row">
+                      <td class="results-value">{{userNameFound}}</td>
+                      <td class="results-value">{{patient.concat}}</td>
+                      <td class="results-value">{{patient.birthdate}}</td>
+                      <td class="results-value">{{patient.phone}}</td>
                       
                   </tr>
               </tbody>
@@ -109,6 +109,44 @@ export default {
 
 .username-search-label {
     font-weight: bold;
+}
+
+@media screen and (max-width: 1024px) {
+    .username-search-label {
+        display: block;
+    }
+    .results-head, .results-header, .results-body, .results-row, .results-value {
+        display: block;
+    }
+    .results-value:nth-of-type(1):before { 
+        content: "Username: "; 
+        font-weight: bold;
+        text-align: left;
+    }
+    .results-value:nth-of-type(2):before { 
+        content: "Patient Name: "; 
+        font-weight: bold;
+    }
+    .results-value:nth-of-type(3):before { 
+        content: "Date of Birth: "; 
+        font-weight: bold;
+    }
+    .results-value:nth-of-type(4):before { 
+        content: "Phone: "; 
+        font-weight: bold;
+    }
+    .results-head {
+        position: absolute;
+		top: -9999px;
+		left: -9999px;
+    }
+    .results-value {
+        top: 6px;
+		left: 6px;
+		width: 45%; 
+		padding-right: 10px; 
+		white-space: nowrap;
+    }
 }
 /* :root{
     --main-color-dark1: #004a7c;
