@@ -89,6 +89,13 @@ export default {
     min-width: 150px;
     font-weight: bold;
 }
+
+@media screen and (max-width: 1024px) {
+    .reset-password-label {
+        display: block;
+        
+    }
+}
 /*:root{
     --main-color-dark1: #004a7c;
     --main-color-dark2: #005691;

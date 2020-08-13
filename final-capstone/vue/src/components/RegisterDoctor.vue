@@ -173,6 +173,12 @@ export default {
   font-weight: bold;
 }
 
+@media screen and (max-width: 1024px) {
+  .register-doctor-label {
+    display: block;
+  }
+  }
+
 
 
 /* :root{
