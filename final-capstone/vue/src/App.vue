@@ -63,7 +63,7 @@ export default {
   justify-content: flex-start;
   grid-area: header;
   text-align: left;
-  border-bottom: 10px solid var(--main-color-dark2);
+  border-bottom: 7px solid var(--main-color-dark2);
   
 }
 #header-image{
@@ -76,7 +76,7 @@ export default {
 #nav{
   grid-area: nav;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   max-width: 500px;
   margin: 5px;
 }
