@@ -67,12 +67,13 @@ export default {
 
 .doctor-view-container{
   display:grid;
-  grid-template-columns: 2fr 1fr ;
+  grid-template-columns: 1fr ;
   grid-template-areas:
-  "nav nav" 
-  "schedule notifications"
-  "update-availability notifications"
-  "reviews notifications";
+  "nav"
+  "notifications" 
+  "schedule"
+  "update-availability"
+  "reviews";
   gap: 10px;
 }
 
