@@ -34,10 +34,11 @@ export default {
 
 #app{
   display:grid;
-  grid-template-columns: 1fr 4fr 1fr;
+  grid-template-columns: 1fr 2fr 2fr 1fr;
   grid-template-areas:
-  "header header  header"
-  "nav content  .";
+  "header header header header"
+  ".  . nav ."
+  ".  content content  .";
  
 }
  
@@ -48,26 +49,45 @@ export default {
   justify-content: flex-start;
   grid-area: header;
   text-align: center;
-  
+  border-bottom: 10px solid var(--main-color-dark2)
 }
 #header-image{
  
   height: 354px;
   width:1000px;
-  margin: 20px;
+  margin: 20px 20px 20px 100px;
 }
 
 #nav{
   grid-area: nav;
   display: flex;
-  flex-direction: column;
   align-items: center;
+  max-width: 500px;
   margin: 5px;
+}
+
+#banner-background{
+/* The image used */
+  background-image: url("./assets/images/doctor-front-banner.jpg");
+
+  /* Set a specific height */
+  height: 500px;
+
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
 }
 
 #content {
   grid-area: content;
   margin: 10px;
+
+ 
+  
+
 }
 .nav-button{
   display:flex;

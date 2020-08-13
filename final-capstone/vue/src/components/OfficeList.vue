@@ -3,7 +3,7 @@
     <div class="office-listing" v-for="office in offices" v-bind:key="office.officeId"  >
 
       
-        <office-details v-bind:office="office"  />
+        <office-details  v-bind:office="office"  />
       
     </div>
   </div>
@@ -46,6 +46,6 @@ export default {
 
 <style>
 .office-listing{
-  background-color:white;
+  justify-content: center;
 }
 </style>

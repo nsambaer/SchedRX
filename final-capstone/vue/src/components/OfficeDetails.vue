@@ -2,9 +2,9 @@
 
 <div class="office-details-container" >
 
-  <div class="office-details" >
+  <div  >
     
-      <table>
+      <table class="office-details">
         <thead>
           <th>
             Name
@@ -115,5 +115,9 @@ td {
   text-align: center;
 }
 
+.office-details{
+  background-color: white;
+  width:75%;
+}
 
 </style>
