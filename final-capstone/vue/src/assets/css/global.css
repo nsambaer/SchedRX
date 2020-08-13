@@ -58,6 +58,7 @@ html,body{
    padding:5px;
    border:2px solid var(--main-color-dark1);
    border-radius: 3px;
+   color:black;
 }
 
 

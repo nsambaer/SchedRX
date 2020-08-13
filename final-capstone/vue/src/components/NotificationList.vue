@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class = "standard-component-container">
     <label for="notification-view">View:</label>
     <select id="notification-view" v-model="notifView">
       <option value="unread">View Unread Notifications</option>

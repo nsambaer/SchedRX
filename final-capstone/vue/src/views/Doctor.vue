@@ -10,7 +10,7 @@
       <notification-list />
     </div>
     <div class="doctor-reviews">
-      <h2>Reviews</h2>
+     
       <doctor-reviews />
     </div>
     <div class="doctor-update-availability">
@@ -77,8 +77,8 @@ export default {
   grid-template-columns: 2fr 1fr ;
   grid-template-areas: 
   "schedule notifications"
-  "schedule notifications"
-  "update-availability reviews";
+  " update-availability notifications"
+  "reviews notifications";
   gap: 10px;
 }
 
