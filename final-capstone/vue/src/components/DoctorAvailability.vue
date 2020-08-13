@@ -313,4 +313,8 @@ export default {
 .availability-row-details{
   background: whitesmoke;
 }
+
+.submit-availability-div p{
+  color:black;
+}
 </style>
