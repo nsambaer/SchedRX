@@ -35,7 +35,7 @@
           <div class="edit-appointment-div">
             <label for="date-selector">Choose a new date: </label>
             <input id="date-selector" type="date" required v-model="newAppointment.appointmentDate" />
-              <button class="standard-button" v-on:click="deleteAppointment(appointment.appointmentId)">Delete Appointment </button>
+              <button class="standard-button" v-on:click="deleteAppointment(appointment)">Delete Appointment </button>
             <div v-for="(times, date) in availability.availability" v-bind:key="date"  >
              
               <div class="appointment-time-selector" v-show="date==newAppointment.appointmentDate">
@@ -103,7 +103,7 @@ export default {
         }
     },
     created(){
-        doctorService.getAppointments(this.$store.state.user.id).then(
+      doctorService.getAppointments(this.$store.state.user.id).then(
       response => {
         if(response.status == 200){
           this.$store.state.doctorAppointments = response.data;
@@ -151,9 +151,13 @@ export default {
       
       },
 
-      deleteAppointment(id){
-        doctorService.deleteAppointment(id).then(response => {
-          window.alert(response.status);
+      deleteAppointment(appointment){
+        doctorService.deleteAppointment(appointment.appointmentId).then(() => {
+          window.alert('Appointment Deleted!')
+          this.newNotification.userId = appointment.patient.patientId;
+          this.newNotification.message = `Doctor ${appointment.doctor.lastName} has canceled your appointment on ${appointment.appointmentDate} at ${appointment.appointmentTime}`;
+          this.sendNotification(this.newNotification);
+          this.getAppointments();
         }).catch((error) => {
           const response = error.response;
           this.errors = true;
@@ -171,12 +175,12 @@ export default {
         this.newNotification.userId = appointment.patient.patientId;
           this.newNotification.message = `Doctor ${appointment.doctor.lastName} changed your appointment from ${oldAppointmentDate} at ${oldAppointmentTime} to ${appointment.appointmentDate} at ${appointment.appointmentTime}`;
 
-        doctorService.updateAppointment(appointment.appointmentId, appointment).then( response => {
-            window.alert(response.status);
+        doctorService.updateAppointment(appointment.appointmentId, appointment).then( (response) => {
           if(response.status == 202){
             window.alert("Appointment Updated!")
             this.activeEdit = null;
             this.sendNotification(this.newNotification);
+            this.getAppointments();
           }
         }).catch((error) => {
           const response = error.response;
@@ -189,12 +193,38 @@ export default {
       },
 
       sendNotification(notification){
-        doctorService.sendNotification(notification).then(response => {
-          if(response.status == 201){
-            window.alert("Notification created");
+        doctorService.sendNotification(notification).then( (response) => {
+          if (response.status == 201) {
+            this.newNotification.userId = 0;
+            this.newNotification.message = '';
           }
-        })
+   
+        }).catch((error) => {
+          const response = error.response;
+          this.errors = true;
+          if (response.status === 400) {
+            this.errorMsg = "Bad Request: Validation Errors";
+          }
+        });
+      },
+
+      getAppointments() {
+      doctorService.getAppointments(this.$store.state.user.id).then(
+      response => {
+        if(response.status == 200){
+          this.$store.state.doctorAppointments = response.data;
+          
+        }
       }
+    ).catch((error) => {
+          const response = error.response;
+          this.errors = true;
+          if (response.status === 400) {
+            this.errorMsg = "Bad Request: Validation Errors";
+          }
+        });
+      }
+
     }
 
     

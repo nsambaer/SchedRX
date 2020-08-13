@@ -149,8 +149,8 @@ export default {
       this.newAppointment.lastUpdatedDate = this.currentDate;
       this.newAppointment.lastUpdatedTime = today.toTimeString;
 
-      patientService.postAppointment(this.newAppointment).then( (response) => {
-        alert(response.status + ' You have booked an appointment!');
+      patientService.postAppointment(this.newAppointment).then( () => {
+        alert('You have booked an appointment!');
 
         this.notification.userId = this.primaryDoctorId;
         this.notification.message = `A new appointment has been booked with ${this.$store.state.patient.firstName} ${this.$store.state.patient.lastName} at ${this.newAppointment.appointmentTime} on ${this.newAppointment.appointmentDate}`
