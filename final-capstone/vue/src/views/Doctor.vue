@@ -77,7 +77,7 @@ export default {
   grid-template-columns: 2fr 1fr ;
   grid-template-areas: 
   "schedule notifications"
-  " update-availability notifications"
+  "update-availability notifications"
   "reviews notifications";
   gap: 10px;
 }

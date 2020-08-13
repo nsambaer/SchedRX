@@ -1,7 +1,7 @@
 <template>
   <div class = "doctor-availability-container standard-component-container">
 
-    <h3 class="availability-header">Add or Adjust Your Availability </h3>
+    <h3 class="standard-component-header">Add or Adjust Your Availability </h3>
 
      <div class="set-availability">
         <form v-on:submit.prevent="createAvailability()">

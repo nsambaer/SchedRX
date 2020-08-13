@@ -1,10 +1,15 @@
 <template>
   <div class="reviews-container standard-component-container">
-       <h2>Reviews</h2>
+       <h3 class="standard-component-header">Reviews</h3>
       <div class="review-div standard-display-slot" v-for="review in reviews" v-bind:key="review.id" >
-          <h2>{{review.reviewTitle}}</h2>
-          <h3>{{ review.rating }}</h3>
-          <p>{{ review.reviewDescription }}</p>
+          <h4>{{review.reviewTitle}}</h4>
+          <div class="review-body">
+              <b>Reviewer: </b>{{review.patient.firstName}} {{review.patient.lastName}}<br />
+              <b>Rating: </b>{{ review.rating }} out of 5 <br />
+              <b>Review: </b>{{ review.reviewDescription }}
+            </div>
+          
+          
           
 
       </div>
@@ -46,6 +51,10 @@ export default {
     computed:{
         currentDoctorId(){
             return this.$store.state.user.id;
+        },
+
+        patientLastNameFirstLetter(){
+            return this.reviews.patient.lastName.substr(0,1);
         }
     },
     created() {
@@ -66,5 +75,21 @@ export default {
 </script>
 
 <style>
+
+h2{
+    color:var(--main-color-dark1);
+    
+}
+
+.review-div{
+    flex-direction: column;
+    padding:10px;
+}
+
+h4{
+    margin-bottom:5px;
+    margin-top:5px;
+}
+
 
 </style>

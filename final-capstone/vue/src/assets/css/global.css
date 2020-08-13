@@ -61,4 +61,8 @@ html,body{
    color:black;
 }
 
+.standard-component-header{
+    color: var(--main-color-dark1)
+}
+
 
