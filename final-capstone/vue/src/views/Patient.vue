@@ -1,5 +1,5 @@
 <template>
-  <table class="patient-table">
+  <!-- <table class="patient-table"> -->
   <div class="patient-view-container">
     <div class="patient-upcoming-appointments">
       <h1>Upcoming Appointments</h1>
@@ -16,9 +16,12 @@
     <div class="patient-reviews">
       <patient-reviews />
     </div>
-    <router-link :to=" {name: 'update-password'}" class="nav-button-password">Update Password</router-link>
+    <div class="update-password">
+      <update-password></update-password>
+    </div>
+    
   </div>
-  </table>
+  
 </template>
 
 <script>
@@ -27,6 +30,7 @@ import PatientAppointments from "../components/PatientAppointments.vue";
 import BookAppointment from "../components/BookAppointment.vue";
 import NotificationList from "../components/NotificationList.vue";
 import PatientReviews from '@/components/PatientReviews';
+import UpdatePassword from '../components/UpdatePassword.vue';
 
 export default {
   name: "patient",
@@ -34,7 +38,8 @@ export default {
     PatientAppointments,
     BookAppointment,
     NotificationList,
-    PatientReviews
+    PatientReviews,
+    UpdatePassword
   },
   data() {
     return {
@@ -66,35 +71,53 @@ export default {
 --main-color-dark3: #e8f1f5;
 --main-color-dark4: #fafafa;
 }
-.patient-table {
+.patient-view-container {
   border-style: ridge;
   border-color: #004a7c;
   border-width: 4pt;
-  
-}
-.patient-view-container {
+  background-color: #e8f1f5;
   display: grid;
-  grid-template: auto 1fr auto;
+  grid-template: 1fr 1fr;
+  grid-template-areas: 
+    "notifications notifications"
+    "book appt-list"
+    "reviews password";
 }
 
-
+@media screen and (max-width: 1024px) {
+  .patient-view-container {
+    grid-template-columns: 1fr;
+    grid-template-areas: 
+      "notifications"
+      "appt-list"
+      "book"
+      "reviews"
+      "password";
+    width: 100%;
+  }
+}
 .book-appointments {
   background-color: #e8f1f5;
+  grid-area: book;
 }
 
 .patient-upcoming-appointments {
-  grid-area: "schedule";
-  background-color: #e8f1f5;
+  grid-area: appt-list;
   height: auto;
 }
 
 .patient-notifications {
-  grid-area: "notifications";
+  grid-area: notifications;
   background-color: #e8f1f5;
 }
 
 .patient-reviews {
   background-color: #e8f1f5;
+  grid-area: reviews;
+}
+
+.update-password {
+  grid-area: password;
 }
 
 .nav-button-password{
@@ -127,4 +150,6 @@ export default {
 .nav-button-password-text:hover{
   color:black;
 }
+
+
 </style>

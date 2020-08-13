@@ -41,6 +41,21 @@ export default {
   ".  content content  .";
  
 }
+
+@media screen and (max-width: 1024 px) {
+  #app {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "header header"
+      ". nav"
+      "content content";
+  }
+
+  #header-image {
+    height:auto;
+    width: 40%;
+  }
+}
  
 
 
