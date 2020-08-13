@@ -1,7 +1,7 @@
 <template>
-  <div class = "doctor-availability-container">
+  <div class = "doctor-availability-container standard-component-container">
 
-    <h3>Add or Adjust Your Availability </h3>
+    <h3 class="availability-header">Add or Adjust Your Availability </h3>
 
      <div class="set-availability">
         <form v-on:submit.prevent="createAvailability()">
@@ -66,25 +66,26 @@
         <button class="standard-button" type="submit">Request Availability</button>
         <div class="submit-availability-div" v-show="showSubmitAvailability">
           <p>Availability request allowed! Would you like to submit your availability request? </p>
-        <button v-on:click.prevent="submitAvailability" >Submit Availability Request </button>
+        <button class="standard-button" v-on:click.prevent="submitAvailability" >Submit Availability Request </button>
         </div>
         </form>
       </div>
 
     <div class="doctor-availability" :key="componentKey">
-      <button v-on:click="showCurrentAvailabilities = !showCurrentAvailabilities">Show Current Availabilities for Selected Month</button>
-      <div v-for="(times, date) in this.$store.state.availability.availability" v-bind:key = "date" v-show="showCurrentAvailabilities">
-        <div class = "availability-date" v-if="times != null">
-          <p v-on:click="showDetails(date)" >{{date}} </p>
-        <table>
-          <div class="details" :class="date == active ? activeClass : 'hidden'" >
-            <tr class ="availability-row-details">
-           <td v-for="time in times" v-bind:key="time" >
+      <button class="standard-button" v-on:click="showCurrentAvailabilities = !showCurrentAvailabilities">Show Current Availabilities for Selected Month</button>
+      <div v-for="(times, date) in this.$store.state.availability.availability" v-bind:key = "date" v-show="showCurrentAvailabilities" class="availability-date-container">
+        <div class = "availability-date" v-if="times != null" v-on:click="showDetails(date)">
+          <div class="standard-display-slot" ><p>{{date}}</p> 
+       
+          <div class="availability-times" :class="date == active ? activeClass : 'hidden'" >
+          
+           <div v-for="time in times" v-bind:key="time" class="availability-individual-time" >
             {{time}}
-          </td>
-          </tr>
           </div>
-        </table>
+          </div>
+          
+          </div>
+      
         </div>
       </div>
       </div>
@@ -246,22 +247,64 @@ export default {
 
 <style>
 
-:root{
---main-color-turqoise: #086972;
---main-color-blue-green: #01a9b4;
---main-color-light-blue: #87dfd6;
---accent-color-yellow: #fbfd8a;
-}
+
 .is-visible{
   display:show;
+}
+.availability-header{
+  color:var(--main-color-dark1);
 }
 
 .doctor-availability-container{
   display: flex;
   flex-direction: column;
+  background-color:var(--main-color-dark3);
 }
 .availability-date{
-  background-color: var(--main-color-blue-green);
+  /* background-color: var(--main-color-dark2); */
+  display: flex;
+  margin:3px;
+}
+
+.availability-date-container{
+  display:flex;
+  align-items: center;
+  justify-content: center;
+}
+.availability-individual-date p{
+  margin:0px;
+  background-color:var(--main-color-dark2)
+
+}
+.availability-individual-date p:hover{
+  margin:0px;
+  background-color:var(--main-color-dark3);
+  color:var(--main-color-dark1);
+
+}
+
+.availability-individual-date{
+  margin:0px;
+  border-radius: 3px;
+
+}
+
+.standard-display-slot{
+  padding:2px;
+}
+.availability-times{
+  
+
+  border-radius: 3px;
+
+}
+
+.availability-individual-time{
+
+  padding:3px;
+  margin-bottom:2px;
+  margin-left:3px;
+
 }
 
 .hidden{

@@ -245,8 +245,6 @@ export default {
 
   }
 
-  .appointment-container{
-     border-radius: 3px;
-  }
+
 
 </style>
